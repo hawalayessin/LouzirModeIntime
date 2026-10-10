@@ -1,22 +1,30 @@
 {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.before') !!}
 
-<div class="flex min-h-[56px] w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[60px] max-1180:px-8">
+<div class="flex min-h-[56px] w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[28px] max-1180:px-5">
     <!--
         This section will provide categories for the first, second, and third levels. If
         additional levels are required, users can customize them according to their needs.
     -->
     <!-- Left Nagivation Section -->
-    <div class="flex items-center gap-x-10 max-[1180px]:gap-x-5">
+    <div class="flex items-center gap-x-8 max-[1180px]:gap-x-4 ltr:ml-1 rtl:-mr-1">
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.before') !!}
+
+        @php
+            $shopLogo = core()->getCurrentChannel()->logo_url
+                ?: (core()->getConfigData('general.design.admin_logo.logo_image')
+                    ? Storage::url(core()->getConfigData('general.design.admin_logo.logo_image'))
+                    : asset('assets/louzir-logo.png'));
+        @endphp
 
         <a
             href="{{ route('shop.home.index') }}"
+            class="flex items-center"
             aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.bagisto')"
         >
             <img
-                src="{{ core()->getCurrentChannel()->logo_url ?: asset('assets/logo2.png') }}"
+                src="{{ $shopLogo }}"
                 class="object-contain"
-                style="width: 180px; height: 88px; object-fit: contain;"
+                style="width: 150px; height: 72px; object-fit: contain; margin-left: 4px;"
                 alt="{{ config('app.name') }}"
             >
         </a>

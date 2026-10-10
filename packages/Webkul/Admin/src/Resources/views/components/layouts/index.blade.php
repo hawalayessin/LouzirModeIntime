@@ -52,10 +52,15 @@
         rel="stylesheet"
     />
 
+    @php
+        $configuredAdminLogo = core()->getConfigData('general.design.admin_logo.logo_image');
+        $preloadAdminLogo = $configuredAdminLogo ? Storage::url($configuredAdminLogo) : asset('assets/logo2.png');
+    @endphp
+
     <link
         rel="preload"
         as="image"
-        href="{{ asset('assets/logo2.png') }}"
+        href="{{ $preloadAdminLogo }}"
     >
 
     @if ($favicon = core()->getConfigData('general.design.admin_logo.favicon'))

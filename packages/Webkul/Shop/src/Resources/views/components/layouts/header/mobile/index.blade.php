@@ -21,13 +21,20 @@
 
             {!! view_render_event('bagisto.shop.components.layouts.header.mobile.logo.before') !!}
 
+            @php
+                $mobileShopLogo = core()->getCurrentChannel()->logo_url
+                    ?: (core()->getConfigData('general.design.admin_logo.logo_image')
+                        ? Storage::url(core()->getConfigData('general.design.admin_logo.logo_image'))
+                        : asset('assets/louzir-logo.png'));
+            @endphp
+
             <a
                 href="{{ route('shop.home.index') }}"
                 style="display: flex; flex-shrink: 0; align-items: center;"
                 aria-label="@lang('shop::app.components.layouts.header.mobile.bagisto')"
             >
                 <img
-                    src="{{ core()->getCurrentChannel()->logo_url ?: asset('assets/logo2.png') }}"
+                    src="{{ $mobileShopLogo }}"
                     class="object-contain"
                     style="width: 110px; height: 64px; object-fit: contain;"
                     alt="{{ config('app.name') }}"

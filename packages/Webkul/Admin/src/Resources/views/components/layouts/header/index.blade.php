@@ -13,23 +13,19 @@
 
         <!-- Logo -->
         <a href="{{ route('admin.dashboard.index') }}" class="flex-shrink-0">
-            @if ($logo = core()->getConfigData('general.design.admin_logo.logo_image'))
-                <img
-                    class="h-7 w-auto object-contain sm:h-8"
-                    src="{{ request()->cookie('dark_mode') ? asset('assets/LUXZIR Butterfly Fashion Logo.png') : asset('assets/logo2.png') }}"
-                    alt="{{ config('app.name') }}"
-                    id="logo-image"
-                    data-admin-logo
-                />
-            @else
-                <img
-                    src="{{ request()->cookie('dark_mode') ? asset('assets/LUXZIR Butterfly Fashion Logo.png') : asset('assets/logo2.png') }}"
-                    class="h-7 w-auto object-contain sm:h-8"
-                    id="logo-image"
-                    data-admin-logo
-                    alt="{{ config('app.name') }}"
-                />
-            @endif
+            @php
+                $configuredAdminLogo = core()->getConfigData('general.design.admin_logo.logo_image');
+                $defaultAdminLogo = request()->cookie('dark_mode') ? asset('assets/louzir-logo.png') : asset('assets/logo2.png');
+                $adminLogoUrl = $configuredAdminLogo ? Storage::url($configuredAdminLogo) : $defaultAdminLogo;
+            @endphp
+
+            <img
+                class="h-7 w-auto object-contain sm:h-8"
+                src="{{ $adminLogoUrl }}"
+                alt="{{ config('app.name') }}"
+                id="logo-image"
+                data-admin-logo
+            />
         </a>
 
         <!-- Mega Search Bar Vue Component -->
@@ -101,7 +97,7 @@
             <x-slot:content class="!p-0">
                 <div class="flex items-center gap-1.5 border border-b-gray-300 px-4 py-2 dark:border-gray-800 sm:px-5 sm:py-2.5">
                     <img
-                        src="{{ request()->cookie('dark_mode') ? asset('assets/LUXZIR Butterfly Fashion Logo.png') : asset('assets/logo2.png') }}"
+                        src="{{ $adminLogoUrl }}"
                         class="sm:h-6 sm:w-6"
                         width="20"
                         height="20"
@@ -151,23 +147,13 @@
     <!-- Drawer Header -->
     <x-slot:header>
         <div class="flex items-center justify-between">
-            @if ($logo = core()->getConfigData('general.design.admin_logo.logo_image'))
-                <img
-                    src="{{ request()->cookie('dark_mode') ? asset('assets/LUXZIR Butterfly Fashion Logo.png') : asset('assets/logo2.png') }}"
-                    class="h-7 w-auto object-contain sm:h-8"
-                    alt="{{ config('app.name') }}"
-                    id="logo-image-drawer"
-                    data-admin-logo
-                />
-            @else
-                <img
-                    src="{{ request()->cookie('dark_mode') ? asset('assets/LUXZIR Butterfly Fashion Logo.png') : asset('assets/logo2.png') }}"
-                    class="h-7 w-auto object-contain sm:h-8"
-                    id="logo-image-drawer"
-                    data-admin-logo
-                    alt="{{ config('app.name') }}"
-                />
-            @endif
+            <img
+                src="{{ $adminLogoUrl }}"
+                class="h-7 w-auto object-contain sm:h-8"
+                alt="{{ config('app.name') }}"
+                id="logo-image-drawer"
+                data-admin-logo
+            />
         </div>
     </x-slot>
 
@@ -749,7 +735,7 @@
 
                     logo: "{{ asset('assets/logo2.png') }}",
 
-                    dark_logo: "{{ asset('assets/LUXZIR Butterfly Fashion Logo.png') }}",
+                    dark_logo: "{{ asset('assets/louzir-logo.png') }}",
                 };
             },
 
