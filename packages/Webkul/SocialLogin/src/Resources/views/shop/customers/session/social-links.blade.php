@@ -1,19 +1,20 @@
-<div class="flex gap-3">
-    @foreach(['enable_facebook', 'enable_twitter', 'enable_google', 'enable_linkedin-openid', 'enable_github'] as $social)
-        @if (! core()->getConfigData('customer.settings.social_login.' . $social))
-            @continue
-        @endif
-
-        @php 
-            $icon = explode('_', $social); 
+<div class="louzir-social-login">
+    @if (core()->getConfigData('customer.settings.social_login.enable_google'))
+        @php
+            $provider = 'google';
         @endphp
 
         <a
-            href="{{ route('customer.social-login.index', $icon[1]) }}"
-            class="transition-all hover:opacity-[0.8]"
-            aria-label="{{ $icon[0] }}"
+            href="{{ route('customer.social-login.index', $provider) }}"
+            aria-label="Google"
         >
-            @include('social_login::icons.' . $icon[1])
+            <span>
+                @include('social_login::icons.' . $provider)
+            </span>
+
+            <span>
+                {{ app()->getLocale() === 'fr' ? 'Continuer avec Google' : 'Continue with Google' }}
+            </span>
         </a>
-    @endforeach
+    @endif
 </div>

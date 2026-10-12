@@ -45,8 +45,8 @@
         </div>
 
         <!-- Right Navigation -->
-        <div>
-            <div class="flex items-center gap-x-5 max-md:gap-x-4">
+        <div class="ml-auto">
+            <div class="flex items-center gap-x-5 max-md:gap-x-4 ltr:pr-1 rtl:pl-1">
                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.before') !!}
 
                 @if($showCompare)
