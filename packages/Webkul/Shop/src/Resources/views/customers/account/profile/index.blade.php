@@ -84,7 +84,11 @@
                     class="text-sm font-medium text-zinc-500"
                     v-pre
                 >
-                    {{ $customer->gender ?? '-'}}
+                    @if ($customer->gender)
+                        @lang('shop::app.customers.account.profile.edit.' . strtolower($customer->gender))
+                    @else
+                        -
+                    @endif
                 </p>
             </div>
 

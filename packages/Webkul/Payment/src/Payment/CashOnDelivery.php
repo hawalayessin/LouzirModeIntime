@@ -21,6 +21,22 @@ class CashOnDelivery extends Payment
     public function getRedirectUrl() {}
 
     /**
+     * Get the localized payment method title.
+     */
+    public function getTitle()
+    {
+        return trans('shop::app.checkout.onepage.payment.cash-on-delivery.title');
+    }
+
+    /**
+     * Get the localized payment method description.
+     */
+    public function getDescription()
+    {
+        return trans('shop::app.checkout.onepage.payment.cash-on-delivery.description');
+    }
+
+    /**
      * Is available.
      *
      * @return bool

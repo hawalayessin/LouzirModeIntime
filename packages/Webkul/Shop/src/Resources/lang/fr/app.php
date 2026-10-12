@@ -74,7 +74,7 @@ return [
             'home' => 'Accueil',
 
             'profile' => [
-                'Tunisiax' => [
+                'index' => [
                     'delete' => 'Supprimer',
                     'delete-failed' => 'Erreur rencontrée lors de la suppression du client.',
                     'delete-profile' => 'Supprimer le profil',
@@ -1012,7 +1012,7 @@ return [
             'success-remove' => 'L\'article a été supprimé avec succès du panier.',
             'suspended-account-message' => 'Votre compte a été suspendu.',
 
-            'Tunisiax' => [
+            'index' => [
                 'bagisto' => 'LouzirModeIntime',
                 'cart' => 'Panier',
                 'continue-shopping' => 'Continuer vos achats',
@@ -1109,12 +1109,16 @@ return [
                 'vat-id' => 'Numéro de TVA',
             ],
 
-            'Tunisiax' => [
+            'index' => [
                 'checkout' => 'Caisse',
                 'home' => 'Accueil',
             ],
 
             'payment' => [
+                'cash-on-delivery' => [
+                    'description' => 'Payez à la réception de votre commande.',
+                    'title' => 'Paiement à la livraison',
+                ],
                 'payment-method' => 'Méthode de paiement',
             ],
 

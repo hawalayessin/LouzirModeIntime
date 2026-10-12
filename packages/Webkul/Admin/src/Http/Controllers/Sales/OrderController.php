@@ -15,6 +15,7 @@ use Webkul\Admin\Http\Resources\CartResource;
 use Webkul\Checkout\Facades\Cart;
 use Webkul\Checkout\Repositories\CartRepository;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
+use Webkul\Sales\Models\Order;
 use Webkul\Sales\Repositories\OrderCommentRepository;
 use Webkul\Sales\Repositories\OrderRepository;
 use Webkul\Sales\Transformers\OrderResource;
@@ -171,6 +172,30 @@ class OrderController extends Controller
         } else {
             session()->flash('error', trans('admin::app.sales.orders.view.create-error'));
         }
+
+        return redirect()->route('admin.sales.orders.view', $id);
+    }
+
+    /**
+     * Confirm a cash-on-delivery order after the customer call.
+     *
+     * @return Response
+     */
+    public function confirm(int $id)
+    {
+        $order = $this->orderRepository->findOrFail($id);
+
+        if ($order->status !== Order::STATUS_PENDING) {
+            session()->flash('error', trans('admin::app.sales.orders.view.confirm-error'));
+
+            return redirect()->route('admin.sales.orders.view', $id);
+        }
+
+        $this->orderRepository->update([
+            'status' => Order::STATUS_PROCESSING,
+        ], $id);
+
+        session()->flash('success', trans('admin::app.sales.orders.view.confirm-success'));
 
         return redirect()->route('admin.sales.orders.view', $id);
     }

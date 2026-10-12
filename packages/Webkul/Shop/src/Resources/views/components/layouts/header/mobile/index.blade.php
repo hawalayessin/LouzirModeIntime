@@ -8,6 +8,46 @@
     $showWishlist = (bool) core()->getConfigData('customer.settings.wishlist.wishlist_option');
 @endphp
 
+@pushOnce('styles')
+    <style>
+        .louzir-mobile-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: max-content;
+            min-width: max-content;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .louzir-mobile-actions > a,
+        .louzir-mobile-actions > div,
+        .louzir-mobile-actions > v-mini-cart {
+            display: flex;
+            width: 2.25rem;
+            height: 2.25rem;
+            flex: 0 0 2.25rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .louzir-mobile-actions .icon-compare,
+        .louzir-mobile-actions .icon-cart,
+        .louzir-mobile-actions .icon-users {
+            display: inline-flex;
+            width: 2.25rem;
+            height: 2.25rem;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .louzir-mobile-actions > div:has(.icon-users) {
+            margin-inline-end: 0.25rem;
+        }
+    </style>
+@endPushOnce
+
 <div class="flex flex-wrap gap-3 px-4 py-3 shadow-sm lg:hidden">
     <div class="flex items-center justify-between w-full">
         <!-- Left Navigation -->
@@ -45,8 +85,8 @@
         </div>
 
         <!-- Right Navigation -->
-        <div class="ml-auto">
-            <div class="flex items-center gap-x-5 max-md:gap-x-4 ltr:pr-1 rtl:pl-1">
+        <div class="ml-auto min-w-max">
+            <div class="louzir-mobile-actions ltr:pr-3 rtl:pl-3">
                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.before') !!}
 
                 @if($showCompare)

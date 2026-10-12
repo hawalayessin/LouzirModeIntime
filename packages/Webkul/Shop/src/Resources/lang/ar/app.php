@@ -1115,6 +1115,10 @@ return [
             ],
 
             'payment' => [
+                'cash-on-delivery' => [
+                    'description' => 'ادفع عند استلام طلبك.',
+                    'title' => 'الدفع عند التسليم',
+                ],
                 'payment-method' => 'طريقة الدفع',
             ],
 

@@ -1115,6 +1115,10 @@ return [
             ],
 
             'payment' => [
+                'cash-on-delivery' => [
+                    'description' => 'Pay when your order is delivered.',
+                    'title' => 'Cash on delivery',
+                ],
                 'payment-method' => 'Payment Method',
             ],
 

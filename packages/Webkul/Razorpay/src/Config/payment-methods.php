@@ -8,7 +8,7 @@ return [
         'code' => 'razorpay',
         'title' => 'Razorpay',
         'description' => 'Razorpay',
-        'active' => true,
+        'active' => false,
         'sandbox' => true,
         'test_client_id' => 'TEST_CLIENT_ID',
         'test_client_secret' => 'TEST_CLIENT_SECRET',

@@ -39,14 +39,36 @@
                     <!-- Login modal -->
                     <x-shop::modal ref="loginModel">
                         <!-- Modal Header -->
-                        <x-slot:header>
+                        <x-slot:header class="louzir-checkout-login-header">
                             <h2 class="text-2xl font-medium max-md:text-base">
                                 @lang('shop::app.checkout.login.title')
                             </h2>
                         </x-slot>
 
                         <!-- Modal Content -->
-                        <x-slot:content>
+                        <x-slot:content class="louzir-checkout-login-content">
+                            @if (core()->getConfigData('customer.settings.social_login.enable_google'))
+                                <a
+                                    href="{{ route('customer.social-login.index', 'google') }}"
+                                    class="louzir-checkout-google"
+                                    aria-label="Google"
+                                >
+                                    <span class="louzir-checkout-google-icon">
+                                        @include('social_login::icons.google')
+                                    </span>
+
+                                    <span>
+                                        {{ app()->getLocale() === 'fr' ? 'Continuer avec Google' : (app()->getLocale() === 'ar' ? 'المتابعة باستخدام Google' : 'Continue with Google') }}
+                                    </span>
+                                </a>
+
+                                <div class="louzir-checkout-divider">
+                                    <span></span>
+                                    {{ app()->getLocale() === 'fr' ? 'ou avec votre e-mail' : (app()->getLocale() === 'ar' ? 'أو باستخدام بريدك الإلكتروني' : 'or with your email') }}
+                                    <span></span>
+                                </div>
+                            @endif
+
                             <!-- Email -->
                             <x-shop::form.control-group>
                                 <x-shop::form.control-group.label class="required">
@@ -99,10 +121,10 @@
                         </x-slot>
 
                         <!-- Modal Footer -->
-                        <x-slot:footer>
+                        <x-slot:footer class="louzir-checkout-login-footer">
                             <div class="flex flex-wrap items-center gap-4">
                                 <x-shop::button
-                                    class="primary-button max-w-none flex-auto rounded-sm px-11 py-3 max-md:rounded-lg max-md:py-1.5"
+                                    class="louzir-checkout-login-button primary-button max-w-none flex-auto rounded-sm px-11 py-3 max-md:rounded-lg max-md:py-1.5"
                                     :title="trans('shop::app.checkout.login.title')"
                                     ::loading="isStoring"
                                     ::disabled="isStoring"
@@ -164,4 +186,83 @@
             }
         })
     </script>
+@endPushOnce
+
+@pushOnce('styles')
+    <style>
+        .louzir-checkout-login-header {
+            border-bottom: 1px solid #e4ded7 !important;
+            background: #fffaf6 !important;
+            padding: 1.25rem 1.5rem !important;
+        }
+
+        .louzir-checkout-login-content {
+            background: #fffaf6 !important;
+            padding: 1.5rem !important;
+        }
+
+        .louzir-checkout-login-footer {
+            margin-top: 0 !important;
+            background: #fffaf6 !important;
+            padding: 0 1.5rem 1.5rem !important;
+        }
+
+        .louzir-checkout-google {
+            display: flex;
+            min-height: 3.25rem;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            border: 1px solid #ded8d1;
+            border-radius: 0.35rem;
+            background: #fff;
+            color: #111;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 150ms ease, border-color 150ms ease;
+        }
+
+        .louzir-checkout-google:hover {
+            border-color: #111;
+            background: #faf7f3;
+        }
+
+        .louzir-checkout-google-icon {
+            display: inline-flex;
+            width: 1.25rem;
+            height: 1.25rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .louzir-checkout-google-icon svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .louzir-checkout-divider {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 1.25rem 0;
+            color: #8c7770;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .louzir-checkout-divider span {
+            height: 1px;
+            flex: 1;
+            background: #ded8d1;
+        }
+
+        .louzir-checkout-login-button {
+            width: 100%;
+            border-radius: 0.25rem !important;
+            background: #111 !important;
+            color: #fff !important;
+            padding: 0.85rem 1rem !important;
+        }
+    </style>
 @endPushOnce

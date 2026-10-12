@@ -31,6 +31,26 @@ it('should return the index page of Orders page', function () {
         ->assertSeeText(trans('admin::app.sales.orders.index.title'));
 });
 
+it('confirms a cash on delivery order after the customer call', function () {
+    // Arrange.
+    $order = Order::factory()->create([
+        'status' => Order::STATUS_PENDING,
+    ]);
+
+    OrderPayment::factory()->create([
+        'order_id' => $order->id,
+        'method' => 'cashondelivery',
+    ]);
+
+    $this->loginAsAdmin();
+
+    // Act and Assert.
+    postJson(route('admin.sales.orders.confirm', $order->id))
+        ->assertRedirect(route('admin.sales.orders.view', $order->id));
+
+    expect($order->refresh()->status)->toBe(Order::STATUS_PROCESSING);
+});
+
 it('should return the view page of order', function () {
     // Arrange.
     $product = (new ProductFaker([

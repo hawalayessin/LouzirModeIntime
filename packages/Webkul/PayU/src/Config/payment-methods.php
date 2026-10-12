@@ -8,7 +8,7 @@ return [
         'code' => 'payu',
         'title' => 'PayU',
         'description' => 'PayU',
-        'active' => true,
+        'active' => false,
         'sandbox' => true,
         'merchant_key' => 'MERCHANT_KEY',
         'merchant_salt' => 'MERCHANT_SALT',

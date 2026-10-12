@@ -48,7 +48,7 @@
                     :label="trans('Image')"
                     :is-multiple="false"
                     accepted-types="image/*"
-                    :src="$customer->image_url"
+                    :src="$customer->image_url ?: bagisto_asset('images/user-placeholder.png')"
                 />
 
                 <x-shop::form.control-group.error control-name="image[]" />

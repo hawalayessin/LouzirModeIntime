@@ -106,6 +106,26 @@
                 </div>
             @endif
 
+            @if (
+                $order->status === \Webkul\Sales\Models\Order::STATUS_PENDING
+                && $order->payment?->method === 'cashondelivery'
+                && bouncer()->hasPermission('sales.orders.view')
+            )
+                <form
+                    method="POST"
+                    action="{{ route('admin.sales.orders.confirm', $order->id) }}"
+                >
+                    @csrf
+
+                    <button
+                        type="submit"
+                        class="primary-button px-3 py-2"
+                    >
+                        @lang('admin::app.sales.orders.view.confirm-order')
+                    </button>
+                </form>
+            @endif
+
             {!! view_render_event('bagisto.admin.sales.order.page_action.after', ['order' => $order]) !!}
         </div>
 

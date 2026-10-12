@@ -1,7 +1,7 @@
 {
-    "name": "bagisto/bagisto",
+    "name": "LouzirModeIntime",
     "type": "project",
-    "description": "Bagisto Laravel E-Commerce",
+    "description": "LouzirModeIntime",
     "keywords": [
         "framework",
         "laravel"
@@ -140,13 +140,15 @@
             ]
         }
     },
-    "repositories": [{
-        "type": "path",
-        "url": "packages/*/*",
-        "options": {
-            "symlink": true
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/*/*",
+            "options": {
+                "symlink": true
+            }
         }
-    }],
+    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
@@ -158,10 +160,7 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "support": {
-        "issues": "https://github.com/bagisto/bagisto/issues",
-        "forum": "https://forums.bagisto.com",
-        "source": "https://github.com/bagisto/bagisto",
-        "docs": "https://devdocs.bagisto.com"
+    "conflict": {
+        "laravel/framework": "<12.0"
     }
 }
