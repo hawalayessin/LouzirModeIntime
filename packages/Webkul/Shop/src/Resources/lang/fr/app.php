@@ -86,6 +86,7 @@ return [
                     'enter-password' => 'Entrez votre mot de passe',
                     'first-name' => 'Prénom',
                     'gender' => 'Genre',
+                    'greeting' => 'Bonjour ! :name',
                     'last-name' => 'Nom de famille',
                     'order-pending' => 'Impossible de supprimer le compte client car certaines commandes sont en attente ou en cours de traitement.',
                     'title' => 'Profil',
@@ -114,7 +115,7 @@ return [
             ],
 
             'addresses' => [
-                'Tunisiax' => [
+                'index' => [
                     'add-address' => 'Ajouter une adresse',
                     'create-success' => 'L\'adresse a été ajoutée avec succès.',
                     'default-address' => 'Adresse par défaut',
@@ -393,7 +394,7 @@ return [
                 'success-verify-email-unsent' => 'Succès ! L\'e-mail de vérification n\'a pas été envoyé.',
                 'unable-to-sent' => 'Impossible d\'envoyer l\'e-mail.',
 
-                'Tunisiax' => [
+                'index' => [
                     'create-btn' => 'Créer une demande',
                     'html' => 'HTML',
                     'pdf' => 'PDF',
@@ -473,7 +474,7 @@ return [
             ],
 
             'rma' => [
-                'Tunisiax' => [
+                'index' => [
                     'title' => 'RMA',
                     'action' => 'Action',
 
@@ -538,7 +539,7 @@ return [
         ],
 
         'media' => [
-            'Tunisiax' => [
+            'index' => [
                 'add-attachments' => 'Ajouter des pièces jointes',
                 'add-image' => 'Ajouter une image/vidéo',
             ],
@@ -615,7 +616,7 @@ return [
             ],
 
             'cookie' => [
-                'Tunisiax' => [
+                'index' => [
                     'privacy-policy' => 'Politique de confidentialité',
                     'reject' => 'Rejeter',
                     'accept' => 'Accepter',
@@ -961,7 +962,7 @@ return [
         'results' => 'Résultats de recherche',
 
         'images' => [
-            'Tunisiax' => [
+            'index' => [
                 'only-images-allowed' => 'Seules les images (.jpeg, .jpg, .png, ..) sont autorisées.',
                 'search' => 'Rechercher',
                 'size-limit-error' => 'Erreur de limite de taille',
@@ -1537,7 +1538,7 @@ return [
                 'title' => 'RMA',
             ],
 
-            'Tunisiax' => [
+            'index' => [
                 'create' => 'Demander un nouveau RMA',
                 'delete' => 'Supprimer',
                 'edit' => 'Modifier',

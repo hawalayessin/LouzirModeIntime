@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto Cart Rule',
+    'name' => 'LouzirModeIntime Cart Rule',
     'version' => core()->version(),
 ];

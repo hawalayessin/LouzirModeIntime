@@ -1,5 +1,70 @@
 {!! view_render_event('bagisto.shop.settings.gdpr.modal.before') !!}
 
+@pushOnce('styles')
+    <style>
+        .louzir-cookie-consent {
+            width: min(30rem, calc(100vw - 2rem));
+            border: 1px solid #e2d8cf;
+            border-radius: 0.5rem;
+            background: #fffaf6;
+            padding: 1.25rem;
+            color: #171717;
+            box-shadow: 0 18px 45px rgb(49 38 31 / 18%);
+        }
+
+        .louzir-cookie-consent .cookie-title {
+            color: #171717;
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.35rem;
+            line-height: 1.2;
+        }
+
+        .louzir-cookie-consent .cookie-description {
+            color: #665b55;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .louzir-cookie-consent .cookie-description a {
+            color: #171717;
+            text-decoration: underline;
+        }
+
+        .louzir-cookie-consent .cookie-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .louzir-cookie-consent button,
+        .louzir-cookie-consent .cookie-customize {
+            border-radius: 0.25rem;
+            padding: 0.7rem 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .louzir-cookie-consent .cookie-accept {
+            background: #171717;
+            color: #fff;
+        }
+
+        .louzir-cookie-consent .cookie-reject,
+        .louzir-cookie-consent .cookie-customize {
+            border: 1px solid #cfc3ba;
+            background: transparent;
+            color: #171717;
+        }
+
+        .louzir-cookie-consent .cookie-customize {
+            display: block;
+            margin-top: 0.5rem;
+        }
+    </style>
+@endPushOnce
+
 <v-cookie></v-cookie>
 
 {!! view_render_event('bagisto.shop.settings.gdpr.modal.before') !!}
@@ -13,12 +78,12 @@
 
             @if (core()->getConfigData('general.gdpr.cookie.enabled'))
                 <div
-                    class="js-cookie-consent fixed z-[999] mx-4 box-border hidden min-h-5 overflow-hidden rounded bg-black/90 p-7"
+                    class="js-cookie-consent louzir-cookie-consent fixed z-[999] mx-4 box-border hidden min-h-5 overflow-hidden"
                     :class="getPositionClasses(position)"
                 >
                     <div class="cookieTitle">
                         <span
-                            class="mb-1.5 block font-sans text-xl leading-5 text-white"
+                            class="cookie-title mb-1.5 block"
                             v-pre
                         >
                             {{ core()->getConfigData('general.gdpr.cookie.static_block_identifier') }}
@@ -27,13 +92,12 @@
 
                     <div class="cookieDesc cookie-consent__message">
                         <p
-                            class="mt-2.5 block font-sans text-sm leading-5 text-white"
+                            class="cookie-description mt-2.5 block"
                             v-pre
                         >
                             {{ core()->getConfigData('general.gdpr.cookie.description') }}
 
                             <a
-                                class="text-white underline"
                                 href="{{ url('page/privacy-policy') }}"
                             >
                                 @lang('shop::app.components.layouts.cookie.index.privacy-policy')
@@ -42,16 +106,16 @@
                     </div>
 
                     <div class="cookieButton">
-                        <div class="mt-2.5 flex gap-2">
+                        <div class="cookie-actions">
                             <button
-                                class="box-border inline-block w-full cursor-pointer rounded bg-blue-500 px-6 py-4 text-center font-sans text-sm font-bold text-white transition-colors duration-300 ease-in-out hover:bg-blue-400 hover:text-white"
+                                class="cookie-accept box-border inline-block w-full cursor-pointer"
                                 @click="createCookie()"
                             >
                                 @lang('shop::app.components.layouts.cookie.index.accept')
                             </button>
 
                             <button
-                                class="box-border inline-block w-full cursor-pointer rounded bg-blue-500 px-6 py-4 text-center font-sans text-sm font-bold text-white transition-colors duration-300 ease-in-out hover:bg-blue-400 hover:text-white"
+                                class="cookie-reject box-border inline-block w-full cursor-pointer"
                                 @click="rejectCookie()"
                             >
                                 @lang('shop::app.components.layouts.cookie.index.reject')
@@ -59,7 +123,7 @@
                         </div>
 
                         <a
-                            class="mt-2.5 box-border inline-block w-full cursor-pointer rounded bg-blue-500 px-6 py-4 text-center font-sans text-sm font-bold text-white transition-colors duration-300 ease-in-out hover:bg-blue-400 hover:text-white"
+                            class="cookie-customize box-border w-full cursor-pointer"
                             href="{{ route('shop.customers.gdpr.cookie-consent') }}"
                         >
                             @lang('shop::app.components.layouts.cookie.index.learn-more-and-customize')

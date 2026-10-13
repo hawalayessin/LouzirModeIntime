@@ -5,7 +5,7 @@ return [
         'forgot-password' => [
             'already-sent' => 'E-Mail zum Zurücksetzen des Passworts wurde bereits gesendet.',
             'back' => 'Zurück zur Anmeldung?',
-            'bagisto' => 'Bagisto',
+            'bagisto' => 'LouzirModeIntime',
             'email' => 'E-Mail',
             'email-not-exist' => 'Wir konnten keinen Benutzer mit dieser E-Mail-Adresse finden.',
             'footer' => '© Copyright 2025 - :current_year, LouzirModeIntime . Alle Rechte vorbehalten.',
@@ -19,7 +19,7 @@ return [
 
         'reset-password' => [
             'back-link-title' => 'Zurück zur Anmeldung',
-            'bagisto' => 'Bagisto',
+            'bagisto' => 'LouzirModeIntime',
             'confirm-password' => 'Passwort bestätigen',
             'email' => 'Registrierte E-Mail',
             'footer' => '© Copyright 2025 - :current_year, LouzirModeIntime . Alle Rechte vorbehalten.',
@@ -29,7 +29,7 @@ return [
         ],
 
         'login-form' => [
-            'bagisto' => 'Bagisto',
+            'bagisto' => 'LouzirModeIntime',
             'button-title' => 'Anmelden',
             'create-your-account' => 'Erstellen Sie Ihr Konto',
             'email' => 'E-Mail',
@@ -48,7 +48,7 @@ return [
 
         'signup-form' => [
             'account-exists' => 'Bereits ein Konto?',
-            'bagisto' => 'Bagisto',
+            'bagisto' => 'LouzirModeIntime',
             'button-title' => 'Registrieren',
             'click-here' => 'Hier klicken',
             'confirm-pass' => 'Passwort bestätigen',
@@ -554,7 +554,7 @@ return [
                     'bottom' => [
                         'all' => 'Alle',
                         'back-button' => 'Zurück zum Hauptmenü',
-                        'bagisto' => 'Bagisto',
+                        'bagisto' => 'LouzirModeIntime',
                         'categories' => 'Kategorien',
                         'compare' => 'Vergleichen',
                         'dropdown-text' => 'Warenkorb, Bestellungen & Wunschliste verwalten',
@@ -575,7 +575,7 @@ return [
                 'mobile' => [
                     'account' => 'Konto',
                     'back-button' => 'Zurück zum Hauptmenü',
-                    'bagisto' => 'Bagisto',
+                    'bagisto' => 'LouzirModeIntime',
                     'compare' => 'Vergleichen',
                     'currencies' => 'Währungen',
                     'dropdown-text' => 'Warenkorb, Bestellungen & Wunschliste verwalten',
@@ -1013,7 +1013,7 @@ return [
             'suspended-account-message' => 'Ihr Konto wurde gesperrt.',
 
             'index' => [
-                'bagisto' => 'Bagisto',
+                'bagisto' => 'LouzirModeIntime',
                 'cart' => 'Warenkorb',
                 'continue-shopping' => 'Einkauf fortsetzen',
                 'empty-product' => 'Sie haben kein Produkt in Ihrem Warenkorb.',

@@ -7,7 +7,7 @@
 | PHP | **8.3.35** NTS (`C:\xampp\php8.3`) | Runtime CLI — exigé `^8.3` par `composer.json` |
 | PHP (Apache) | 8.2.12 (`C:\xampp\php`) | Module Apache XAMPP — **à upgrader** pour servir le projet sur le port 80 |
 | Laravel | 12.55.0 | Framework applicatif (routes, Eloquent, queues, cache) |
-| Bagisto | 2.4.0 | E-commerce (catalogue, panier, commandes, admin) |
+| LouzirModeIntime | 2.4.0 | E-commerce (catalogue, panier, commandes, admin) |
 | Concord | 1.17.1 | Module system (Contract / Model / Proxy par entité) |
 | Prettus L5 Repository | 2.10.1 | Pattern Repository sur toutes les entités |
 
@@ -72,7 +72,7 @@ APP_URL=http://localhost    APP_ADMIN_URL=admin    APP_CURRENCY=USD
 
 | Workflow | Déclencheur | Action |
 |---|---|---|
-| `pest_tests.yml` | push, PR | Installe Bagisto + `vendor/bin/pest` |
+| `pest_tests.yml` | push, PR | Installe LouzirModeIntime + `vendor/bin/pest` |
 | `pint_tests.yml` | push, PR | `pint --test` |
 | `admin_playwright_tests.yml` | push, PR | E2E admin |
 | `shop_playwright_tests.yml` | push, PR | E2E boutique |

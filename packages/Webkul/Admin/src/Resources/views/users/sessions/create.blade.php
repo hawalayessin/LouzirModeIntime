@@ -107,8 +107,62 @@
         </div>
     </div>
 
+    @if (core()->getConfigData('general.gdpr.cookie.enabled'))
+        <div
+            id="louzir-admin-cookie-consent"
+            class="fixed bottom-5 left-5 z-[999] hidden w-[min(440px,calc(100vw-2.5rem))] rounded-lg bg-gray-900 p-5 text-white shadow-xl"
+        >
+            <p class="mb-2 text-base font-semibold">
+                {{ core()->getConfigData('general.gdpr.cookie.static_block_identifier') }}
+            </p>
+
+            <p class="mb-4 text-sm leading-5 text-gray-200">
+                {{ core()->getConfigData('general.gdpr.cookie.description') }}
+            </p>
+
+            <div class="flex gap-2">
+                <button
+                    type="button"
+                    class="flex-1 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900"
+                    onclick="acceptAdminCookies()"
+                >
+                    {{ app()->getLocale() === 'fr' ? 'Accepter' : (app()->getLocale() === 'ar' ? 'قبول' : 'Accept') }}
+                </button>
+
+                <button
+                    type="button"
+                    class="flex-1 rounded-md border border-gray-500 px-3 py-2 text-sm font-semibold text-white"
+                    onclick="rejectAdminCookies()"
+                >
+                    {{ app()->getLocale() === 'fr' ? 'Refuser' : (app()->getLocale() === 'ar' ? 'رفض' : 'Reject') }}
+                </button>
+            </div>
+        </div>
+    @endif
+
     @push('scripts')
         <script>
+            const adminCookieConsent = 'louzir-admin-cookie-consent';
+
+            function setAdminCookieConsent(value) {
+                document.cookie = `${adminCookieConsent}=${value};max-age=${60 * 60 * 24 * 365};path=/;SameSite=Lax`;
+                document.getElementById('louzir-admin-cookie-consent')?.classList.add('hidden');
+            }
+
+            function acceptAdminCookies() {
+                setAdminCookieConsent('accepted');
+            }
+
+            function rejectAdminCookies() {
+                setAdminCookieConsent('rejected');
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                if (! document.cookie.includes(`${adminCookieConsent}=`)) {
+                    document.getElementById('louzir-admin-cookie-consent')?.classList.remove('hidden');
+                }
+            });
+
             function switchVisibility() {
                 let passwordField = document.getElementById("password");
                 let visibilityIcon = document.getElementById("visibilityIcon");

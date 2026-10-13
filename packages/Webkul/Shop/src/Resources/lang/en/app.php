@@ -86,6 +86,7 @@ return [
                     'enter-password' => 'Enter Your password',
                     'first-name' => 'First Name',
                     'gender' => 'Gender',
+                    'greeting' => 'Hello! :name',
                     'last-name' => 'Last Name',
                     'order-pending' => 'Cannot delete customer account because some Order(s) are pending or processing state.',
                     'title' => 'Profile',

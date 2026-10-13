@@ -805,7 +805,7 @@ return [
         'index' => [
             'create-administrator' => [
                 'admin' => 'מנהל',
-                'bagisto' => 'Bagisto',
+                'bagisto' => 'LouzirModeIntime',
                 'confirm-password' => 'אשר סיסמה',
                 'email' => 'אימייל',
                 'email-address' => 'admin@example.com',
@@ -820,7 +820,7 @@ return [
                 'application-name' => 'שם היישום',
                 'argentine-peso' => 'פסו ארגנטינאי (ARS)',
                 'australian-dollar' => 'דולר אוסטרלי (AUD)',
-                'bagisto' => 'Bagisto',
+                'bagisto' => 'LouzirModeIntime',
                 'bangladeshi-taka' => 'טאקה בנגלדשי (BDT)',
                 'bahraini-dinar' => 'דינר בחרייני (BHD)',
                 'brazilian-real' => 'ריאל ברזילאי (BRL)',
@@ -913,25 +913,25 @@ return [
             ],
 
             'installation-processing' => [
-                'bagisto' => 'התקנת Bagisto',
+                'bagisto' => 'התקנת LouzirModeIntime',
                 'bagisto-info' => 'יצירת טבלאות מסד הנתונים, זה עשוי לקחת מספר רגעים',
                 'title' => 'התקנה',
             ],
 
             'installation-completed' => [
                 'admin-panel' => 'פנל מנהל המערכת',
-                'bagisto-forums' => 'פורום Bagisto',
+                'bagisto-forums' => 'פורום LouzirModeIntime',
                 'customer-panel' => 'פנל לקוח',
-                'explore-bagisto-extensions' => 'גלה הרחבות Bagisto',
+                'explore-bagisto-extensions' => 'גלה הרחבות LouzirModeIntime',
                 'title' => 'התקנה הושלמה',
-                'title-info' => 'Bagisto הותקן בהצלחה במערכת שלך.',
+                'title-info' => 'LouzirModeIntime הותקן בהצלחה במערכת שלך.',
             ],
 
             'ready-for-installation' => [
                 'create-database-tables' => 'צור טבלאות מסד נתונים',
                 'drop-existing-tables' => 'מחק כל טבלאות קיימות',
                 'install' => 'התקנה',
-                'install-info' => 'Bagisto להתקנה',
+                'install-info' => 'LouzirModeIntime להתקנה',
                 'install-info-button' => 'לחץ על הכפתור למטה כדי',
                 'populate-database-tables' => 'מילוי הטבלאות במסד הנתונים',
                 'start-installation' => 'התחל התקנה',
@@ -942,8 +942,8 @@ return [
                 'locale' => 'אזור',
                 'main' => 'הַתְחָלָה',
                 'select-locale' => 'בחר אזור',
-                'title' => 'התקנת Bagisto שלך',
-                'welcome-title' => 'ברוך הבא ל-Bagisto',
+                'title' => 'התקנת LouzirModeIntime שלך',
+                'welcome-title' => 'ברוך הבא ל-LouzirModeIntime',
             ],
 
             'server-requirements' => [
@@ -971,9 +971,9 @@ return [
 
             'arabic' => 'ערבית',
             'back' => 'חזרה',
-            'bagisto' => 'Bagisto',
+            'bagisto' => 'LouzirModeIntime',
             'bagisto-info' => 'פרויקט קהילתי על ידי',
-            'bagisto-logo' => 'לוגו Bagisto',
+            'bagisto-logo' => 'לוגו LouzirModeIntime',
             'bengali' => 'בנגלי',
             'catalan' => 'קטלאני',
             'chinese' => 'סיני',
@@ -985,9 +985,9 @@ return [
             'hebrew' => 'עברית',
             'hindi' => 'הינדי',
             'indonesian' => 'אינדונזי',
-            'installation-description' => 'התקנת Bagisto כוללת בדרך כלל מספר שלבים. הנה מתווה כללי של תהליך ההתקנה עבור Bagisto',
+            'installation-description' => 'התקנת LouzirModeIntime כוללת בדרך כלל מספר שלבים. הנה מתווה כללי של תהליך ההתקנה עבור LouzirModeIntime',
             'installation-info' => 'אנו שמחים לראותך כאן!',
-            'installation-title' => 'ברוך הבא להתקנת Bagisto',
+            'installation-title' => 'ברוך הבא להתקנת LouzirModeIntime',
             'italian' => 'איטלקי',
             'japanese' => 'יפני',
             'persian' => 'פרסי',
@@ -996,7 +996,7 @@ return [
             'russian' => 'רוסי',
             'sinhala' => 'סינהלה',
             'spanish' => 'ספרדית',
-            'title' => 'מתקין Bagisto',
+            'title' => 'מתקין LouzirModeIntime',
             'turkish' => 'טורקי',
             'ukrainian' => 'אוקראיני',
             'webkul' => 'Webkul',

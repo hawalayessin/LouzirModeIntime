@@ -35,7 +35,7 @@
             grid-template-columns: 1fr;
             align-items: center;
             justify-items: center;
-            max-width: 960px;
+            max-width: 1280px;
             height: 74px;
             margin: auto;
         }
@@ -90,10 +90,9 @@
 
         .louzir-auth-layout {
             display: grid;
-            grid-template-columns: .95fr 1.05fr;
-            max-width: 960px;
-            height: min(570px, calc(100svh - 92px));
-            min-height: 430px;
+            grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+            max-width: 1280px;
+            min-height: 570px;
             margin: 0 auto;
             overflow: hidden;
             border: 1px solid var(--auth-border);
@@ -104,7 +103,7 @@
 
         .louzir-register-layout {
             height: auto;
-            min-height: min(570px, calc(100svh - 92px));
+            min-height: 570px;
         }
 
         .louzir-editorial-panel {
@@ -203,7 +202,6 @@
             flex-direction: column;
             align-items: center;
             padding: 12px 44px 16px;
-            overflow: hidden;
         }
 
         .louzir-register-panel {
@@ -213,11 +211,11 @@
 
         .louzir-form-content {
             width: 100%;
-            max-width: 380px;
+            max-width: 480px;
         }
 
         .louzir-register-panel .louzir-form-content {
-            max-width: 380px;
+            max-width: 480px;
         }
 
         .louzir-welcome-icon {
@@ -464,7 +462,7 @@
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto;
             gap: 16px;
-            max-width: 960px;
+            max-width: 1280px;
             margin: auto;
             display: none;
             color: var(--auth-muted);
@@ -497,7 +495,7 @@
 
         @media (min-width: 1500px) {
             .louzir-register-layout {
-                min-height: min(590px, calc(100svh - 92px));
+                min-height: 590px;
             }
         }
 

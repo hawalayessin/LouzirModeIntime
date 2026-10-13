@@ -554,7 +554,7 @@ return [
                     'bottom' => [
                         'all' => 'Все',
                         'back-button' => 'Повернутися до головного меню',
-                        'bagisto' => 'Bagisto',
+                        'bagisto' => 'LouzirModeIntime',
                         'categories' => 'Категорії',
                         'compare' => 'Порівняти',
                         'dropdown-text' => 'Керуйте кошиком, замовленнями та списком бажань',
@@ -575,7 +575,7 @@ return [
                 'mobile' => [
                     'account' => 'Обліковий запис',
                     'back-button' => 'Повернутися до головного меню',
-                    'bagisto' => 'Bagisto',
+                    'bagisto' => 'LouzirModeIntime',
                     'compare' => 'Порівняти',
                     'currencies' => 'Валюти',
                     'dropdown-text' => 'Керуйте кошиком, замовленнями та списком бажань',

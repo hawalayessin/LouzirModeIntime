@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Louzir Home',
-    'info' => 'Shared content for all three languages',
+    'info' => 'Text per language; shared images and links',
     'sections' => [
         'hero' => 'Main banner',
         'services' => 'Highlights',

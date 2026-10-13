@@ -2,6 +2,7 @@
 
 namespace Webkul\Shop\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
@@ -15,6 +16,12 @@ class SubscriptionController extends Controller
      * @return void
      */
     public function __construct(protected SubscribersListRepository $subscriptionRepository) {}
+
+    public function csrfToken(): JsonResponse
+    {
+        return response()->json(['token' => csrf_token()])
+            ->header('Cache-Control', 'no-store, private');
+    }
 
     /**
      * Subscribes email to the email subscription list.

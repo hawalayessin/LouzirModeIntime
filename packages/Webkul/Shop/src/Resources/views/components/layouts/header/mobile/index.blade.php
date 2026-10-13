@@ -8,50 +8,10 @@
     $showWishlist = (bool) core()->getConfigData('customer.settings.wishlist.wishlist_option');
 @endphp
 
-@pushOnce('styles')
-    <style>
-        .louzir-mobile-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            width: max-content;
-            min-width: max-content;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .louzir-mobile-actions > a,
-        .louzir-mobile-actions > div,
-        .louzir-mobile-actions > v-mini-cart {
-            display: flex;
-            width: 2.25rem;
-            height: 2.25rem;
-            flex: 0 0 2.25rem;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .louzir-mobile-actions .icon-compare,
-        .louzir-mobile-actions .icon-cart,
-        .louzir-mobile-actions .icon-users {
-            display: inline-flex;
-            width: 2.25rem;
-            height: 2.25rem;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-        }
-
-        .louzir-mobile-actions > div:has(.icon-users) {
-            margin-inline-end: 0.25rem;
-        }
-    </style>
-@endPushOnce
-
-<div class="flex flex-wrap gap-3 px-4 py-3 shadow-sm lg:hidden">
-    <div class="flex items-center justify-between w-full">
+<div class="louzir-mobile-bar flex flex-wrap gap-3 px-4 py-3 shadow-sm lg:hidden">
+    <div class="louzir-mobile-row">
         <!-- Left Navigation -->
-        <div class="flex items-center gap-x-1.5">
+        <div class="louzir-mobile-brand">
             {!! view_render_event('bagisto.shop.components.layouts.header.mobile.drawer.before') !!}
 
             <!-- Drawer -->
@@ -70,13 +30,12 @@
 
             <a
                 href="{{ route('shop.home.index') }}"
-                style="display: flex; flex-shrink: 0; align-items: center;"
+                class="louzir-mobile-logo"
                 aria-label="@lang('shop::app.components.layouts.header.mobile.bagisto')"
             >
                 <img
                     src="{{ $mobileShopLogo }}"
                     class="object-contain"
-                    style="width: 110px; height: 64px; object-fit: contain;"
                     alt="{{ config('app.name') }}"
                 >
             </a>
@@ -85,8 +44,8 @@
         </div>
 
         <!-- Right Navigation -->
-        <div class="ml-auto min-w-max">
-            <div class="louzir-mobile-actions ltr:pr-3 rtl:pl-3">
+        <div>
+            <div class="louzir-mobile-actions">
                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.before') !!}
 
                 @if($showCompare)
@@ -109,7 +68,7 @@
                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.mini_cart.after') !!}
 
                 @if (core()->getCurrentChannel()->locales()->count() > 1)
-                    <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
+                    <x-shop::dropdown class="louzir-locale" position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
                         <x-slot:toggle>
                             <button
                                 type="button"
@@ -140,7 +99,7 @@
                 <div class="max-md:hidden">
                     <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
                         <x-slot:toggle>
-                            <span class="text-2xl cursor-pointer icon-users"></span>
+                            <button type="button" class="text-2xl cursor-pointer icon-users" aria-label="@lang('shop::app.components.layouts.header.mobile.account')"></button>
                         </x-slot>
 
                         <!-- Guest Dropdown -->
@@ -278,7 +237,7 @@
     {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.before') !!}
 
     <!-- Serach Catalog Form -->
-    <form action="{{ route('shop.search.index') }}" class="flex items-center w-full">
+    <form action="{{ route('shop.search.index') }}" class="louzir-header-search flex items-center w-full" role="search">
         <label
             for="organic-search"
             class="sr-only"
@@ -291,6 +250,7 @@
 
             <input
                 type="text"
+                id="organic-search"
                 class="block w-full rounded-xl border border-['#E3E3E3'] px-11 py-3.5 text-sm font-medium text-gray-900 max-md:rounded-lg max-md:px-10 max-md:py-3 max-md:font-normal max-sm:text-xs"
                 name="query"
                 value="{{ request('query') }}"
@@ -315,7 +275,7 @@
             @close="onDrawerClose"
         >
             <x-slot:toggle>
-                <span class="text-2xl cursor-pointer icon-hamburger"></span>
+                <button type="button" class="text-2xl cursor-pointer icon-hamburger" aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.all')"></button>
             </x-slot>
 
             <x-slot:header>

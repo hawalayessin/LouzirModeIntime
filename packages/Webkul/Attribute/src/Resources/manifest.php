@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto Attributes',
+    'name' => 'LouzirModeIntime Attributes',
     'version' => core()->version(),
 ];

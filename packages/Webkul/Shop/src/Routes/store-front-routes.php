@@ -52,6 +52,8 @@ Route::post('search/upload', [SearchController::class, 'upload'])->name('shop.se
  * Subscription routes.
  */
 Route::controller(SubscriptionController::class)->group(function () {
+    Route::get('subscription/csrf-token', 'csrfToken')->name('shop.subscription.csrf-token');
+
     Route::post('subscription', 'store')->name('shop.subscription.store');
 
     Route::get('subscription/{token}', 'destroy')->name('shop.subscription.destroy');

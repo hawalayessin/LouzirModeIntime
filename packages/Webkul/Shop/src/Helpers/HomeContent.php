@@ -22,11 +22,10 @@ class HomeContent
         $locale ??= app()->getLocale();
         $scope = $channel;
 
-        // Shared content also reads the most recent edits saved by the old localized editor.
         $this->values[$scope] ??= app(CoreConfigRepository::class)->orderBy('updated_at', 'desc')->orderBy('id', 'desc')->findWhere([
             ['code', 'like', 'general.louzir_home.%'],
             'channel_code' => $channel,
-        ])->unique('code')->pluck('value', 'code')->all();
+        ]);
 
         foreach (self::schema() as $group => $fields) {
             if (! isset($fields[$name])) {
@@ -34,7 +33,11 @@ class HomeContent
             }
 
             $field = $fields[$name];
-            $value = $this->values[$scope]['general.louzir_home.'.$group.'.'.$name] ?? null;
+            $records = $this->values[$scope]->where('code', 'general.louzir_home.'.$group.'.'.$name);
+            $record = isset($field['translation'])
+                ? $records->firstWhere('locale_code', $locale)
+                : ($records->firstWhere('locale_code', null) ?? $records->first());
+            $value = $record?->value;
             $fallback = isset($field['translation'])
                 ? trans('shop::app.home.storefront.'.$field['translation'], [], $locale)
                 : $field['fallback'];

@@ -7,6 +7,11 @@
 
 @push('styles')
     <style>
+        html {
+            overflow-y: scroll;
+            scrollbar-gutter: stable;
+        }
+
         .louzir-auth-page {
             --auth-bg: #faf9f7;
             --auth-card: #ffffff;
@@ -29,7 +34,7 @@
             grid-template-columns: 1fr;
             align-items: center;
             justify-items: center;
-            max-width: 960px;
+            max-width: 1280px;
             height: 74px;
             margin: auto;
         }
@@ -84,10 +89,9 @@
 
         .louzir-auth-layout {
             display: grid;
-            grid-template-columns: .95fr 1.05fr;
-            max-width: 960px;
-            height: min(570px, calc(100svh - 92px));
-            min-height: 430px;
+            grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+            max-width: 1280px;
+            min-height: 570px;
             margin: 0 auto;
             overflow: hidden;
             border: 1px solid var(--auth-border);
@@ -195,7 +199,7 @@
 
         .louzir-form-content {
             width: 100%;
-            max-width: 380px;
+            max-width: 480px;
         }
 
         .louzir-welcome-icon {
@@ -381,7 +385,7 @@
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto;
             gap: 16px;
-            max-width: 960px;
+            max-width: 1280px;
             margin: auto;
             display: none;
             color: var(--auth-muted);
@@ -407,9 +411,21 @@
             font-weight: 500;
         }
 
+        .louzir-auth-alert {
+            margin: 16px 0;
+            padding: 12px 16px;
+            border: 1px solid #f1b8b8;
+            border-radius: 6px;
+            background: #fff1f1;
+            color: #a61b1b;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
         @media (min-width: 1500px) {
             .louzir-auth-layout {
-                height: min(590px, calc(100svh - 92px));
+                min-height: 590px;
             }
 
             .louzir-form-panel {
@@ -604,6 +620,14 @@
                         <x-shop::form :action="route('shop.customer.session.create')">
                             {!! view_render_event('bagisto.shop.customers.login_form_controls.before') !!}
 
+                            @foreach (['error', 'warning', 'info'] as $messageType)
+                                @if (session()->has($messageType))
+                                    <div class="louzir-auth-alert" role="alert">
+                                        {{ session($messageType) }}
+                                    </div>
+                                @endif
+                            @endforeach
+
                             <!-- Email -->
                             <x-shop::form.control-group>
                                 <x-shop::form.control-group.label class="required">
@@ -615,7 +639,7 @@
                                     class="px-4 py-3"
                                     name="email"
                                     rules="required|email"
-                                    value=""
+                                    :value="old('email')"
                                     :label="trans('shop::app.customers.login-form.email')"
                                     placeholder="vous@exemple.com"
                                     :aria-label="trans('shop::app.customers.login-form.email')"
@@ -665,6 +689,33 @@
                                     @lang('shop::app.customers.login-form.forgot-pass')
                                 </a>
                             </div>
+
+                            @if(
+                                core()->getConfigData('general.gdpr.settings.enabled')
+                                && core()->getConfigData('general.gdpr.agreement.enabled')
+                            )
+                                <div class="mb-4 flex select-none items-start gap-2">
+                                    <x-shop::form.control-group.control
+                                        type="checkbox"
+                                        name="agreement"
+                                        :label="trans('shop::app.customers.signup-form.terms-conditions')"
+                                        id="login-agreement"
+                                        value="0"
+                                        rules="required"
+                                        for="login-agreement"
+                                    />
+
+                                    <label
+                                        class="cursor-pointer select-none text-xs leading-5 text-[#5f6166]"
+                                        for="login-agreement"
+                                        v-pre
+                                    >
+                                        {{ core()->getConfigData('general.gdpr.agreement.agreement_label') }}
+                                    </label>
+                                </div>
+
+                                <x-shop::form.control-group.error control-name="agreement" />
+                            @endif
 
                             <!-- Captcha -->
                             @if (core()->getConfigData('customer.captcha.credentials.status'))

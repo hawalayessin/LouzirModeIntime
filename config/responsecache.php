@@ -47,7 +47,7 @@ return [
      * This setting determines the name of the http header that contains
      * the time at which the response was cached
      */
-    'cache_time_header_name' => env('RESPONSE_CACHE_HEADER_NAME', 'Bagisto-FPC'),
+    'cache_time_header_name' => env('RESPONSE_CACHE_HEADER_NAME', 'LouzirModeIntime-FPC'),
 
     /*
      * This setting determines if a http header named with the cache age
@@ -61,7 +61,7 @@ return [
      * This setting determines the name of the http header that contains
      * the age of cache
      */
-    'cache_age_header_name' => env('RESPONSE_CACHE_AGE_HEADER_NAME', 'Bagisto-FPC-Age'),
+    'cache_age_header_name' => env('RESPONSE_CACHE_AGE_HEADER_NAME', 'LouzirModeIntime-FPC-Age'),
 
     /*
      * Here you may define the cache store that should be used to store

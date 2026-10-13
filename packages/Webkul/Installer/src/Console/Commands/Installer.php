@@ -35,7 +35,7 @@ class Installer extends Command
      *
      * @var string
      */
-    protected $description = 'Bagisto installer.';
+    protected $description = 'LouzirModeIntime installer.';
 
     /**
      * Environment details.
@@ -211,7 +211,7 @@ class Installer extends Command
         $this->call('db:wipe');
         $this->call('migrate:fresh');
 
-        $this->warn('Step: Seeding basic data for Bagisto kickstart...');
+        $this->warn('Step: Seeding basic data for LouzirModeIntime kickstart...');
         $this->databaseManager->seed($this->getSeederConfiguration());
         $this->components->info('Basic data seeded successfully.');
 
@@ -258,7 +258,7 @@ class Installer extends Command
         $this->updateTextTypeEnv(
             'APP_NAME',
             'Please enter the application name',
-            $this->getEnvVariable('APP_NAME', 'Bagisto')
+            $this->getEnvVariable('APP_NAME', 'LouzirModeIntime')
         );
 
         $this->updateTextTypeEnv(
@@ -441,11 +441,11 @@ class Installer extends Command
 
             $filePath = storage_path('installed');
 
-            File::put($filePath, 'Bagisto is successfully installed.');
+            File::put($filePath, 'LouzirModeIntime is successfully installed.');
 
             $this->info('-----------------------------');
             $this->info('Congratulations!');
-            $this->info('The installation has been finished and you can now use Bagisto.');
+            $this->info('The installation has been finished and you can now use LouzirModeIntime.');
             $this->info('Go to '.$this->getEnvVariable('APP_URL').'/'.$this->getEnvVariable('APP_ADMIN_URL', 'admin').' and authenticate with:');
             $this->info('Email: '.$adminEmail);
             $this->info('Password: '.$adminPassword);

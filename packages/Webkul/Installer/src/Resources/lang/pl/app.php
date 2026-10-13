@@ -805,7 +805,7 @@ return [
         'index' => [
             'create-administrator' => [
                 'admin' => 'Administrator',
-                'bagisto' => 'Bagisto',
+                'bagisto' => 'LouzirModeIntime',
                 'confirm-password' => 'Potwierdź hasło',
                 'email' => 'Email',
                 'email-address' => 'admin@example.com',
@@ -820,7 +820,7 @@ return [
                 'application-name' => 'Nazwa Aplikacji',
                 'argentine-peso' => 'Peso Argentyńskie (ARS)',
                 'australian-dollar' => 'Dolar Australijski (AUD)',
-                'bagisto' => 'Bagisto',
+                'bagisto' => 'LouzirModeIntime',
                 'bangladeshi-taka' => 'Taka Banglijska (BDT)',
                 'bahraini-dinar' => 'Dinar Bahrajnu (BHD)',
                 'brazilian-real' => 'Real Brazylijski (BRL)',
@@ -913,25 +913,25 @@ return [
             ],
 
             'installation-processing' => [
-                'bagisto' => 'Instalacja Bagisto',
+                'bagisto' => 'Instalacja LouzirModeIntime',
                 'bagisto-info' => 'Tworzenie tabel w bazie danych może zająć kilka chwil',
                 'title' => 'Instalacja',
             ],
 
             'installation-completed' => [
                 'admin-panel' => 'Panel administratora',
-                'bagisto-forums' => 'Forum Bagisto',
+                'bagisto-forums' => 'Forum LouzirModeIntime',
                 'customer-panel' => 'Panel klienta',
-                'explore-bagisto-extensions' => 'Przeglądaj rozszerzenia Bagisto',
+                'explore-bagisto-extensions' => 'Przeglądaj rozszerzenia LouzirModeIntime',
                 'title' => 'Instalacja zakończona',
-                'title-info' => 'Bagisto został pomyślnie zainstalowany na Twoim systemie.',
+                'title-info' => 'LouzirModeIntime został pomyślnie zainstalowany na Twoim systemie.',
             ],
 
             'ready-for-installation' => [
                 'create-database-tables' => 'Utwórz tabele bazy danych',
                 'drop-existing-tables' => 'Usuń istniejące tabele',
                 'install' => 'Installatie',
-                'install-info' => 'Bagisto Voor Installatie',
+                'install-info' => 'LouzirModeIntime Voor Installatie',
                 'install-info-button' => 'Klik op de knop hieronder om',
                 'populate-database-tables' => 'Vul de databasetabellen',
                 'start-installation' => 'Start Installatie',
@@ -942,8 +942,8 @@ return [
                 'locale' => 'Locatie',
                 'main' => 'Rozpocznij',
                 'select-locale' => 'Selecteer Locatie',
-                'title' => 'Uw Bagisto-installatie',
-                'welcome-title' => 'Welkom bij Bagisto',
+                'title' => 'Uw LouzirModeIntime-installatie',
+                'welcome-title' => 'Welkom bij LouzirModeIntime',
             ],
 
             'server-requirements' => [
@@ -971,9 +971,9 @@ return [
 
             'arabic' => 'Arabski',
             'back' => 'Wstecz',
-            'bagisto' => 'Bagisto',
+            'bagisto' => 'LouzirModeIntime',
             'bagisto-info' => 'Projekt społecznościowy',
-            'bagisto-logo' => 'Logo Bagisto',
+            'bagisto-logo' => 'Logo LouzirModeIntime',
             'bengali' => 'Bengalski',
             'catalan' => 'Kataloński',
             'chinese' => 'Chiński',
@@ -985,7 +985,7 @@ return [
             'hebrew' => 'Hebrajski',
             'hindi' => 'Hinduski',
             'indonesian' => 'Indonezyjski',
-            'installation-description' => 'Instalacja Bagisto zazwyczaj obejmuje kilka kroków. Oto ogólny zarys procesu instalacji Bagisto',
+            'installation-description' => 'Instalacja LouzirModeIntime zazwyczaj obejmuje kilka kroków. Oto ogólny zarys procesu instalacji LouzirModeIntime',
             'installation-info' => 'Cieszymy się, że tu jesteś!',
             'installation-title' => 'Witaj w instalacji',
             'italian' => 'Włoski',
@@ -996,7 +996,7 @@ return [
             'russian' => 'Rosyjski',
             'sinhala' => 'Syngaleski',
             'spanish' => 'Hiszpański',
-            'title' => 'Instalator Bagisto',
+            'title' => 'Instalator LouzirModeIntime',
             'turkish' => 'Turecki',
             'ukrainian' => 'Ukraiński',
             'webkul' => 'Webkul',

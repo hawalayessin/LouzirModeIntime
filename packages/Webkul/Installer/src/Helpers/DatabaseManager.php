@@ -7,7 +7,7 @@ use Exception;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Webkul\Installer\Database\Seeders\DatabaseSeeder as BagistoDatabaseSeeder;
+use Webkul\Installer\Database\Seeders\DatabaseSeeder as LouzirDatabaseSeeder;
 use Webkul\Installer\Database\Seeders\ProductTableSeeder;
 use Webkul\Product\Console\Commands\Indexer;
 
@@ -107,7 +107,7 @@ class DatabaseManager
     public function seed($parameter): bool
     {
         try {
-            app(BagistoDatabaseSeeder::class)->run($parameter);
+            app(LouzirDatabaseSeeder::class)->run($parameter);
             app(StorefrontLocalizationSeeder::class)->run();
 
             return true;

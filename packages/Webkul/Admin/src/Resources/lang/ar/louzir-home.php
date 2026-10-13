@@ -2,7 +2,7 @@
 
 return [
     'title' => 'صفحة لوزير الرئيسية',
-    'info' => 'Shared content for all three languages',
+    'info' => 'نصوص حسب اللغة؛ الصور والروابط مشتركة',
     'sections' => [
         'hero' => 'Main banner',
         'services' => 'Highlights',

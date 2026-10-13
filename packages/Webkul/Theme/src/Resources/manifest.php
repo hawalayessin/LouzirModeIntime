@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto Theme',
+    'name' => 'LouzirModeIntime Theme',
     'version' => core()->version(),
 ];

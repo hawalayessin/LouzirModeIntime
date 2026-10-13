@@ -24,7 +24,7 @@ foreach (HomeContent::schema() as $group => $definitions) {
                 ? 'image'
                 : 'max:2000',
             'channel_based' => true,
-            'locale_based' => false,
+            'locale_based' => isset($definition['translation']),
         ];
     }
 

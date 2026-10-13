@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto Product',
+    'name' => 'LouzirModeIntime Product',
     'version' => core()->version(),
 ];

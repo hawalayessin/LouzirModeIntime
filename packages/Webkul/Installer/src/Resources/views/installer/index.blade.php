@@ -29,7 +29,7 @@
 
         <link
             type="image/x-icon"
-            href="{{ bagisto_asset('images/installer/favicon.ico', 'installer') }}"
+            href="{{ asset('assets/louzir.png') }}"
             rel="shortcut icon"
             sizes="16x16"
         />
@@ -152,8 +152,9 @@
                     <div class="m-auto grid h-[100vh] max-w-[362px] items-end">
                         <div class="grid gap-4">
                             <img
-                                src="{{ bagisto_asset('images/installer/bagisto-logo.svg', 'installer') }}"
+                                src="{{ asset('assets/logo2.png') }}"
                                 alt="@lang('installer::app.installer.index.bagisto-logo')"
+                                class="max-h-16 object-contain object-left"
                             >
 
                             <div class="grid gap-1.5">
@@ -777,7 +778,7 @@
                                     <x-installer::form.control-group.control
                                         type="text"
                                         name="app_name"
-                                        ::value="envData.app_name ?? 'Bagisto'"
+                                        ::value="envData.app_name ?? 'LouzirModeIntime'"
                                         rules="required"
                                         :label="trans('installer::app.installer.index.environment-configuration.application-name')"
                                         :placeholder="trans('installer::app.installer.index.environment-configuration.bagisto')"
@@ -1302,7 +1303,7 @@
 
                                         this.envData = { ...this.envData, ...params };
                                     } else {
-                                        setErrors({ 'db_connection': ["Bagisto currently supports MySQL only."] });
+                                        setErrors({ 'db_connection': ["LouzirModeIntime currently supports MySQL only."] });
                                     }
                                 },
 

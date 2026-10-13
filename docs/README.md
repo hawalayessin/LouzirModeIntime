@@ -1,6 +1,6 @@
 # Louzir Mode Intime — Documentation du projet
 
-E-commerce **Bagisto v2.4.0** (monorepo Laravel), installé localement sur XAMPP (Windows).
+E-commerce **LouzirModeIntime v2.4.0** (monorepo Laravel), installé localement sur XAMPP (Windows).
 
 ## Aperçu
 

@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto Social Login',
+    'name' => 'LouzirModeIntime Social Login',
     'version' => core()->version(),
 ];

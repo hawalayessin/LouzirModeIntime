@@ -19,7 +19,7 @@
 ## Upgrading To v2.4 From v2.3
 
 > [!NOTE]
-> We strive to document every potential breaking change. However, as some of these alterations occur in lesser-known sections of Bagisto, only a fraction of them may impact your application.
+> We strive to document every potential breaking change. However, as some of these alterations occur in lesser-known sections of LouzirModeIntime, only a fraction of them may impact your application.
 
 ### Updating Dependencies
 
@@ -27,13 +27,13 @@
 
 #### PHP 8.3 Required
 
-Bagisto v2.4.x now requires PHP 8.3 or greater.
+LouzirModeIntime v2.4.x now requires PHP 8.3 or greater.
 
 ### Laravel 12 Upgrade
 
 **Impact Probability: High**
 
-Bagisto v2.4 has been upgraded to Laravel 12, which introduces stricter type checking and modernized date/time handling.
+LouzirModeIntime v2.4 has been upgraded to Laravel 12, which introduces stricter type checking and modernized date/time handling.
 
 #### Carbon Type Strictness
 
@@ -95,7 +95,7 @@ If you have custom test cases, ensure all test data includes required fields tha
 
 **Impact Probability: High**
 
-Bagisto v2.4 has migrated from Google reCAPTCHA v2 to Google reCAPTCHA Enterprise, which introduces significant changes to the implementation and configuration.
+LouzirModeIntime v2.4 has migrated from Google reCAPTCHA v2 to Google reCAPTCHA Enterprise, which introduces significant changes to the implementation and configuration.
 
 #### Configuration Changes
 
@@ -138,7 +138,7 @@ The captcha token field name has changed:
 
 1. **Update Configuration:**
 
-   Here are the details for updating the configuration to support Google reCAPTCHA Enterprise in Bagisto v2.4. You will need to update the configuration with the new keys and values as described below.
+   Here are the details for updating the configuration to support Google reCAPTCHA Enterprise in LouzirModeIntime v2.4. You will need to update the configuration with the new keys and values as described below.
 
    **Obtain Google Cloud Project ID:**
    - Visit [Google Cloud Console](https://console.cloud.google.com/).
@@ -159,8 +159,8 @@ The captcha token field name has changed:
    - Add your domain(s) in the **Domains** section (e.g., `example.com`).
    - Click **Create** and copy the generated site key.
 
-   **Configure in Bagisto Admin Panel:**
-   - Log in to your Bagisto admin panel.
+   **Configure in LouzirModeIntime Admin Panel:**
+   - Log in to your LouzirModeIntime admin panel.
    - Navigate to **Configuration → Customer → Captcha**.
    - Set **Status** to **Yes** to enable captcha.
    - Enter your **Project ID** (from step 1).
@@ -231,7 +231,7 @@ Ensure your Google Cloud Project has:
 
 **Impact Probability: High**
 
-Bagisto v2.4 has upgraded from the abandoned `paypal/paypal-checkout-sdk` v1.0.1 to the modern `paypal/paypal-server-sdk` v2.0, which introduces significant changes to the implementation and improves reliability and security.
+LouzirModeIntime v2.4 has upgraded from the abandoned `paypal/paypal-checkout-sdk` v1.0.1 to the modern `paypal/paypal-server-sdk` v2.0, which introduces significant changes to the implementation and improves reliability and security.
 
 #### Dependency Changes
 
@@ -412,7 +412,7 @@ $captureId = $result->getPurchaseUnits()[0]->getPayments()->getCaptures()[0]->ge
 
 **Impact Probability: High**
 
-Bagisto v2.4 has completely removed the `shetabit/visitor` package and all visitor tracking functionality. This is a breaking change if your custom code relies on visitor data.
+LouzirModeIntime v2.4 has completely removed the `shetabit/visitor` package and all visitor tracking functionality. This is a breaking change if your custom code relies on visitor data.
 
 #### What Was Removed
 
@@ -474,7 +474,7 @@ Bagisto v2.4 has completely removed the `shetabit/visitor` package and all visit
 
 **Impact Probability: Medium**
 
-Bagisto v2.4 has migrated the Magic AI feature from direct OpenAI integration to the Laravel AI SDK (`laravel/ai`), introducing a unified multi-provider architecture.
+LouzirModeIntime v2.4 has migrated the Magic AI feature from direct OpenAI integration to the Laravel AI SDK (`laravel/ai`), introducing a unified multi-provider architecture.
 
 #### What Changed
 

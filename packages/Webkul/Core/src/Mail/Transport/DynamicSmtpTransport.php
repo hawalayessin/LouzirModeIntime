@@ -19,7 +19,7 @@ class DynamicSmtpTransport extends AbstractTransport
     }
 
     /**
-     * Build the SMTP transport from Bagisto core config,
+     * Build the SMTP transport from LouzirModeIntime core config,
      * falling back to .env / config/mail.php if not set.
      */
     protected function buildTransport(): EsmtpTransport

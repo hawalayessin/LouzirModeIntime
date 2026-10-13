@@ -913,25 +913,25 @@ return [
             ],
 
             'installation-processing' => [
-                'bagisto' => 'Bagisto ස්තුරාකුල',
+                'bagisto' => 'LouzirModeIntime ස්තුරාකුල',
                 'bagisto-info' => 'දත්ත වගකාගකක් සාදනු ඇති වී, මෙමගේ කුම වේදයන්ද කතාමතා වේදිය',
                 'title' => 'ස්තුරාකුල',
             ],
 
             'installation-completed' => [
                 'admin-panel' => 'පරිපාල පැනල්',
-                'bagisto-forums' => 'Bagisto සංස්ථාගත',
+                'bagisto-forums' => 'LouzirModeIntime සංස්ථාගත',
                 'customer-panel' => 'ප්‍රභාණ්ඩ පැනල්',
-                'explore-bagisto-extensions' => 'Bagisto ප්‍රභාණ ව්‍යාකරණ',
+                'explore-bagisto-extensions' => 'LouzirModeIntime ප්‍රභාණ ව්‍යාකරණ',
                 'title' => 'ස්තුරාකුල සම්තුදාව',
-                'title-info' => 'Bagisto ඔබගේ පද්ධතියට සහාභයාගීත.',
+                'title-info' => 'LouzirModeIntime ඔබගේ පද්ධතියට සහාභයාගීත.',
             ],
 
             'ready-for-installation' => [
                 'create-database-tables' => 'දත්ත ගබඩා වගු නිර්මාණය කරන්',
                 'drop-existing-tables' => 'පවතින වගු මකන්න',
                 'install' => 'ස්තුරාකුල',
-                'install-info' => 'උත්සහාභාවයක් සඳහා Bagisto',
+                'install-info' => 'උත්සහාභාවයක් සඳහා LouzirModeIntime',
                 'install-info-button' => 'පහත ඇතුලත් කිරීමට ක්රම කරන්න',
                 'populate-database-tables' => 'දත්ත වගකාගකක් සිටුවනවා',
                 'start-installation' => 'ස්තුරාකුල ආරම්භය',
@@ -942,8 +942,8 @@ return [
                 'locale' => 'දේශීය',
                 'main' => 'ආරම්භක',
                 'select-locale' => 'Locale තෝරන්න',
-                'title' => 'ඔබේ Bagisto ස්ථාපනය',
-                'welcome-title' => 'Bagisto වෙත සාදරයෙන් පිළිගනිමු.',
+                'title' => 'ඔබේ LouzirModeIntime ස්ථාපනය',
+                'welcome-title' => 'LouzirModeIntime වෙත සාදරයෙන් පිළිගනිමු.',
             ],
 
             'server-requirements' => [
@@ -973,7 +973,7 @@ return [
             'back' => 'ආපනය',
             'bagisto' => 'බැගිස්ටෝ',
             'bagisto-info' => 'සමුදුසමින් ව්‍යාක්රණය',
-            'bagisto-logo' => 'Bagisto ලෝගො',
+            'bagisto-logo' => 'LouzirModeIntime ලෝගො',
             'bengali' => 'බෙංගාලි',
             'catalan' => 'කැටලන්',
             'chinese' => 'චීන',
@@ -985,7 +985,7 @@ return [
             'hebrew' => 'හෙබ්රෙව්',
             'hindi' => 'හින්දි',
             'indonesian' => 'ඉන්දුනීසියානු',
-            'installation-description' => 'Bagisto ස්ථාපනය සාමාන්‍යයෙන් කිහිපයක් පියවරට යටත් වේ. මෙන්න Bagisto සඳහා ස්ථාපන ක්රියාවලියේ සාමාන්ය දෘෂ්ටියක්',
+            'installation-description' => 'LouzirModeIntime ස්ථාපනය සාමාන්‍යයෙන් කිහිපයක් පියවරට යටත් වේ. මෙන්න LouzirModeIntime සඳහා ස්ථාපන ක්රියාවලියේ සාමාන්ය දෘෂ්ටියක්',
             'installation-info' => 'අපට ඔබ මෙතා බලන්නේ සුමුදුසමින්!',
             'installation-title' => 'ස්තුරාකුල සහාභ',
             'italian' => 'ඉතාලි',
@@ -996,7 +996,7 @@ return [
             'russian' => 'රුසියානු',
             'sinhala' => 'සිංහල',
             'spanish' => 'ස්පාඤ්ඤ',
-            'title' => 'Bagisto ස්තුරාකුල',
+            'title' => 'LouzirModeIntime ස්තුරාකුල',
             'turkish' => 'තුර්කි',
             'ukrainian' => 'යුක්රේනියානු',
             'webkul' => 'වෙබ්කුල්',

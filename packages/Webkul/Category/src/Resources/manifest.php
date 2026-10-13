@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto Categories',
+    'name' => 'LouzirModeIntime Categories',
     'version' => core()->version(),
 ];

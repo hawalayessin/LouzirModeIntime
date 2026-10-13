@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Accueil Louzir',
-    'info' => 'Contenu commun aux trois langues',
+    'info' => 'Textes par langue ; images et liens communs',
     'sections' => [
         'hero' => 'Banniere principale',
         'services' => 'Points forts',

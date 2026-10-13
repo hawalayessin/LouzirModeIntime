@@ -1,12 +1,12 @@
 {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.before') !!}
 
-<div class="flex min-h-[56px] w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[28px] max-1180:px-5">
+<div class="louzir-desktop-bar flex min-h-[56px] w-full justify-between border border-b border-l-0 border-r-0 border-t-0">
     <!--
         This section will provide categories for the first, second, and third levels. If
         additional levels are required, users can customize them according to their needs.
     -->
     <!-- Left Nagivation Section -->
-    <div class="flex items-center gap-x-8 max-[1180px]:gap-x-4 ltr:ml-1 rtl:-mr-1">
+    <div class="louzir-desktop-brand flex items-center">
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.before') !!}
 
         @php
@@ -56,12 +56,12 @@
     </div>
 
     <!-- Right Nagivation Section -->
-    <div class="ml-auto flex items-center gap-x-9 max-[1100px]:gap-x-6 max-lg:gap-x-8">
+    <div class="louzir-desktop-tools">
 
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.before') !!}
 
         <!-- Search Bar Container -->
-        <div class="relative w-full">
+        <div class="louzir-desktop-search louzir-header-search relative">
             <form
                 action="{{ route('shop.search.index') }}"
                 class="flex max-w-[445px] items-center"
@@ -78,6 +78,7 @@
 
                 <input
                     type="text"
+                    id="organic-search"
                     name="query"
                     value="{{ request('query') }}"
                     class="block w-full py-3 text-xs font-medium text-gray-900 transition-all border border-transparent rounded-lg bg-zinc-100 px-11 hover:border-gray-400 focus:border-gray-400"
@@ -106,7 +107,7 @@
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.after') !!}
 
         <!-- Right Navigation Links -->
-        <div class="mt-1.5 flex items-center gap-x-8 max-[1100px]:gap-x-6 max-lg:gap-x-8 ltr:mr-3 rtl:ml-3 ltr:pr-2 rtl:pl-2">
+        <div class="louzir-desktop-actions">
 
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.compare.before') !!}
 
@@ -139,12 +140,11 @@
             <!-- user profile -->
             <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
                 <x-slot:toggle>
-                    <span
+                    <button
+                        type="button"
                         class="inline-block text-2xl cursor-pointer icon-users"
-                        role="button"
                         aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.profile')"
-                        tabindex="0"
-                    ></span>
+                    ></button>
                 </x-slot>
 
                 <!-- Guest Dropdown -->

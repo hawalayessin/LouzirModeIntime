@@ -6,13 +6,13 @@ Date : 10 octobre 2026. Revision examinee : cd286c1.
 
 Livrer une boutique de lingerie personnalisee, exploitable depuis l'admin,
 hebergee sur un VPS avec un domaine propre. Conserver le moteur commercial
-Bagisto et isoler les personnalisations Louzir pour faciliter la maintenance.
+LouzirModeIntime et isoler les personnalisations Louzir pour faciliter la maintenance.
 
 ## Perimetre et limites
 
 - Depot trouve dans Desktop/louzirmode/louzirModeIntime ; l'ancien chemin du chat n'existe plus.
 - Lecture des configurations, vues, controleurs, paiements, livraison et structure des tests.
-- Bagisto declare 2.4.0 dans packages/Webkul/Core/src/Core.php:31.
+- LouzirModeIntime declare 2.4.0 dans packages/Webkul/Core/src/Core.php:31.
 - Execution CLI : Laravel 12.55.0, PHP 8.3.35.
 - GET http://127.0.0.1:8000/ : HTTP 200. Cela ne valide ni le rendu visuel ni le parcours d'achat, et ne prouve pas que le serveur utilise exactement ce checkout.
 - Audit Composer du lock, hors dependances de developpement : 66 avis sur 19 bibliotheques.
@@ -92,7 +92,7 @@ calibre pour un seul fichier. Tester un logo horizontal et un logo carre.
 
 ### P2 : localisation et montants a valider
 
-La configuration CLI effective indique Bagisto, localhost, Asia/Kolkata et en.
+La configuration CLI effective indique LouzirModeIntime, localhost, Asia/Kolkata et en.
 Le debug est OFF et l'environnement est production. Cela n'indique pas les
 valeurs du canal en base : les controler separement.
 
@@ -222,7 +222,7 @@ personnalises. Ne pas multiplier les modules avant de fiabiliser commande et sto
 
 ## References consultees
 
-- Theme Bagisto : https://devdocs.bagisto.com/theme-development/getting-started
+- Theme LouzirModeIntime : https://devdocs.bagisto.com/theme-development/getting-started
 - Deploiement : https://devdocs.bagisto.com/getting-started/deployment.html
 - VPS OVHcloud : https://docs.ovhcloud.com/en/guides/bare-metal-cloud/virtual-private-servers/vps-faq
 

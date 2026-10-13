@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto GDPR',
+    'name' => 'LouzirModeIntime GDPR',
     'version' => core()->version(),
 ];

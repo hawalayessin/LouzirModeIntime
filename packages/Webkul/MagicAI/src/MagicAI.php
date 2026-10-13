@@ -98,7 +98,7 @@ class MagicAI
      *   1. Resolve the model string to its AiModelContract enum case.
      *   2. Derive the provider from the model.
      *   3. Verify the provider is supported by the Laravel AI SDK.
-     *   4. Inject the Bagisto-stored API key into Laravel AI configuration.
+     *   4. Inject the LouzirModeIntime-stored API key into Laravel AI configuration.
      *   5. Return the provider string so callers can pass it to agent()/Image.
      */
     protected function prepareProvider(?string $model): ?string

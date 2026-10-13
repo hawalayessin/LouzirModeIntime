@@ -15,9 +15,9 @@ class ImageCacheController extends Controller
     protected string $template = '';
 
     /**
-     * The Bagisto logo URL.
+     * The LouzirModeIntime logo URL.
      */
-    protected const BAGISTO_LOGO = 'https://updates.bagisto.com/bagisto.png';
+    protected const LOUZIR_LOGO = 'assets/logo2.png';
 
     /**
      * Get the HTTP response for the requested image.
@@ -80,7 +80,11 @@ class ImageCacheController extends Controller
     protected function getLogo(): Response
     {
         try {
-            $content = $this->fetchFromUrl(self::BAGISTO_LOGO);
+            $content = file_get_contents(public_path(self::LOUZIR_LOGO));
+
+            if ($content === false) {
+                throw new Exception('Unable to fetch local logo.');
+            }
 
             return $this->buildResponse($content);
         } catch (Exception) {

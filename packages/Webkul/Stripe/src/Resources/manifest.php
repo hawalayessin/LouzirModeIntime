@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto Stripe',
+    'name' => 'LouzirModeIntime Stripe',
     'version' => core()->version(),
 ];

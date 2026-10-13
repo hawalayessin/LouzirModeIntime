@@ -5457,7 +5457,7 @@ return [
     ],
 
     'footer' => [
-        'copy-right' => 'قدرت گرفته از <a href="https://bagisto.com/" target="_blank">Bagisto</a>، یک پروژه اجتماعی توسط <a href="https://webkul.com/" target="_blank">Webkul</a>',
+        'copy-right' => 'قدرت گرفته از <a href="https://bagisto.com/" target="_blank">LouzirModeIntime</a>، یک پروژه اجتماعی توسط <a href="https://webkul.com/" target="_blank">Webkul</a>',
     ],
 
     'emails' => [

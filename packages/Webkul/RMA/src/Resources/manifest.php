@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto RMA',
+    'name' => 'LouzirModeIntime RMA',
     'version' => core()->version(),
 ];

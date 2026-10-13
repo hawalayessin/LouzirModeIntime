@@ -158,7 +158,7 @@ flowchart LR
     BL --> HTML["Blade : balises link / script injectées"]
 ```
 
-> `public/themes/*/build/` est en `.gitignore` côté Bagisto standard mais **présent ici**
+> `public/themes/*/build/` est en `.gitignore` côté LouzirModeIntime standard mais **présent ici**
 > (artefacts déjà compilés). Modifier un fichier source impose de recompiler le thème concerné.
 
 ## 5. Système de modules Concord

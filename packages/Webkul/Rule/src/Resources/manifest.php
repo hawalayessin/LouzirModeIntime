@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto Rule',
+    'name' => 'LouzirModeIntime Rule',
     'version' => core()->version(),
 ];

@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto Installer',
+    'name' => 'LouzirModeIntime Installer',
     'version' => core()->version(),
 ];

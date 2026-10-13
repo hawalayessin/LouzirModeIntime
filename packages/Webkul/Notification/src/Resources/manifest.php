@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Webkul Bagisto Notification',
+    'name' => 'LouzirModeIntime Notification',
     'version' => core()->version(),
 ];

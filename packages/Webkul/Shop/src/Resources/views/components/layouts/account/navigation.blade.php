@@ -17,8 +17,8 @@
             class="flex flex-col justify-between"
             v-pre
         >
-            <p class="text-2xl break-all font-mediums max-md:text-xl"> 
-                Hello! {{ $customer->first_name }}
+            <p class="text-2xl break-all font-mediums max-md:text-xl">
+                @lang('shop::app.customers.account.profile.index.greeting', ['name' => $customer->first_name])
             </p>
 
             <p class="no-underline max-md:text-md: text-zinc-500">

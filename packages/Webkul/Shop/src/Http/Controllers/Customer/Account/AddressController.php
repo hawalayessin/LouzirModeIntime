@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Event;
 use Webkul\Customer\Repositories\CustomerAddressRepository;
 use Webkul\Shop\Http\Controllers\Controller;
-use Webkul\Shop\Http\Requests\Customer\AddressRequest;
+use Webkul\Shop\Http\Requests\Customer\TunisiaAddressRequest;
 
 class AddressController extends Controller
 {
@@ -43,7 +43,7 @@ class AddressController extends Controller
      *
      * @return view
      */
-    public function store(AddressRequest $request)
+    public function store(TunisiaAddressRequest $request)
     {
         $customer = auth()->guard('customer')->user();
 
@@ -106,7 +106,7 @@ class AddressController extends Controller
      *
      * @return RedirectResponse
      */
-    public function update(int $id, AddressRequest $request)
+    public function update(int $id, TunisiaAddressRequest $request)
     {
         $customer = auth()->guard('customer')->user();
 

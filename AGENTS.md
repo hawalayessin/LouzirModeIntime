@@ -1,4 +1,4 @@
-# AGENTS.md — Cross-Agent Instructions for Bagisto 2.4.x
+# AGENTS.md — Cross-Agent Instructions for LouzirModeIntime 2.4.x
 
 ## Do Not Edit
 
@@ -23,7 +23,7 @@
 ├── database/
 │   ├── migrations/             # App-level migrations
 │   └── seeders/
-├── packages/Webkul/            # ★ All Bagisto packages live here (40 packages)
+├── packages/Webkul/            # ★ All LouzirModeIntime packages live here (40 packages)
 │   ├── Admin/                  # Admin panel (controllers, views, DataGrids, reporting, e2e-pw tests)
 │   ├── Shop/                   # Customer storefront (controllers, views, e2e-pw tests)
 │   ├── Core/                   # Helpers, models, jobs, listeners, exchange rates
@@ -157,7 +157,7 @@ php artisan db:seed              # Seed database
 
 | Workflow | Trigger | What it does |
 |----------|---------|--------------|
-| `pest_tests.yml` | push, PR | Installs Bagisto, runs `vendor/bin/pest` |
+| `pest_tests.yml` | push, PR | Installs LouzirModeIntime, runs `vendor/bin/pest` |
 | `pint_tests.yml` | push, PR | Runs `pint --test` (style check) |
 | `admin_playwright_tests.yml` | push, PR | Admin E2E tests |
 | `shop_playwright_tests.yml` | push, PR | Shop E2E tests |
