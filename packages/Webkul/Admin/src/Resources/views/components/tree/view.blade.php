@@ -116,11 +116,13 @@
 
                 getInitialFormattedValues() {
                     if (this.inputType == 'radio') {
-                        if (typeof this.value == 'array') {
+                        if (Array.isArray(this.value)) {
                             return this.value;
-                        } else {
-                            return [this.value];
                         }
+
+                        return this.value === null || this.value === undefined || this.value === ''
+                            ? []
+                            : [this.value];
                     }
 
                     return (typeof this.value == 'string')
@@ -178,7 +180,9 @@
                         ...props,
 
                         onChangeInput: (item) => {
-                            this.$emit('change-input', this.formattedValues[0]);
+                            this.formattedValues = [item.value];
+
+                            this.$emit('change-input', item.value);
                         },
                     });
                 },

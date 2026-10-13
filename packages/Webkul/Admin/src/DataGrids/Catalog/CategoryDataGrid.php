@@ -30,6 +30,14 @@ class CategoryDataGrid extends DataGrid
                 'categories.status',
                 'category_translations.locale',
             )
+            ->addSelect([
+                'parent_category_name' => DB::table('categories as parent_categories')
+                    ->join('category_translations as parent_category_translations', 'parent_categories.id', '=', 'parent_category_translations.category_id')
+                    ->whereColumn('parent_categories.id', 'categories.parent_id')
+                    ->where('parent_category_translations.locale', app()->getLocale())
+                    ->select('parent_category_translations.name')
+                    ->limit(1),
+            ])
             ->leftJoin('category_translations', function ($join) {
                 $join->on('categories.id', '=', 'category_translations.category_id')
                     ->where('category_translations.locale', '=', app()->getLocale());
@@ -64,6 +72,15 @@ class CategoryDataGrid extends DataGrid
             'searchable' => true,
             'filterable' => true,
             'sortable' => true,
+        ]);
+
+        $this->addColumn([
+            'index' => 'parent_category_name',
+            'label' => trans('admin::app.catalog.categories.create.parent-category'),
+            'type' => 'string',
+            'closure' => function ($row) {
+                return e($row->parent_category_name ?? '-');
+            },
         ]);
 
         $this->addColumn([
