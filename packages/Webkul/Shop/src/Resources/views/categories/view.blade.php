@@ -27,7 +27,7 @@
 
     <!-- Hero Image -->
     @if ($category->banner_path)
-        <div class="container mt-8 px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4">
+        <div class="louzir-catalog-shell mt-8 max-md:mt-4">
             <x-shop::media.images.lazy
                 class="aspect-[4/1] max-h-full max-w-full rounded-xl"
                 src="{{ $category->banner_url }}"
@@ -44,7 +44,7 @@
 
     @if (in_array($category->display_mode, [null, 'description_only', 'products_and_description']))
         @if ($category->description)
-            <div class="container mt-[34px] px-[60px] max-lg:px-8 max-md:mt-4 max-md:px-4 max-md:text-sm max-sm:text-xs">
+            <div class="louzir-catalog-shell mt-[34px] max-md:mt-4 max-md:text-sm max-sm:text-xs">
                 {!! $category->description !!}
             </div>
         @endif
@@ -65,13 +65,13 @@
             type="text/x-template"
             id="v-category-template"
         >
-            <div class="container px-[60px] max-lg:px-8 max-md:px-4">
-                <div class="flex items-start gap-10 max-lg:gap-5 md:mt-10">
+            <div class="louzir-catalog-shell">
+                <div class="louzir-catalog-layout md:mt-10">
                     <!-- Product Listing Filters -->
                     @include('shop::categories.filters')
 
                     <!-- Product Listing Container -->
-                    <div class="flex-1">
+                    <div class="louzir-catalog-products">
                         <!-- Desktop Product Listing Toolbar -->
                         <div class="max-md:hidden">
                             @include('shop::categories.toolbar')

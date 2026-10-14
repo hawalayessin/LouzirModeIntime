@@ -1,7 +1,7 @@
 {!! view_render_event('bagisto.shop.categories.view.filters.before') !!}
 
 <!-- Desktop Filters Navigation -->
-<div v-if="! isMobile">
+<div class="louzir-filter-sidebar" v-if="! isMobile">
     <!-- Filters Vue Component -->
     <v-filters
         @filter-applied="setFilters('filter', $event)"
@@ -116,7 +116,7 @@
 
         <!-- Filters Container -->
         <template v-else>
-            <div class="panel-side journal-scroll grid max-h-[1320px] min-w-[342px] grid-cols-[1fr] overflow-y-auto overflow-x-hidden max-xl:min-w-[270px] md:max-w-[342px] md:ltr:pr-7 md:rtl:pl-7">
+            <div class="louzir-filter-panel panel-side journal-scroll">
                 <!-- Filters Header Container -->
                 <div class="flex h-[50px] items-center justify-between border-b border-zinc-200 pb-2.5 max-md:hidden">
                     <p class="text-lg font-semibold max-sm:font-medium">
@@ -568,8 +568,7 @@
 
             methods: {
                 getMaxPrice() {
-                    @if(isset($category) && $category->id)
-                    this.$axios.get('{{ route("shop.api.categories.max_price", $category->id) }}')
+                    this.$axios.get('{{ route("shop.api.categories.max_price", $category->id ?? null) }}')
                         .then((response) => {
                             this.isLoading = false;
 
@@ -589,7 +588,6 @@
                         .catch((error) => {
                             console.log(error);
                         });
-                    @endif
                 },
 
                 setPriceRange($event) {

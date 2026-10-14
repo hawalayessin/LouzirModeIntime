@@ -51,7 +51,7 @@
                         <x-shop::form.control-group.label>
                             @lang('shop::app.customers.account.addresses.create.company-name')
                         </x-shop::form.control-group.label>
-            
+
                         <x-shop::form.control-group.control
                             type="text"
                             name="company_name"
@@ -59,7 +59,7 @@
                             :label="trans('shop::app.customers.account.addresses.create.company-name')"
                             :placeholder="trans('shop::app.customers.account.addresses.create.company-name')"
                         />
-            
+
                         <x-shop::form.control-group.error control-name="company_name" />
                     </x-shop::form.control-group>
 
@@ -225,7 +225,7 @@
                         >
                         </label>
 
-                        <label 
+                        <label
                             class="block cursor-pointer text-base max-md:text-sm"
                             for="default_address"
                         >
@@ -245,11 +245,11 @@
                 {!! view_render_event('bagisto.shop.customers.account.address.create.after') !!}
             </div>
         </script>
-    
+
         <script type="module">
             app.component('v-create-customer-address', {
                 template: '#v-create-customer-address-template',
-    
+
                 data() {
                     return {
                         country: "{{ old('country') }}",
@@ -259,7 +259,7 @@
                         countryStates: @json(core()->groupedStatesByCountries()),
                     }
                 },
-    
+
                 methods: {
                     haveStates() {
                         /*

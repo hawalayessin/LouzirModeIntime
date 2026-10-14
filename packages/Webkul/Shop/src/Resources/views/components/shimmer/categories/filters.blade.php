@@ -1,4 +1,4 @@
-<div class="panel-side journal-scroll grid max-h-[1320px] min-w-[342px] max-w-[400px] grid-cols-[1fr] overflow-y-auto overflow-x-hidden max-xl:min-w-[270px] ltr:pr-7 rtl:pl-7">
+<div class="louzir-filter-panel panel-side journal-scroll">
     <div class="flex h-[50px] items-center justify-between border-b border-zinc-200 py-2.5 max-md:hidden">
         <p class="shimmer h-6 w-[30%]"></p>
         <p class="shimmer h-5 w-1/5"></p>

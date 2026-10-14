@@ -6,7 +6,7 @@
         id="v-range-slider-template"
     >
         <div>
-            <div class="flex items-center gap-4">
+            <div class="louzir-range-label">
                 <p class="text-base max-sm:text-sm">
                     @lang('shop::app.components.range-slider.range')
                 </p>
@@ -16,7 +16,7 @@
                 </p>
             </div>
 
-            <div class="relative mx-auto flex h-20 w-full items-center justify-center p-2">
+            <div class="louzir-range-track relative mx-auto flex w-full items-center justify-center">
                 <div class="relative h-1 w-full rounded-2xl bg-gray-200">
                     <div
                         ref="progress"

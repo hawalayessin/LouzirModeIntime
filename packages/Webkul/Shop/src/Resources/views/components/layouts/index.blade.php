@@ -81,6 +81,8 @@
 
         @stack('styles')
 
+        @include('shop::categories.styles')
+
         @if ($hasFooter)
             @include('shop::components.layouts.footer.styles')
         @endif

@@ -2,7 +2,7 @@
     <!-- Page Title -->
     <x-slot:title>
         @lang('shop::app.customers.account.addresses.edit.edit')
-        @lang('shop::app.customers.account.addresses.edit.title') 
+        @lang('shop::app.customers.account.addresses.edit.title')
     </x-slot>
 
     <!-- Breadcrumbs -->
@@ -228,7 +228,7 @@
                 >
                     @lang('shop::app.customers.account.addresses.edit.update-btn')
                 </button>
-                
+
                 {!! view_render_event('bagisto.shop.customers.account.address.edit_form_controls.after', ['address' => $address]) !!}
 
             </x-shop::form>
@@ -249,7 +249,7 @@
                         countryStates: @json(core()->groupedStatesByCountries()),
                     };
                 },
-    
+
                 methods: {
                     haveStates() {
                         return !!this.countryStates[this.addressData.country]?.length;

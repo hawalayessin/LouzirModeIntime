@@ -1,11 +1,11 @@
-<div class="container px-[60px] max-lg:px-8 max-sm:px-4">
-    <div class="flex items-start gap-10 max-lg:gap-5 md:mt-10">
+<div class="louzir-catalog-shell">
+    <div class="louzir-catalog-layout md:mt-10">
         <!-- Desktop Filter Shimmer Effect -->
-        <div class="max-md:hidden">
+        <div class="louzir-filter-sidebar max-md:hidden">
             <x-shop::shimmer.categories.filters />
         </div>
 
-        <div class="flex-1">
+        <div class="louzir-catalog-products">
             <!-- Desktop Toolbar Shimmer Effect -->
             <div class="max-md:hidden">
                 <x-shop::shimmer.categories.toolbar />

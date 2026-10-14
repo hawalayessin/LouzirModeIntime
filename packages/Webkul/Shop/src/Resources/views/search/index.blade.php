@@ -22,7 +22,7 @@
         {{ $title }}
     </x-slot>
 
-    <div class="container px-[60px] max-lg:px-8 max-sm:px-4">
+    <div class="louzir-catalog-shell">
         @if (request()->has('image-search'))
             @include('shop::search.images.results')
         @endif
@@ -81,13 +81,13 @@
             type="text/x-template"
             id="v-search-template"
         >
-            <div class="container px-[60px] max-lg:px-8 max-sm:px-4">
-                <div class="flex items-start gap-10 max-lg:gap-5 md:mt-10">
+            <div class="louzir-catalog-shell">
+                <div class="louzir-catalog-layout md:mt-10">
                     <!-- Product Listing Filters -->
                     @include('shop::categories.filters')
 
                     <!-- Product Listing Container -->
-                    <div class="flex-1">
+                    <div class="louzir-catalog-products">
                         <!-- Desktop Product Listing Toolbar -->
                         <div class="max-md:hidden">
                             @include('shop::categories.toolbar')

@@ -3,64 +3,92 @@
 @pushOnce('styles')
     <style>
         .louzir-cookie-consent {
-            width: min(30rem, calc(100vw - 2rem));
-            border: 1px solid #e2d8cf;
-            border-radius: 0.5rem;
-            background: #fffaf6;
-            padding: 1.25rem;
-            color: #171717;
-            box-shadow: 0 18px 45px rgb(49 38 31 / 18%);
+            width: min(35rem, calc(100vw - 1.25rem));
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 1.25rem;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            padding: 1.25rem 1.25rem 1rem;
+            color: #111827;
+            box-shadow: 0 22px 55px rgba(15, 23, 42, 0.16);
         }
 
         .louzir-cookie-consent .cookie-title {
-            color: #171717;
-            font-family: 'DM Serif Display', Georgia, serif;
-            font-size: 1.35rem;
-            line-height: 1.2;
+            color: #111827;
+            font-size: 1.3rem;
+            line-height: 1.25;
+            letter-spacing: -0.03em;
+            font-weight: 700;
         }
 
         .louzir-cookie-consent .cookie-description {
-            color: #665b55;
-            font-size: 0.875rem;
-            line-height: 1.5;
+            color: #4b5563;
+            font-size: 0.9rem;
+            line-height: 1.65;
+            margin: 0;
         }
 
         .louzir-cookie-consent .cookie-description a {
-            color: #171717;
+            color: #111827;
             text-decoration: underline;
+            text-underline-offset: 0.2em;
+            font-weight: 600;
         }
 
         .louzir-cookie-consent .cookie-actions {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 0.5rem;
+            gap: 0.75rem;
             margin-top: 1rem;
         }
 
         .louzir-cookie-consent button,
         .louzir-cookie-consent .cookie-customize {
-            border-radius: 0.25rem;
-            padding: 0.7rem 0.75rem;
-            font-size: 0.8rem;
-            font-weight: 600;
+            border-radius: 0.875rem;
+            padding: 0.8rem 0.9rem;
+            font-size: 0.82rem;
+            font-weight: 700;
             text-align: center;
+            transition: all 0.2s ease;
         }
 
         .louzir-cookie-consent .cookie-accept {
-            background: #171717;
+            background: linear-gradient(135deg, #111827 0%, #374151 100%);
             color: #fff;
+            border: none;
+            box-shadow: 0 10px 24px rgba(17, 24, 39, 0.18);
         }
 
         .louzir-cookie-consent .cookie-reject,
         .louzir-cookie-consent .cookie-customize {
-            border: 1px solid #cfc3ba;
-            background: transparent;
-            color: #171717;
+            border: 1px solid rgba(17, 24, 39, 0.12);
+            background: rgba(255, 255, 255, 0.7);
+            color: #111827;
         }
 
         .louzir-cookie-consent .cookie-customize {
             display: block;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
+            width: 100%;
+        }
+
+        .louzir-cookie-consent .cookie-accept:hover,
+        .louzir-cookie-consent .cookie-reject:hover,
+        .louzir-cookie-consent .cookie-customize:hover {
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 640px) {
+            .louzir-cookie-consent {
+                width: min(100%, calc(100vw - 1rem));
+                border-radius: 1rem;
+                padding: 1rem;
+            }
+
+            .louzir-cookie-consent .cookie-actions {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 @endPushOnce
