@@ -1,15 +1,15 @@
 {!! view_render_event('bagisto.shop.settings.gdpr.modal.before') !!}
 
-@pushOnce('styles')
-    <style>
+<style>
         .louzir-cookie-consent {
             width: min(30rem, calc(100vw - 2rem));
-            border: 1px solid #e2d8cf;
-            border-radius: 0.5rem;
+            border: 1px solid #ded1c6;
+            border-radius: 0.75rem;
             background: #fffaf6;
-            padding: 1.25rem;
+            padding: 1.35rem;
             color: #171717;
-            box-shadow: 0 18px 45px rgb(49 38 31 / 18%);
+            box-shadow: 0 20px 55px rgb(49 38 31 / 24%);
+            font-family: "Poppins", "Segoe UI", sans-serif;
         }
 
         .louzir-cookie-consent .cookie-title {
@@ -17,6 +17,10 @@
             font-family: 'DM Serif Display', Georgia, serif;
             font-size: 1.35rem;
             line-height: 1.2;
+        }
+
+        .louzir-cookie-consent .cookieTitle {
+            margin-bottom: .45rem;
         }
 
         .louzir-cookie-consent .cookie-description {
@@ -39,11 +43,23 @@
 
         .louzir-cookie-consent button,
         .louzir-cookie-consent .cookie-customize {
+            border: 1px solid transparent;
             border-radius: 0.25rem;
             padding: 0.7rem 0.75rem;
             font-size: 0.8rem;
             font-weight: 600;
             text-align: center;
+        }
+
+        .louzir-cookie-consent button:hover,
+        .louzir-cookie-consent .cookie-customize:hover {
+            border-color: #79573d;
+        }
+
+        .louzir-cookie-consent button:focus-visible,
+        .louzir-cookie-consent a:focus-visible {
+            outline: 2px solid #79573d;
+            outline-offset: 2px;
         }
 
         .louzir-cookie-consent .cookie-accept {
@@ -62,8 +78,18 @@
             display: block;
             margin-top: 0.5rem;
         }
-    </style>
-@endPushOnce
+
+        @media (max-width: 480px) {
+            .louzir-cookie-consent {
+                width: calc(100vw - 1rem);
+                padding: 1rem;
+            }
+
+            .louzir-cookie-consent .cookie-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+</style>
 
 <v-cookie></v-cookie>
 
@@ -80,13 +106,15 @@
                 <div
                     class="js-cookie-consent louzir-cookie-consent fixed z-[999] mx-4 box-border hidden min-h-5 overflow-hidden"
                     :class="getPositionClasses(position)"
+                    style="width:min(20rem, calc(100vw - 1.5rem)); border:1px solid #ded1c6; border-radius:1rem; background:#fffaf6; padding:1rem; color:#171717; box-shadow:0 16px 38px rgb(49 38 31 / 20%); font-family:Poppins, 'Segoe UI', sans-serif;"
                 >
                     <div class="cookieTitle">
                         <span
                             class="cookie-title mb-1.5 block"
                             v-pre
+                            style="display:block; margin-bottom:.4rem; color:#231f1c; font-family:'DM Serif Display', Georgia, serif; font-size:1.05rem; font-weight:600; line-height:1.2;"
                         >
-                            {{ core()->getConfigData('general.gdpr.cookie.static_block_identifier') }}
+                            Accepter les cookies
                         </span>
                     </div>
 
@@ -94,6 +122,7 @@
                         <p
                             class="cookie-description mt-2.5 block"
                             v-pre
+                            style="margin:.35rem 0 .8rem; color:#665b55; font-size:.75rem; line-height:1.5;"
                         >
                             {{ core()->getConfigData('general.gdpr.cookie.description') }}
 
@@ -106,10 +135,11 @@
                     </div>
 
                     <div class="cookieButton">
-                        <div class="cookie-actions">
+                        <div class="cookie-actions" style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:.4rem; margin-top:.7rem;">
                             <button
                                 class="cookie-accept box-border inline-block w-full cursor-pointer"
                                 @click="createCookie()"
+                                style="min-height:2.15rem; border:1px solid #231f1c; border-radius:.4rem; background:#231f1c; color:#fff; padding:.45rem .55rem; font-size:.7rem; font-weight:600;"
                             >
                                 @lang('shop::app.components.layouts.cookie.index.accept')
                             </button>
@@ -117,6 +147,7 @@
                             <button
                                 class="cookie-reject box-border inline-block w-full cursor-pointer"
                                 @click="rejectCookie()"
+                                style="min-height:2.15rem; border:1px solid #cfc3ba; border-radius:.4rem; background:transparent; color:#231f1c; padding:.45rem .55rem; font-size:.7rem; font-weight:600;"
                             >
                                 @lang('shop::app.components.layouts.cookie.index.reject')
                             </button>
@@ -125,6 +156,7 @@
                         <a
                             class="cookie-customize box-border w-full cursor-pointer"
                             href="{{ route('shop.customers.gdpr.cookie-consent') }}"
+                            style="display:block; margin-top:.55rem; color:#79573d; font-size:.68rem; text-align:center; text-decoration:underline; text-underline-offset:2px;"
                         >
                             @lang('shop::app.components.layouts.cookie.index.learn-more-and-customize')
                         </a>

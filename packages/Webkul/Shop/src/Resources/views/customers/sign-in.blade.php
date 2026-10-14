@@ -311,6 +311,39 @@
             box-shadow: 0 0 0 1px var(--auth-accent);
         }
 
+        .louzir-password-group {
+            position: relative;
+        }
+
+        .louzir-password-toggle {
+            position: absolute;
+            top: 29px;
+            right: 10px;
+            display: grid;
+            width: 30px;
+            height: 30px;
+            place-items: center;
+            border-radius: 5px;
+            color: var(--auth-muted);
+            transition: color .15s ease, background .15s ease;
+        }
+
+        .louzir-password-toggle:hover,
+        .louzir-password-toggle:focus-visible {
+            background: var(--auth-soft);
+            color: var(--auth-accent);
+            outline: none;
+        }
+
+        .louzir-password-eye {
+            width: 17px;
+            height: 17px;
+        }
+
+        .louzir-password-input {
+            padding-right: 45px !important;
+        }
+
         .louzir-form-options {
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto;
@@ -329,10 +362,46 @@
         }
 
         .louzir-checkbox-line input {
-            width: 13px;
-            height: 13px;
+            width: 15px;
+            height: 15px;
+            margin: 0;
+            border: 1.5px solid #cfc3ba;
+            border-radius: 4px;
+            background: #fff;
             accent-color: var(--auth-accent);
             flex-shrink: 0;
+        }
+
+        .louzir-terms-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 16px;
+            color: var(--auth-muted);
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .louzir-terms-line input {
+            width: 15px;
+            height: 15px;
+            margin: 0;
+            flex: 0 0 auto;
+            border: 1.5px solid #cfc3ba;
+            border-radius: 4px;
+            background: #fff;
+            accent-color: var(--auth-accent);
+        }
+
+        .louzir-terms-line label {
+            margin: 0;
+            color: var(--auth-muted);
+            cursor: pointer;
+            font-size: inherit;
+        }
+
+        .louzir-terms-line label:hover {
+            color: var(--auth-accent);
         }
 
         .louzir-forgot-link {
@@ -650,14 +719,14 @@
                             </x-shop::form.control-group>
 
                             <!-- Password -->
-                            <x-shop::form.control-group>
+                            <x-shop::form.control-group class="louzir-password-group">
                                 <x-shop::form.control-group.label class="required">
                                     @lang('shop::app.customers.login-form.password')
                                 </x-shop::form.control-group.label>
 
                                 <x-shop::form.control-group.control
                                     type="password"
-                                    class="px-4 py-3"
+                                    class="louzir-password-input px-4 py-3"
                                     id="password"
                                     name="password"
                                     rules="required|min:6"
@@ -667,6 +736,20 @@
                                     :aria-label="trans('shop::app.customers.login-form.password')"
                                     aria-required="true"
                                 />
+
+                                <button
+                                    type="button"
+                                    class="louzir-password-toggle"
+                                    aria-label="Afficher ou masquer le mot de passe"
+                                    title="Afficher ou masquer le mot de passe"
+                                    aria-pressed="false"
+                                    onclick="switchVisibility(this)"
+                                >
+                                    <svg class="louzir-password-eye" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                        <path d="M2.5 12s3.5-5 9.5-5 9.5 5 9.5 5-3.5 5-9.5 5-9.5-5-9.5-5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                                        <circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.7"/>
+                                    </svg>
+                                </button>
 
                                 <x-shop::form.control-group.error control-name="password" />
                             </x-shop::form.control-group>
@@ -694,22 +777,16 @@
                                 core()->getConfigData('general.gdpr.settings.enabled')
                                 && core()->getConfigData('general.gdpr.agreement.enabled')
                             )
-                                <div class="mb-4 flex select-none items-start gap-2">
-                                    <x-shop::form.control-group.control
+                                <div class="louzir-terms-line">
+                                    <input
                                         type="checkbox"
                                         name="agreement"
-                                        :label="trans('shop::app.customers.signup-form.terms-conditions')"
                                         id="login-agreement"
-                                        value="0"
-                                        rules="required"
-                                        for="login-agreement"
-                                    />
-
-                                    <label
-                                        class="cursor-pointer select-none text-xs leading-5 text-[#5f6166]"
-                                        for="login-agreement"
-                                        v-pre
+                                        value="1"
+                                        required
                                     >
+
+                                    <label for="login-agreement">
                                         {{ core()->getConfigData('general.gdpr.agreement.agreement_label') }}
                                     </label>
                                 </div>
@@ -740,7 +817,7 @@
 
                     <div class="louzir-security-note">
                         <span>*</span>
-                        <span>Votre espace, en toute confidentialite.</span>
+                        <span>Votre espace, en toute confidentialité.</span>
                     </div>
                 </div>
 
@@ -775,12 +852,19 @@
         {!! \Webkul\Customer\Facades\Captcha::renderJS() !!}
 
         <script>
-            function switchVisibility() {
+            function switchVisibility(toggleButton) {
                 let passwordField = document.getElementById("password");
 
                 passwordField.type = passwordField.type === "password"
                     ? "text"
                     : "password";
+
+                if (toggleButton) {
+                    toggleButton.setAttribute('aria-pressed', passwordField.type === 'text' ? 'true' : 'false');
+                    toggleButton.setAttribute('title', passwordField.type === 'text'
+                        ? 'Masquer le mot de passe'
+                        : 'Afficher le mot de passe');
+                }
             }
         </script>
     @endpush

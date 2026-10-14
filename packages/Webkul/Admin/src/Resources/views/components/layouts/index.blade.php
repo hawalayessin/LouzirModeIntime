@@ -73,7 +73,7 @@
     @else
         <link
             type="image/x-icon"
-            href="{{ bagisto_asset('images/favicon.ico') }}"
+            href="{{ asset('assets/louzir.png') }}"
             rel="shortcut icon"
             sizes="16x16"
         />
