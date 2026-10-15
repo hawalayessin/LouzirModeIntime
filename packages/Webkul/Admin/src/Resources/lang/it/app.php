@@ -5457,7 +5457,7 @@ return [
     ],
 
     'footer' => [
-        'copy-right' => 'Realizzato da <a href="https://bagisto.com/" target="_blank">LouzirModeIntime</a>, un progetto della community di <a href="https://webkul.com/" target="_blank">Webkul</a>',
+        'copy-right' => 'LouzirModeIntime',
     ],
 
     'emails' => [

@@ -5457,7 +5457,7 @@ return [
     ],
 
     'footer' => [
-        'copy-right' => 'Разработано на платформе <a href="https://bagisto.com/" target="_blank">LouzirModeIntime</a>, Проект сообщества <a href="https://webkul.com/" target="_blank">Webkul</a>',
+        'copy-right' => 'LouzirModeIntime',
     ],
 
     'emails' => [

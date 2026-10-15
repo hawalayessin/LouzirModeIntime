@@ -616,7 +616,7 @@ class Installer extends Command
             return;
         }
 
-        $repoUrl = 'https://github.com/bagisto/bagisto';
+        $repoUrl = 'https://github.com/hawalayessin/LouzirModeIntime';
 
         if (PHP_OS_FAMILY == 'Darwin') {
             exec("open {$repoUrl}");

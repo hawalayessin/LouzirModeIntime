@@ -5457,7 +5457,7 @@ return [
     ],
 
     'footer' => [
-        'copy-right' => 'מופעל על ידי <a href="https://bagisto.com/" target="_blank">LouzirModeIntime</a>, פרויקט קהילתי על ידי <a href="https://webkul.com/" target="_blank">Webkul</a>',
+        'copy-right' => 'LouzirModeIntime',
     ],
 
     'emails' => [
