@@ -111,8 +111,8 @@ class Channel extends TranslatableModel implements ChannelContract
      */
     public function logo_url()
     {
-        if (! $this->logo) {
-            return;
+        if (! $this->logo || ! Storage::exists($this->logo)) {
+            return asset('assets/logo-auth-transparent.png');
         }
 
         return Storage::url($this->logo);

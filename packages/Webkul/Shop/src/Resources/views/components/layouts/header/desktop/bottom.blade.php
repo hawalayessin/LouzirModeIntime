@@ -10,10 +10,7 @@
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.before') !!}
 
         @php
-            $shopLogo = core()->getCurrentChannel()->logo_url
-                ?: (core()->getConfigData('general.design.admin_logo.logo_image')
-                    ? Storage::url(core()->getConfigData('general.design.admin_logo.logo_image'))
-                    : asset('assets/louzir-logo.png'));
+            $shopLogo = core()->getCurrentChannel()->logo_url;
         @endphp
 
         <a

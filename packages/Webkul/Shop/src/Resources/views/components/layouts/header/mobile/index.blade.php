@@ -22,10 +22,7 @@
             {!! view_render_event('bagisto.shop.components.layouts.header.mobile.logo.before') !!}
 
             @php
-                $mobileShopLogo = core()->getCurrentChannel()->logo_url
-                    ?: (core()->getConfigData('general.design.admin_logo.logo_image')
-                        ? Storage::url(core()->getConfigData('general.design.admin_logo.logo_image'))
-                        : asset('assets/louzir-logo.png'));
+                $mobileShopLogo = core()->getCurrentChannel()->logo_url;
             @endphp
 
             <a

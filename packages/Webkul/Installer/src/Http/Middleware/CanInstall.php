@@ -5,7 +5,6 @@ namespace Webkul\Installer\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Str;
 use Webkul\Installer\Helpers\DatabaseManager;
 
 class CanInstall
@@ -17,7 +16,15 @@ class CanInstall
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Str::contains($request->getPathInfo(), '/install')) {
+        $isInstallerRequest = $request->is('install', 'install/*');
+
+        if (! config('installer.enabled')) {
+            return $isInstallerRequest
+                ? response('Not Found', 404)
+                : $next($request);
+        }
+
+        if ($isInstallerRequest) {
             if ($this->isAlreadyInstalled()) {
                 if (! $request->ajax()) {
                     return redirect()->route('shop.home.index');

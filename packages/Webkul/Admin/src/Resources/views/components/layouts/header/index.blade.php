@@ -16,7 +16,7 @@
             @php
                 $configuredAdminLogo = core()->getConfigData('general.design.admin_logo.logo_image');
                 $defaultAdminLogo = request()->cookie('dark_mode') ? asset('assets/louzir-logo.png') : asset('assets/logo2.png');
-                $adminLogoUrl = $configuredAdminLogo ? Storage::url($configuredAdminLogo) : $defaultAdminLogo;
+                $adminLogoUrl = $configuredAdminLogo && Storage::exists($configuredAdminLogo) ? Storage::url($configuredAdminLogo) : $defaultAdminLogo;
             @endphp
 
             <img

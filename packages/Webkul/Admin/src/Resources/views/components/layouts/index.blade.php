@@ -54,7 +54,7 @@
 
     @php
         $configuredAdminLogo = core()->getConfigData('general.design.admin_logo.logo_image');
-        $preloadAdminLogo = $configuredAdminLogo ? Storage::url($configuredAdminLogo) : asset('assets/logo2.png');
+        $preloadAdminLogo = $configuredAdminLogo && Storage::exists($configuredAdminLogo) ? Storage::url($configuredAdminLogo) : asset('assets/logo2.png');
     @endphp
 
     <link
