@@ -132,10 +132,10 @@ return [
 
         'core' => [
             'channels' => [
-                'meta-description' => 'Demo store meta description',
-                'meta-keywords' => 'Demo store meta keyword',
-                'meta-title' => 'Demo store',
-                'name' => 'Default',
+                'meta-description' => 'Discover lingerie, nightwear and loungewear at LouzirModeIntime.',
+                'meta-keywords' => 'LouzirModeIntime, lingerie, nightwear, loungewear',
+                'meta-title' => 'LouzirModeIntime',
+                'name' => 'LouzirModeIntime',
             ],
 
             'currencies' => [
