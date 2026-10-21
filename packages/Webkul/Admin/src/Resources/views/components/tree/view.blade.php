@@ -83,7 +83,7 @@
 
                 fallbackLocale: {
                     type: String,
-                    required: 'en',
+                    default: 'en',
                 },
 
                 collapse: {
@@ -137,9 +137,15 @@
                 },
 
                 getLabel(item) {
-                    return item[this.labelField]
-                        ? item[this.labelField]
-                        : item.translations.filter((translation) => translation.locale === this.fallbackLocale)[0][this.labelField];
+                    if (item[this.labelField]) return item[this.labelField];
+
+                    const translations = Array.isArray(item.translations) ? item.translations : [];
+                    const translated = locale => translations.find(translation => translation.locale === locale && translation[this.labelField]);
+                    const translation = translated(document.documentElement.lang)
+                        || translated(this.fallbackLocale)
+                        || translations.find(translation => translation[this.labelField]);
+
+                    return translation?.[this.labelField] ?? String(item[this.idField] ?? item[this.valueField] ?? '');
                 },
 
                 generateToggleIconComponent(props) {

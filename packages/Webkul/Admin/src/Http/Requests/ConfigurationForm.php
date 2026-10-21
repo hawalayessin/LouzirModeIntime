@@ -61,6 +61,14 @@ class ConfigurationForm extends FormRequest
 
                 $rules[$key] = ['nullable', 'string', 'max:2000'];
 
+                if ($field['type'] === 'boolean') {
+                    $rules[$key] = ['required', 'boolean'];
+                } elseif ($field['type'] === 'number') {
+                    $rules[$key] = ['required', 'integer', 'min:'.$field['min'], 'max:'.$field['max']];
+                } elseif ($field['type'] === 'select') {
+                    $rules[$key] = ['required', 'in:'.implode(',', $field['options'])];
+                }
+
                 if (in_array($field['type'], ['link', 'map'])) {
                     $rules[$key][] = function ($attribute, $value, $fail) use ($field) {
                         if (! is_string($value) || ! HomeContent::validUrl($value, $field['type'] === 'map')) {

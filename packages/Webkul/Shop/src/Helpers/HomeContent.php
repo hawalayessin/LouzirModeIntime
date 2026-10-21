@@ -39,14 +39,28 @@ class HomeContent
                 : ($records->firstWhere('locale_code', null) ?? $records->first());
             $value = $record?->value;
             $fallback = isset($field['translation'])
-                ? trans('shop::app.home.storefront.'.$field['translation'], [], $locale)
+                ? trans(str_contains($field['translation'], '::') ? $field['translation'] : 'shop::app.home.storefront.'.$field['translation'], [], $locale)
                 : $field['fallback'];
 
             if ($field['type'] === 'image') {
-                return $value ? Storage::url($value) : asset($fallback);
+                return $value && Storage::exists($value) ? Storage::url($value) : asset($fallback);
             }
 
             $value = $value === null || $value === '' ? $fallback : $value;
+
+            if ($field['type'] === 'boolean') {
+                return in_array((string) $value, ['0', '1'], true) ? (string) $value : $fallback;
+            }
+
+            if ($field['type'] === 'number') {
+                $number = filter_var($value, FILTER_VALIDATE_INT);
+
+                return (string) max($field['min'], min($field['max'], $number === false ? (int) $fallback : $number));
+            }
+
+            if ($field['type'] === 'select' && ! in_array($value, $field['options'], true)) {
+                return $fallback;
+            }
 
             if (in_array($field['type'], ['link', 'map']) && ! self::validUrl($value, $field['type'] === 'map')) {
                 return $fallback;

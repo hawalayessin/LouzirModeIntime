@@ -275,7 +275,7 @@ class Core
      */
     public function getCurrentLocale()
     {
-        if ($this->currentLocale) {
+        if ($this->currentLocale && $this->currentLocale->code === app()->getLocale()) {
             return $this->currentLocale;
         }
 

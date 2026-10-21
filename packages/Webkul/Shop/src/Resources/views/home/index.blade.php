@@ -2,241 +2,195 @@
 
 @php
     $channel = core()->getCurrentChannel();
+    $marqueeItems = collect(range(1, 4))->map(fn ($index) => $homeContent->value('marquee-item-'.$index))->filter();
 @endphp
 
-<!-- SEO Meta Content -->
-@push ('meta')
-    <meta
-        name="title"
-        content="{{ $channel->home_seo['meta_title'] ?? '' }}"
-    />
+@push('meta')
+    <meta name="title" content="{{ $channel->home_seo['meta_title'] ?? '' }}">
+    <meta name="description" content="{{ $channel->home_seo['meta_description'] ?? '' }}">
+    <meta name="keywords" content="{{ $channel->home_seo['meta_keywords'] ?? '' }}">
+@endpush
 
-    <meta
-        name="description"
-        content="{{ $channel->home_seo['meta_description'] ?? '' }}"
-    />
-
-    <meta
-        name="keywords"
-        content="{{ $channel->home_seo['meta_keywords'] ?? '' }}"
-    />
-@endPush
+@push('styles')
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    @include('shop::home.styles')
+@endpush
 
 @push('scripts')
     @include('shop::home.motion')
 
-    @if(! empty($categories))
+    @if (! empty($categories))
         <script>
             localStorage.setItem('categories', JSON.stringify(@json($categories)));
         </script>
     @endif
 @endpush
 
-@push('styles')
-    @include('shop::home.styles')
-@endpush
-
 <x-shop::layouts :has-feature="false">
-    <x-slot:title>
-        {{  $channel->home_seo['meta_title'] ?? 'Louzir Mode Intime' }}
-    </x-slot>
+    <x-slot:title>{{ $channel->home_seo['meta_title'] ?? config('app.name') }}</x-slot>
 
-    <div class="louzir-home" v-pre>
-        <section class="louzir-hero">
-            <img
-                class="louzir-hero-photo"
-                src="{{ $homeContent->value('image-1') }}"
-                alt="{{ $homeContent->value('hero-image-alt') }}"
-                width="1408"
-                height="768"
-                fetchpriority="high"
+    <div class="louzir-home">
+        @if ($homeContent->value('marquee-enabled') === '1' && $marqueeItems->isNotEmpty())
+            <section
+                class="louzir-marquee"
+                style="--marquee-duration: {{ $homeContent->value('marquee-speed') }}s"
+                aria-label="@lang('shop::home.marquee-label')"
+                v-pre
             >
-            <div class="louzir-shell louzir-hero-grid">
-                <div class="louzir-hero-copy">
-                    <span class="louzir-kicker">{{ $homeContent->value('hero-kicker') }}</span>
-
-                    <h1 class="louzir-title" translate="no">{{ config('app.name') }}</h1>
-
-                    <p class="louzir-hero-tagline">
-                        {{ $homeContent->value('hero-title-start') }}
-                        {{ $homeContent->value('hero-title-emphasis') }}
-                    </p>
-
-                    <p class="louzir-hero-description">
-                        {{ $homeContent->value('hero-description') }}
-                    </p>
-
-                    <div class="louzir-actions">
-                        <a href="{{ $homeContent->value('hero-discover-url') }}" class="louzir-button primary">{{ $homeContent->value('hero-discover') }}</a>
-                        <a href="{{ $homeContent->value('hero-stores-url') }}" class="louzir-button secondary">{{ $homeContent->value('hero-stores') }}</a>
-                    </div>
-
-                    <div class="louzir-socials">
-                        <span>{{ $homeContent->value('official-socials') }}</span>
-                        <a class="louzir-chip" href="{{ $homeContent->value('facebook-url') }}" target="_blank" rel="noopener noreferrer">Facebook</a>
-                        <a class="louzir-chip" href="{{ $homeContent->value('linktree-url') }}" target="_blank" rel="noopener noreferrer">Linktree</a>
+                <div class="louzir-marquee-window">
+                    <div class="louzir-marquee-track">
+                        @for ($copy = 0; $copy < 2; $copy++)
+                            <div class="louzir-marquee-group" @if ($copy) aria-hidden="true" @endif>
+                                @foreach ($marqueeItems as $message)
+                                    <span>{{ $message }} <span class="icon-star" aria-hidden="true"></span></span>
+                                @endforeach
+                            </div>
+                        @endfor
                     </div>
                 </div>
+                <button
+                    type="button"
+                    class="louzir-marquee-toggle"
+                    aria-label="@lang('shop::home.pause')"
+                    title="@lang('shop::home.pause')"
+                    data-pause-label="@lang('shop::home.pause')"
+                    data-resume-label="@lang('shop::home.resume')"
+                    aria-pressed="false"
+                ><span class="louzir-pause-symbol" aria-hidden="true"></span></button>
+            </section>
+        @endif
 
+        @if ($homeContent->value('hero-enabled') === '1')
+            <section class="louzir-hero" v-pre>
+                <img class="louzir-hero-photo" src="{{ $homeContent->value('image-1') }}"
+                    alt="{{ $homeContent->value('hero-image-alt') }}" width="1408" height="768" fetchpriority="high">
+                <div class="louzir-shell louzir-hero-grid">
+                    <div class="louzir-hero-copy">
+                        <span class="louzir-kicker louzir-hero-kicker">{{ $homeContent->value('hero-kicker') }}</span>
+                        <h1 class="louzir-title" translate="no">{{ $homeContent->value('hero-brand-title') }}</h1>
+                        <p class="louzir-hero-tagline">{{ $homeContent->value('hero-title-start') }} {{ $homeContent->value('hero-title-emphasis') }}</p>
+                        <p class="louzir-hero-description">{{ $homeContent->value('hero-description') }}</p>
+                        <div class="louzir-actions">
+                            <a href="{{ $homeContent->value('hero-discover-url') }}" class="louzir-button primary">{{ $homeContent->value('hero-discover') }}</a>
+                            <a href="{{ $homeContent->value('hero-stores-url') }}" class="louzir-button secondary">{{ $homeContent->value('hero-stores') }}</a>
+                        </div>
+                        <div class="louzir-socials">
+                            <span>{{ $homeContent->value('official-socials') }}</span>
+                            <a class="louzir-chip" href="{{ $homeContent->value('facebook-url') }}" target="_blank" rel="noopener noreferrer">Facebook</a>
+                            <a class="louzir-chip" href="{{ $homeContent->value('linktree-url') }}" target="_blank" rel="noopener noreferrer">Linktree</a>
+                        </div>
+                    </div>
+                </div>
+                <span class="louzir-hero-edition">{{ $homeContent->value('edition') }}</span>
+            </section>
+            <div class="louzir-shell louzir-edition" v-pre>
+                <div><span>{{ $homeContent->value('arrival') }}</span><p>{{ $homeContent->value('soft-fabrics') }}</p></div>
+                <strong>{{ $homeContent->value('edition') }}</strong>
             </div>
-        </section>
+        @endif
 
-        <div class="louzir-shell louzir-edition">
-            <div>
-                <span>{{ $homeContent->value('arrival') }}</span>
-                <p>{{ $homeContent->value('soft-fabrics') }}</p>
-            </div>
-            <strong>{{ $homeContent->value('edition') }}</strong>
-        </div>
+        @if ($homeContent->value('services-enabled') === '1')
+            <section class="louzir-strip" v-pre>
+                <div class="louzir-shell louzir-strip-grid">
+                    @foreach (['fabrics' => 'icon-star', 'family' => 'icon-heart', 'boutique' => 'icon-location'] as $service => $icon)
+                        <div class="louzir-feature">
+                            <span class="louzir-feature-icon {{ $icon }}" aria-hidden="true"></span>
+                            <div>
+                                <h3>{{ $homeContent->value('feature-'.$service.'-title') }}</h3>
+                                <p>{{ $homeContent->value('feature-'.$service.'-description') }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </section>
+        @endif
 
-        <section class="louzir-strip">
-            <div class="louzir-shell louzir-strip-grid">
-                <div class="louzir-feature">
-                    <span class="louzir-feature-icon">✦</span>
-                    <div>
-                        <h3 class="font-semibold">{{ $homeContent->value('feature-fabrics-title') }}</h3>
-                        <p class="mt-1 text-sm leading-6 text-gray-600">{{ $homeContent->value('feature-fabrics-description') }}</p>
+        @if ($homeContent->value('collections-enabled') === '1')
+            <section class="louzir-products" id="collections" v-pre>
+                <div class="louzir-shell">
+                    <div class="louzir-section-head">
+                        <div>
+                            <span class="louzir-kicker">{{ $homeContent->value('collections-kicker') }}</span>
+                            <h2 class="louzir-title">{{ $homeContent->value('collections-title') }}</h2>
+                        </div>
+                        <p>{{ $homeContent->value('collections-description') }}</p>
+                    </div>
+                    <div class="louzir-bento">
+                        @foreach (['feminine' => 'image-2', 'lounge' => 'image-3', 'family' => 'image-4', 'new-arrivals' => 'image-5'] as $collection => $image)
+                            <article class="louzir-card">
+                                <div class="louzir-card-media">
+                                    <img src="{{ $homeContent->value($image) }}" alt="{{ $homeContent->value($collection.'-image-alt') }}"
+                                        width="1408" height="768" loading="lazy" decoding="async">
+                                    <span class="louzir-media-badge">{{ $homeContent->value($collection.'-badge') }}</span>
+                                </div>
+                                <div class="louzir-card-content">
+                                    <span class="louzir-kicker">{{ $homeContent->value($collection.'-kicker') }}</span>
+                                    <h3>{{ $homeContent->value($collection.'-title') }}</h3>
+                                    <p>{{ $homeContent->value($collection.'-description') }}</p>
+                                </div>
+                                @if ($homeContent->value($collection.'-url'))
+                                    <a class="louzir-card-link" href="{{ $homeContent->value($collection.'-url') }}"
+                                        aria-label="{{ $homeContent->value($collection.'-title') }}"></a>
+                                @endif
+                            </article>
+                        @endforeach
                     </div>
                 </div>
+            </section>
+        @endif
 
-                <div class="louzir-feature">
-                    <span class="louzir-feature-icon">♡</span>
-                    <div>
-                        <h3 class="font-semibold">{{ $homeContent->value('feature-family-title') }}</h3>
-                        <p class="mt-1 text-sm leading-6 text-gray-600">{{ $homeContent->value('feature-family-description') }}</p>
+        @if ($homeContent->value('signature-enabled') === '1')
+            @include('shop::home.signature')
+        @endif
+
+        @if ($homeContent->value('boutiques-enabled') === '1')
+            <section class="louzir-boutiques" id="boutiques" v-pre>
+                <div class="louzir-shell">
+                    <div class="louzir-section-head">
+                        <div>
+                            <span class="louzir-kicker">{{ $homeContent->value('addresses-kicker') }}</span>
+                            <h2 class="louzir-title">{{ $homeContent->value('addresses-title') }}</h2>
+                        </div>
+                        <p>{{ $homeContent->value('addresses-description') }}</p>
+                    </div>
+                    <div class="louzir-boutique-grid">
+                        @foreach (['sahloul', 'jemmel'] as $store)
+                            <article class="louzir-boutique-card">
+                                <div class="louzir-boutique-info">
+                                    <h3>{{ $homeContent->value($store.'-name') }}</h3>
+                                    <p>{{ $homeContent->value($store.'-address') }}</p>
+                                </div>
+                                <a class="louzir-map-preview" href="{{ $homeContent->value($store.'-directions-url') }}"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <img src="{{ $homeContent->value($store.'-image') }}" alt="{{ $homeContent->value($store.'-name') }}"
+                                        loading="lazy" decoding="async">
+                                    <span>@lang('shop::home.store-map') <span class="icon-arrow-right" aria-hidden="true"></span></span>
+                                </a>
+                                <div class="louzir-boutique-actions">
+                                    <a class="louzir-button primary" href="{{ $homeContent->value($store.'-directions-url') }}" target="_blank" rel="noopener noreferrer">{{ $homeContent->value($store.'-directions') }}</a>
+                                    <a class="louzir-button secondary" href="{{ $homeContent->value('phone-url') }}"><span class="icon-support" aria-hidden="true"></span>{{ $homeContent->value('call-us') }}</a>
+                                </div>
+                            </article>
+                        @endforeach
                     </div>
                 </div>
+            </section>
+        @endif
 
-                <div class="louzir-feature">
-                    <span class="louzir-feature-icon">⌂</span>
+        @if ($homeContent->value('community-enabled') === '1')
+            <section class="louzir-community" v-pre>
+                <div class="louzir-shell louzir-community-card">
                     <div>
-                        <h3 class="font-semibold">{{ $homeContent->value('feature-boutique-title') }}</h3>
-                        <p class="mt-1 text-sm leading-6 text-gray-600">{{ $homeContent->value('feature-boutique-description') }}</p>
+                        <span class="louzir-kicker">{{ $homeContent->value('community-kicker') }}</span>
+                        <h2 class="louzir-title">{{ $homeContent->value('community-title') }}</h2>
+                        <p>{{ $homeContent->value('community-description') }}</p>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="louzir-products" id="collections">
-            <div class="louzir-shell">
-                <div class="louzir-section-head">
-                    <div>
-                        <span class="text-xs font-semibold uppercase tracking-widest text-[#79573d]">{{ $homeContent->value('collections-kicker') }}</span>
-                        <h2 class="louzir-title">{{ $homeContent->value('collections-title') }}</h2>
-                    </div>
-
-                    <p>{{ $homeContent->value('collections-description') }}</p>
-                </div>
-
-                <div class="louzir-bento">
-                    <article class="louzir-card wide">
-                        <img src="{{ $homeContent->value('image-2') }}" alt="{{ $homeContent->value('feminine-image-alt') }}">
-                        <div class="louzir-card-content">
-                            <span class="text-xs font-semibold uppercase tracking-widest text-[#fdcead]">{{ $homeContent->value('feminine-kicker') }}</span>
-                            <h3>{{ $homeContent->value('feminine-title') }}</h3>
-                            <p>{{ $homeContent->value('feminine-description') }}</p>
-                        </div>
-                        @if ($homeContent->value('feminine-url'))
-                            <a href="{{ $homeContent->value('feminine-url') }}" aria-label="{{ $homeContent->value('feminine-title') }}" style="position: absolute; inset: 0; z-index: 2;"></a>
-                        @endif
-                    </article>
-
-                    <article class="louzir-card narrow">
-                        <img src="{{ $homeContent->value('image-3') }}" alt="{{ $homeContent->value('lounge-image-alt') }}">
-                        <div class="louzir-card-content">
-                            <span class="text-xs font-semibold uppercase tracking-widest text-[#fdcead]">{{ $homeContent->value('lounge-kicker') }}</span>
-                            <h3>{{ $homeContent->value('lounge-title') }}</h3>
-                            <p>{{ $homeContent->value('lounge-description') }}</p>
-                        </div>
-                        @if ($homeContent->value('lounge-url'))
-                            <a href="{{ $homeContent->value('lounge-url') }}" aria-label="{{ $homeContent->value('lounge-title') }}" style="position: absolute; inset: 0; z-index: 2;"></a>
-                        @endif
-                    </article>
-
-                    <article class="louzir-card narrow">
-                        <img src="{{ $homeContent->value('image-4') }}" alt="{{ $homeContent->value('family-image-alt') }}">
-                        <div class="louzir-card-content">
-                            <span class="text-xs font-semibold uppercase tracking-widest text-[#fdcead]">{{ $homeContent->value('family-kicker') }}</span>
-                            <h3>{{ $homeContent->value('family-title') }}</h3>
-                            <p>{{ $homeContent->value('family-description') }}</p>
-                        </div>
-                        @if ($homeContent->value('family-url'))
-                            <a href="{{ $homeContent->value('family-url') }}" aria-label="{{ $homeContent->value('family-title') }}" style="position: absolute; inset: 0; z-index: 2;"></a>
-                        @endif
-                    </article>
-
-                    <article class="louzir-card wide">
-                        <img src="{{ $homeContent->value('image-5') }}" alt="{{ $homeContent->value('new-arrivals-image-alt') }}">
-                        <div class="louzir-card-content">
-                            <span class="text-xs font-semibold uppercase tracking-widest text-[#fdcead]">{{ $homeContent->value('new-arrivals-kicker') }}</span>
-                            <h3>{{ $homeContent->value('new-arrivals-title') }}</h3>
-                            <p>{{ $homeContent->value('new-arrivals-description') }}</p>
-                        </div>
-                        @if ($homeContent->value('new-arrivals-url'))
-                            <a href="{{ $homeContent->value('new-arrivals-url') }}" aria-label="{{ $homeContent->value('new-arrivals-title') }}" style="position: absolute; inset: 0; z-index: 2;"></a>
-                        @endif
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="louzir-boutiques" id="boutiques">
-            <div class="louzir-shell">
-                <div class="louzir-section-head">
-                    <div>
-                        <span class="louzir-kicker">{{ $homeContent->value('addresses-kicker') }}</span>
-                        <h2 class="louzir-title">{{ $homeContent->value('addresses-title') }}</h2>
-                    </div>
-                    <p>{{ $homeContent->value('addresses-description') }}</p>
-                </div>
-                <div class="louzir-boutique-grid">
-                    <article class="louzir-boutique-card">
-                        <div class="louzir-boutique-info">
-                            <h3>{{ $homeContent->value('sahloul-name') }}</h3>
-                            <p>{{ $homeContent->value('sahloul-address') }}</p>
-                        </div>
-                        <div class="louzir-map-preview">
-                            <iframe src="{{ $homeContent->value('sahloul-map-url') }}"
-                                loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{{ $homeContent->value('sahloul-map-title') }}"></iframe>
-                            <a href="{{ $homeContent->value('sahloul-directions-url') }}"
-                                target="_blank" rel="noopener noreferrer" aria-label="{{ $homeContent->value('sahloul-map-label') }}"></a>
-                        </div>
-                        <div class="louzir-boutique-actions">
-                            <a class="louzir-button primary" href="{{ $homeContent->value('sahloul-directions-url') }}" target="_blank" rel="noopener noreferrer">{{ $homeContent->value('sahloul-directions') }}</a>
-                            <a class="louzir-button secondary" href="{{ $homeContent->value('phone-url') }}">{{ $homeContent->value('call-us') }}</a>
-                        </div>
-                    </article>
-                    <article class="louzir-boutique-card">
-                        <div class="louzir-boutique-info">
-                            <h3>{{ $homeContent->value('jemmel-name') }}</h3>
-                            <p>{{ $homeContent->value('jemmel-address') }}</p>
-                        </div>
-                        <div class="louzir-map-preview">
-                            <iframe src="{{ $homeContent->value('jemmel-map-url') }}"
-                                loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{{ $homeContent->value('jemmel-map-title') }}"></iframe>
-                            <a href="{{ $homeContent->value('jemmel-directions-url') }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $homeContent->value('jemmel-map-label') }}"></a>
-                        </div>
-                        <div class="louzir-boutique-actions">
-                            <a class="louzir-button primary" href="{{ $homeContent->value('jemmel-directions-url') }}" target="_blank" rel="noopener noreferrer">{{ $homeContent->value('jemmel-directions') }}</a>
-                            <a class="louzir-button secondary" href="{{ $homeContent->value('phone-url') }}">{{ $homeContent->value('call-us') }}</a>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="louzir-community">
-            <div class="louzir-shell">
-                <div class="louzir-community-card">
-                    <span class="text-xs font-semibold uppercase tracking-widest text-[#fdcead]">{{ $homeContent->value('community-kicker') }}</span>
-                    <h2 class="louzir-title mt-3 text-3xl text-white md:text-4xl">{{ $homeContent->value('community-title') }}</h2>
-                    <p>{{ $homeContent->value('community-description') }}</p>
                     <div class="louzir-actions">
                         <a class="louzir-button secondary" href="{{ $homeContent->value('facebook-url') }}" target="_blank" rel="noopener noreferrer">Facebook</a>
                         <a class="louzir-button secondary" href="{{ $homeContent->value('linktree-url') }}" target="_blank" rel="noopener noreferrer">Linktree</a>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
     </div>
 </x-shop::layouts>

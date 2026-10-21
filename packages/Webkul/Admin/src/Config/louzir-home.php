@@ -19,13 +19,28 @@ foreach (HomeContent::schema() as $group => $definitions) {
         $fields[] = [
             'name' => $name,
             'title' => 'admin::louzir-home.fields.'.$name,
-            'type' => $definition['type'] === 'image' ? 'image' : 'text',
-            'validation' => $definition['type'] === 'image'
-                ? 'image'
-                : 'max:2000',
+            'type' => in_array($definition['type'], ['image', 'boolean', 'number', 'select']) ? $definition['type'] : 'text',
+            'validation' => match ($definition['type']) {
+                'image' => 'image',
+                'boolean' => 'boolean',
+                'number' => 'integer|min:'.$definition['min'].'|max:'.$definition['max'],
+                'select' => 'in:'.implode(',', $definition['options']),
+                default => 'max:2000',
+            },
             'channel_based' => true,
             'locale_based' => isset($definition['translation']),
         ];
+
+        if (in_array($definition['type'], ['boolean', 'number', 'select'])) {
+            $fields[array_key_last($fields)]['default'] = $definition['fallback'];
+        }
+
+        if ($definition['type'] === 'select') {
+            $fields[array_key_last($fields)]['options'] = array_map(fn ($value) => [
+                'title' => 'admin::louzir-home.sort.'.$value,
+                'value' => $value,
+            ], $definition['options']);
+        }
     }
 
     $sections[] = [

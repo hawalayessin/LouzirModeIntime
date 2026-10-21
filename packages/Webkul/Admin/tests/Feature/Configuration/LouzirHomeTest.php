@@ -14,6 +14,8 @@ beforeEach(function () {
         'channel' => $this->channel->code,
         'locale' => $this->locale,
     ];
+
+    CoreConfig::where('code', 'like', 'general.louzir_home.%')->delete();
 });
 
 it('exposes the existing home content in the admin editor', function () {
@@ -39,7 +41,7 @@ it('saves admin text and links and renders them without changing the home layout
         'code' => 'general.louzir_home.hero.hero-title-start',
         'value' => 'Louzir test collection',
         'channel_code' => $this->channel->code,
-        'locale_code' => null,
+        'locale_code' => $this->locale,
     ]);
 
     $this->get(route('shop.home.index', ['locale' => $this->locale]))
@@ -63,7 +65,7 @@ it('escapes edited content and prevents Vue template evaluation', function () {
     $this->get(route('shop.home.index', ['locale' => $this->locale]))
         ->assertOk()
         ->assertSee('&lt;script&gt;alert(1)&lt;/script&gt; {{ 7 * 7 }}', false)
-        ->assertSee('class="louzir-home" v-pre', false)
+        ->assertSee('class="louzir-hero" v-pre', false)
         ->assertDontSee('<script>alert(1)</script>', false);
 });
 
@@ -104,10 +106,10 @@ it('uploads a home image and restores the original image when removed', function
     ]))->assertSessionHasNoErrors();
 
     expect(app(HomeContent::class)->value('image-1', $this->channel->code, $this->locale))
-        ->toBe(asset('assets/home/stitch-1.jpg'));
+        ->toBe(asset('assets/home/stitch-2026/hero.webp'));
 });
 
-it('shares previous localized edits across languages while isolating channels', function () {
+it('isolates localized edits across languages and channels', function () {
     CoreConfig::updateOrCreate([
         'code' => 'general.louzir_home.hero.hero-title-start',
         'channel_code' => $this->channel->code,
@@ -121,12 +123,12 @@ it('shares previous localized edits across languages while isolating channels', 
     expect($content->value('hero-title-start', 'other-test-channel', 'fr'))
         ->toBe(trans('shop::app.home.storefront.hero-title-start', [], 'fr'));
     expect($content->value('hero-title-start', $this->channel->code, 'ar'))
-        ->toBe('Collection francaise');
+        ->toBe(trans('shop::app.home.storefront.hero-title-start', [], 'ar'));
     expect($content->value('hero-title-start', $this->channel->code, 'en'))
-        ->toBe('Collection francaise');
+        ->toBe(trans('shop::app.home.storefront.hero-title-start', [], 'en'));
 });
 
-it('publishes an English admin edit on all three storefront languages', function () {
+it('publishes an English admin edit only in the English storefront', function () {
     $this->loginAsAdmin();
 
     $this->post($this->url, array_merge($this->payload, [
@@ -134,9 +136,11 @@ it('publishes an English admin edit on all three storefront languages', function
         'general' => ['louzir_home' => ['hero' => ['hero-title-start' => 'Shared Louzir title']]],
     ]))->assertSessionHasNoErrors();
 
-    foreach (['en', 'fr', 'ar'] as $locale) {
+    $this->get(route('shop.home.index', ['locale' => 'en']))->assertOk()->assertSee('Shared Louzir title');
+
+    foreach (['fr', 'ar'] as $locale) {
         $this->get(route('shop.home.index', ['locale' => $locale]))
-            ->assertOk()->assertSee('Shared Louzir title');
+            ->assertOk()->assertDontSee('Shared Louzir title');
     }
 });
 

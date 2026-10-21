@@ -21,6 +21,11 @@ class ItemField
             'text' => 'min',
             'number' => 'min_value',
         ],
+
+        'in' => [
+            'select' => 'one_of',
+            'multiselect' => 'one_of',
+        ],
     ];
 
     /**
@@ -102,15 +107,12 @@ class ItemField
             return '';
         }
 
-        foreach ($this->veeValidateMappings as $laravelRule => $veeValidateRule) {
-            if (! array_key_exists($this->getType(), $veeValidateRule)) {
-                continue;
-            }
+        return implode('|', array_map(function ($rule) {
+            $name = explode(':', $rule, 2)[0];
+            $mapped = $this->veeValidateMappings[$name][$this->getType()] ?? $name;
 
-            $this->validation = str_replace($laravelRule, $veeValidateRule[$this->getType()], $this->validation);
-        }
-
-        return $this->validation;
+            return $mapped.substr($rule, strlen($name));
+        }, explode('|', $this->validation)));
     }
 
     /**

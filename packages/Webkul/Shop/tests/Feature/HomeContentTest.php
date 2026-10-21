@@ -76,3 +76,24 @@ it('configures admin text fields as localized and media as shared', function () 
         ->and($fields['image-1']['locale_based'])->toBeFalse()
         ->and($fields['hero-discover-url']['locale_based'])->toBeFalse();
 });
+
+it('uses the direct Facebook page and updates saved legacy search links', function () {
+    $code = 'general.louzir_home.hero.facebook-url';
+    $direct = 'https://www.facebook.com/profile.php?id=61569721747533&locale=fr_FR';
+    DB::table('core_config')->where('code', $code)->delete();
+    expect((new HomeContent)->value('facebook-url', 'default', 'fr'))->toBe($direct);
+
+    DB::table('core_config')->insert([
+        ['code' => $code, 'channel_code' => 'default', 'locale_code' => null, 'value' => 'https://www.facebook.com/search/top/?q=louzir%20mode%20intime&locale=fr_FR'],
+        ['code' => $code, 'channel_code' => 'second', 'locale_code' => null, 'value' => 'https://www.facebook.com/custom-page'],
+    ]);
+    $migration = require base_path('database/migrations/2026_10_21_000001_update_louzir_facebook_page_url.php');
+    $migration->up();
+    $migration->up();
+
+    expect((new HomeContent)->value('facebook-url', 'default', 'fr'))->toBe($direct)
+        ->and((new HomeContent)->value('facebook-url', 'second', 'fr'))->toBe('https://www.facebook.com/custom-page');
+    $this->get('/?locale=fr')->assertOk()
+        ->assertSee('href="'.e($direct).'"', false)
+        ->assertDontSee('facebook.com/search/top/', false);
+});

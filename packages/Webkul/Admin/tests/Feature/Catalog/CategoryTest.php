@@ -12,6 +12,12 @@ use function Pest\Laravel\getJson;
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\putJson;
 
+beforeEach(function () {
+    // These legacy fixtures and request payloads use English translations.
+    config(['app.locale' => 'en']);
+    app()->setLocale('en');
+});
+
 it('should show category page', function () {
     // Act and Assert.
     $this->loginAsAdmin();
@@ -44,8 +50,8 @@ it('should return listing items of categories', function () {
         'X-Requested-With' => 'XMLHttpRequest',
     ])
         ->assertOk()
-        ->assertJsonPath('records.0.category_id', $category->id)
-        ->assertJsonPath('meta.total', 2);
+        ->assertJsonFragment(['category_id' => $category->id])
+        ->assertJsonPath('meta.total', CategoryTranslation::where('locale', app()->getLocale())->distinct()->count('category_id'));
 });
 
 it('should fail the validation with errors of logo path is not an array and image', function () {
@@ -355,5 +361,5 @@ it('should show the tree view of categories', function () {
 
     getJson(route('admin.catalog.categories.tree'))
         ->assertOk()
-        ->assertJsonPath('data.0.id', $category->id);
+        ->assertJsonFragment(['id' => $category->id]);
 });

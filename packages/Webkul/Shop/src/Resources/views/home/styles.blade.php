@@ -1,117 +1,176 @@
 <style>
-    .louzir-home { --louzir-ink: #181818; --louzir-muted: #606060; --louzir-line: #e4e4e4; background: #fff; color: var(--louzir-ink); font-family: "Poppins", "Segoe UI", sans-serif; font-size: 16px; line-height: 1.6; }
+    .louzir-home { --louzir-ink: #161616; --louzir-muted: #656565; --louzir-line: #e6e4e1; background: #fff; color: var(--louzir-ink); font: 15px/1.65 "Manrope", "Poppins", sans-serif; }
     .louzir-home * { letter-spacing: 0; }
     .louzir-shell { width: min(100%, 1440px); margin-inline: auto; padding-inline: 48px; }
-    .louzir-title { font-family: "DM Serif Display", Georgia, serif; font-weight: 400; line-height: 1.2; text-wrap: balance; }
-    .louzir-kicker { display: block; font-size: 12px; font-weight: 600; }
-    .louzir-hero { position: relative; isolation: isolate; overflow: clip; background: #242424; color: #fff; }
-    .louzir-hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; z-index: -2; }
-    .louzir-hero::before { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, .32); z-index: -1; }
-    .louzir-hero-grid { display: flex; align-items: center; min-height: min(620px, calc(100svh - 220px)); padding-block: 48px; }
-    .louzir-hero-copy { max-width: 580px; text-shadow: 0 1px 8px rgba(0, 0, 0, .18); }
-    .louzir-hero h1 { font-size: 48px; margin-block: 18px; overflow-wrap: anywhere; }
-    .louzir-hero-tagline { font-size: 24px; line-height: 1.4; margin-bottom: 12px; text-wrap: balance; }
-    .louzir-hero-description { max-width: 500px; font-size: 16px; line-height: 1.7; }
-    .louzir-actions, .louzir-socials { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-    .louzir-actions { margin-top: 24px; }
-    .louzir-socials { margin-top: 24px; font-size: 14px; }
-    .louzir-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: 12px 22px; border: 1px solid transparent; border-radius: 4px; font-size: 16px; font-weight: 500; text-align: center; text-shadow: none; transition: transform .2s ease, box-shadow .2s ease; }
+    .louzir-title, .louzir-card-content h3, .louzir-boutique-info h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 600; line-height: 1.2; text-wrap: balance; }
+    .louzir-kicker { display: block; font-size: 11px; line-height: 1.5; text-transform: uppercase; font-weight: 600; }
+    body:has(.louzir-home) .louzir-topbar { background: #1a1a1a; color: #fff; }
+    body:has(.louzir-home) .louzir-topbar > div { border-color: #333; }
+    body:has(.louzir-home) .louzir-topbar [class*="journal-scroll"] { color: #181818; }
+
+    .louzir-marquee { display: flex; align-items: center; min-height: 38px; background: #151515; color: #e8d5ce; }
+    .louzir-marquee-window { flex: 1; min-width: 0; overflow: hidden; }
+    .louzir-marquee-track { display: flex; width: max-content; direction: ltr; animation: louzir-ticker var(--marquee-duration, 32s) linear infinite; }
+    .louzir-marquee-group { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-around; gap: 48px; min-width: calc(100vw - 40px); padding-inline: 24px; }
+    .louzir-marquee-group > span { display: inline-flex; align-items: center; gap: 28px; font-size: 11px; font-weight: 500; white-space: nowrap; text-transform: uppercase; }
+    .louzir-marquee-group .icon-star { color: #d5b18b; font-size: 14px; }
+    .louzir-marquee-toggle { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 38px; border-inline-start: 1px solid #353535; }
+    .louzir-pause-symbol { display: block; width: 10px; height: 12px; border-inline: 3px solid currentColor; }
+    .louzir-marquee.is-paused .louzir-pause-symbol { width: 0; height: 0; border: 6px solid transparent; border-inline-start: 9px solid currentColor; border-inline-end: 0; }
+    .louzir-marquee:is(:hover, :focus-within, .is-paused) .louzir-marquee-track { animation-play-state: paused; }
+    [dir="rtl"] .louzir-marquee-track { animation-direction: reverse; }
+    [dir="rtl"] .louzir-marquee-group > span { direction: rtl; }
+    @keyframes louzir-ticker { to { transform: translateX(-50%); } }
+
+    .louzir-hero { position: relative; isolation: isolate; overflow: clip; background: #252525; color: #fff; }
+    .louzir-hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; z-index: -2; }
+    .louzir-hero::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.48); z-index: -1; }
+    .louzir-hero-grid { display: flex; align-items: center; min-height: min(640px, calc(100svh - 190px)); padding-block: 56px; }
+    .louzir-hero-copy { max-width: 590px; }
+    .louzir-hero-kicker { display: inline-block; padding: 5px 10px; border: 1px solid #ffffff40; border-radius: 4px; background: #ffffff18; font-size: 11px; }
+    .louzir-hero h1 { margin-block: 18px 4px; font-size: 56px; overflow-wrap: anywhere; }
+    .louzir-hero-tagline { margin-bottom: 20px; font-family: "Playfair Display", Georgia, serif; font-style: italic; font-size: 30px; line-height: 1.35; color: #e8d5ce; }
+    .louzir-hero-description { max-width: 500px; font-size: 16px; line-height: 1.7; color: #f1f1f1; }
+    .louzir-actions, .louzir-socials { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 28px; }
+    .louzir-button { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 46px; padding: 12px 22px; border: 1px solid transparent; border-radius: 2px; font-size: 12px; font-weight: 700; line-height: 1.5; text-align: center; text-transform: uppercase; transition: transform .2s ease, box-shadow .2s ease; }
     .louzir-button.primary { background: #181818; color: #fff; }
-    .louzir-button.secondary { border-color: var(--louzir-line); background: #fff; color: #181818; }
+    .louzir-button.secondary { border-color: #d9d7d3; background: #fff; color: #181818; }
     .louzir-hero .primary { background: #fff; color: #181818; }
-    .louzir-hero .secondary { border-color: #fff; color: #fff; background: transparent; }
-    .louzir-button:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0, 0, 0, .16); }
-    .louzir-button:active { transform: translateY(0); box-shadow: none; }
-    .louzir-hero .secondary:hover { background: #fff; color: #181818; border-color: #fff; }
-    .louzir-chip { min-height: 32px; padding: 4px 0; text-decoration: underline; text-underline-offset: 4px; }
-    .louzir-socials > span { font-size: 12px; opacity: .9; }
-    .louzir-edition { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding-block: 16px; font-size: 14px; border-bottom: 1px solid var(--louzir-line); }
-    .louzir-edition div { display: flex; gap: 16px; flex-wrap: wrap; }
-    .louzir-edition span { color: #181818; }
-    .louzir-strip { padding-block: 32px; border-bottom: 1px solid var(--louzir-line); background: #fafafa; }
-    .louzir-strip-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
-    .louzir-feature { display: flex; align-items: flex-start; gap: 14px; }
-    .louzir-feature-icon { display: grid; place-items: center; flex: 0 0 36px; width: 36px; height: 36px; color: #181818; font-size: 24px; }
-    .louzir-feature h3 { font-size: 16px; }
-    .louzir-products, .louzir-boutiques { padding-block: 80px; scroll-margin-top: 110px; }
-    .louzir-section-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 28px; }
-    .louzir-section-head h2, .louzir-community .louzir-title { font-size: 32px; }
-    .louzir-section-head h2 { margin-top: 8px; }
-    .louzir-section-head p { max-width: 460px; color: var(--louzir-muted); font-size: 16px; }
-    .louzir-bento { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px 28px; }
-    .louzir-card { position: relative; min-width: 0; overflow: hidden; background: #fff; }
-    .louzir-card img { display: block; width: 100%; height: 360px; object-fit: cover; background: #f2f2f2; transition: transform .35s ease; }
-    .louzir-card:hover img { transform: scale(1.025); }
-    .louzir-card:focus-within { outline: 2px solid #181818; outline-offset: 6px; }
-    .louzir-card-content { position: relative; padding: 24px 0 0; background: #fff; color: #181818; }
-    .louzir-card-content h3 { font-family: "DM Serif Display", Georgia, serif; font-size: 24px; margin-top: 4px; line-height: 1.3; }
-    .louzir-card-content p { max-width: 480px; font-size: 14px; margin-top: 8px; line-height: 1.6; color: #606060; }
-    .louzir-card-content > span { color: #606060; }
-    .louzir-section-head .text-xs { color: #606060; }
-    .louzir-boutiques { border-top: 1px solid var(--louzir-line); }
-    .louzir-boutique-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-    .louzir-boutique-card { min-width: 0; border: 1px solid var(--louzir-line); border-radius: 4px; overflow: hidden; }
-    .louzir-boutique-info { padding: 24px; min-height: 132px; }
-    .louzir-boutique-info h3 { font-size: 22px; font-family: "DM Serif Display", Georgia, serif; }
-    .louzir-boutique-info p { color: var(--louzir-muted); margin-top: 8px; }
-    .louzir-map-preview { position: relative; }
-    .louzir-map-preview iframe { display: block; border: 0; width: 100%; height: 224px; pointer-events: none; }
-    .louzir-map-preview a { position: absolute; inset: 0; z-index: 1; }
-    .louzir-boutique-actions { display: flex; flex-wrap: wrap; gap: 12px; padding: 20px 24px; }
-    .louzir-community { padding-block: 64px; background: #181818; color: #fff; }
-    .louzir-community-card p { max-width: 660px; margin-top: 12px; font-size: 16px; }
-    .louzir-community-card > span { color: #dedede; }
-    .louzir-home :is(a, button):focus-visible { outline: 3px solid #181818; outline-offset: 4px; }
-    .louzir-hero a:focus-visible, .louzir-community a:focus-visible { outline-color: #fff; }
-    .louzir-home a { touch-action: manipulation; }
-    @media (min-width: 1600px) { .louzir-hero-grid { min-height: min(680px, calc(100svh - 220px)); } }
+    .louzir-hero .secondary { border-color: #ffffff80; background: transparent; color: #fff; }
+    .louzir-button:hover { transform: translateY(-2px); box-shadow: 0 5px 14px #00000020; }
+    .louzir-button:active { transform: none; }
+    .louzir-socials { gap: 18px; font-size: 12px; color: #ddd; }
+    .louzir-socials > span { font-size: 11px; color: #ddd; }
+    .louzir-chip { display: inline-flex; align-items: center; min-height: 32px; border-bottom: 1px solid #ffffff60; }
+    .louzir-hero-edition { position: absolute; inset-inline-end: 32px; bottom: 24px; padding: 8px 12px; background: #111111b3; font-size: 10px; text-transform: uppercase; }
+    .louzir-edition { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-block: 14px; border-bottom: 1px solid var(--louzir-line); font-size: 11px; text-transform: uppercase; }
+    .louzir-edition div { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .louzir-edition span { color: #888; }
+    .louzir-edition p { border-inline-start: 1px solid var(--louzir-line); padding-inline-start: 16px; font-weight: 600; }
+
+    .louzir-strip { padding-block: 44px; border-bottom: 1px solid var(--louzir-line); background: #faf8f5; }
+    .louzir-strip-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .louzir-feature { display: flex; align-items: flex-start; gap: 16px; padding-inline: 24px; }
+    .louzir-feature:first-child { padding-inline-start: 0; }
+    .louzir-feature + .louzir-feature { border-inline-start: 1px solid var(--louzir-line); }
+    .louzir-feature-icon { display: grid; place-items: center; flex: 0 0 34px; width: 34px; height: 34px; border-radius: 8px; background: #181818; color: #fff; font-size: 17px; }
+    .louzir-feature h3 { margin-bottom: 6px; font: 600 17px/1.3 "Playfair Display", Georgia, serif; }
+    .louzir-feature p { font-size: 13px; color: var(--louzir-muted); }
+
+    .louzir-products, .louzir-boutiques { padding-block: 80px; scroll-margin-top: 120px; }
+    .louzir-section-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid #f0efed; }
+    .louzir-section-head .louzir-kicker { margin-bottom: 10px; color: #737373; }
+    .louzir-section-head h2, .louzir-signature-head h2 { font-size: 36px; }
+    .louzir-section-head p { max-width: 390px; font-size: 14px; color: var(--louzir-muted); }
+    .louzir-bento { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
+    .louzir-card { position: relative; min-width: 0; }
+    .louzir-card-media { position: relative; aspect-ratio: 1.6; overflow: hidden; background: #f4f3f1; }
+    .louzir-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .louzir-card:hover img { transform: scale(1.035); }
+    .louzir-media-badge { position: absolute; inset-inline-start: 16px; bottom: 16px; max-width: calc(100% - 32px); padding: 5px 10px; background: #ffffffed; color: #181818; font-size: 10px; text-transform: uppercase; font-weight: 700; }
+    .louzir-card-content { padding-top: 18px; }
+    .louzir-card-content .louzir-kicker { color: #777; font-size: 10px; }
+    .louzir-card-content h3 { margin-block: 5px; font-size: 23px; }
+    .louzir-card-content p { font-size: 13px; color: var(--louzir-muted); }
+    .louzir-card-link { position: absolute; inset: 0; z-index: 1; }
+    .louzir-card:focus-within { outline: 2px solid #181818; outline-offset: 5px; }
+
+    .louzir-signature { padding-block: 64px; background: #f4f1ea; scroll-margin-top: 120px; }
+    .louzir-signature-head { margin-bottom: 40px; text-align: center; }
+    .louzir-signature-head .louzir-kicker { color: #777; margin-bottom: 10px; }
+    .louzir-signature-head p { margin-top: 12px; font-size: 14px; color: #666; }
+    .louzir-signature-grid, .louzir-signature-loading { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+    .louzir-signature-grid[data-single] { grid-template-columns: minmax(0, 300px); justify-content: center; }
+    .louzir-signature-loading > span { height: 360px; }
+    .louzir-signature-empty { padding-block: 44px; text-align: center; color: #666; }
+    .louzir-signature-empty .louzir-button { margin-top: 16px; }
+    .louzir-signature-product { min-width: 0; border: 1px solid #e5e2dc; border-radius: 2px; background: #fff; }
+    .louzir-signature-product > div:first-child { width: 100%; max-width: none; max-height: none; border-radius: 0; }
+    .louzir-signature-product > div:nth-child(2) { max-width: none; margin-top: 0; transform: none; gap: 10px; padding: 16px; }
+    .louzir-signature-product > div:nth-child(2) > p { font: 600 16px/1.4 "Playfair Display", Georgia, serif; overflow-wrap: anywhere; word-break: normal; max-width: none; }
+    .louzir-signature-product .action-items { display: flex; opacity: 1; flex-wrap: wrap; gap: 8px; }
+    .louzir-signature-product .action-items button { flex: 1 1 100%; min-height: 40px; padding: 10px; border: 1px solid #181818; border-radius: 2px; background: #181818; color: #fff; font-size: 12px; }
+    .louzir-signature-product .action-items button:disabled { opacity: .5; cursor: not-allowed; }
+    .louzir-signature-product .action-items [role="button"] { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 6px; }
+
+    .louzir-boutique-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+    .louzir-boutique-card { min-width: 0; padding: 28px; border: 1px solid #e9e6e2; background: #faf8f5; }
+    .louzir-boutique-info h3 { font-size: 24px; }
+    .louzir-boutique-info p { margin-block: 10px 20px; color: #666; font-size: 14px; }
+    .louzir-map-preview { display: flex; flex-direction: column; width: 100%; min-width: 0; background: #fff; }
+    .louzir-map-preview img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #f0eeeb; }
+    .louzir-map-preview > span { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 46px; padding: 10px 14px; color: #181818; font-size: 12px; }
+    .louzir-boutique-actions { display: flex; gap: 12px; margin-top: 24px; }
+    .louzir-boutique-actions .primary { flex: 1; }
+    .louzir-community { padding-block: 56px; background: #111; color: #fff; }
+    .louzir-community-card { display: flex; justify-content: space-between; align-items: center; gap: 48px; }
+    .louzir-community-card > div:first-child { max-width: 690px; }
+    .louzir-community-card .louzir-kicker { color: #c6c6c6; }
+    .louzir-community h2 { margin-block: 12px; font-size: 34px; }
+    .louzir-community p { max-width: 560px; font-size: 14px; color: #c6c6c6; }
+    .louzir-community .louzir-actions { margin-top: 0; flex-wrap: nowrap; }
+    .louzir-home :is(a, button, summary):focus-visible { outline: 2px solid #181818; outline-offset: -3px; }
+    .louzir-marquee button:focus-visible, .louzir-hero a:focus-visible, .louzir-community a:focus-visible { outline-color: #fff; }
+    .louzir-home :is(a,button) { touch-action: manipulation; }
+
+    @media (max-width: 900px) {
+        .louzir-hero-photo { position: relative; display: block; height: auto; aspect-ratio: 1408 / 768; object-fit: contain; z-index: auto; }
+        .louzir-hero::before { display: none; }
+        .louzir-hero-grid { min-height: 0; padding-block: 32px 64px; }
+        .louzir-hero-copy { max-width: 650px; }
+    }
     @media (max-width: 1000px) {
         .louzir-shell { padding-inline: 28px; }
-        .louzir-hero-grid { min-height: min(560px, calc(100svh - 180px)); }
-        .louzir-hero-copy { max-width: 480px; }
-        .louzir-strip-grid { gap: 20px; }
-        .louzir-section-head { align-items: start; flex-direction: column; gap: 12px; }
+        .louzir-section-head { align-items: start; gap: 18px; }
+        .louzir-section-head h2 { font-size: 30px; }
+        .louzir-bento { gap: 32px; }
+        .louzir-feature { padding-inline: 16px; gap: 12px; }
+        .louzir-feature h3 { font-size: 16px; }
+        .louzir-signature-grid, .louzir-signature-loading { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .louzir-boutique-card { padding: 20px; }
+        .louzir-boutique-actions { flex-wrap: wrap; }
+        .louzir-boutique-actions .louzir-button { flex: 1 1 auto; }
+        .louzir-community-card { flex-direction: column; align-items: start; gap: 28px; }
     }
     @media (max-width: 640px) {
         .louzir-shell { padding-inline: 20px; }
-        .louzir-hero-grid { min-height: min(540px, calc(100svh - 180px)); padding-block: 32px; align-items: end; }
-        .louzir-hero::before { background: rgba(0, 0, 0, .48); }
-        .louzir-hero-photo { object-position: 64% center; }
-        .louzir-hero h1 { font-size: 32px; }
-        .louzir-hero-tagline { font-size: 20px; }
-        .louzir-hero-description { font-size: 16px; }
-        .louzir-actions { gap: 10px; }
-        .louzir-actions .louzir-button { flex: 1 1 160px; }
-        .louzir-socials { gap: 14px; margin-top: 18px; }
+        .louzir-hero-grid { min-height: 0; padding-block: 28px 64px; }
+        .louzir-hero h1 { font-size: 36px; }
+        .louzir-hero-tagline { font-size: 25px; }
+        .louzir-hero-description { font-size: 15px; }
+        .louzir-hero-edition { inset-inline-end: 20px; bottom: 16px; }
+        .louzir-actions { gap: 12px; }
+        .louzir-hero .louzir-button { flex: 1 1 150px; }
+        .louzir-socials { gap: 14px; }
         .louzir-strip-grid, .louzir-bento, .louzir-boutique-grid { grid-template-columns: minmax(0, 1fr); }
-        .louzir-strip { padding-block: 24px; }
-        .louzir-products, .louzir-boutiques { padding-block: 40px; }
-        .louzir-section-head h2, .louzir-community .louzir-title { font-size: 28px; }
-        .louzir-card img { height: 280px; }
-        .louzir-card-content { padding-top: 18px; }
-        .louzir-bento { gap: 32px; }
-        .louzir-boutique-info { min-height: 0; }
+        .louzir-strip { padding-block: 16px; }
+        .louzir-feature, .louzir-feature:first-child { padding: 20px 0; }
+        .louzir-feature + .louzir-feature { border-inline-start: 0; border-top: 1px solid var(--louzir-line); }
+        .louzir-products, .louzir-boutiques { padding-block: 48px; }
+        .louzir-section-head { flex-direction: column; margin-bottom: 28px; }
+        .louzir-section-head h2, .louzir-signature-head h2, .louzir-community h2 { font-size: 28px; }
+        .louzir-section-head p { max-width: none; }
+        .louzir-card-content h3 { font-size: 22px; }
+        .louzir-signature-grid, .louzir-signature-loading { gap: 12px; }
+        .louzir-signature-product > div:nth-child(2) { padding: 12px; }
+        .louzir-signature-product > div:nth-child(2) > p { font-size: 15px; }
+        .louzir-signature-product .action-items { display: flex !important; }
+        .louzir-signature-product .action-items [role="button"] { display: none; }
         .louzir-edition { gap: 8px; }
+        .louzir-edition div { gap: 10px; }
+        .louzir-edition p { padding-inline-start: 10px; }
     }
-    @supports (animation-timeline: view()) {
-        @media (prefers-reduced-motion: no-preference) {
-            .louzir-hero { view-timeline-name: --louzir-hero; view-timeline-axis: block; }
-            .louzir-hero-photo {
-                animation: louzir-hero-depth linear both;
-                animation-timeline: --louzir-hero;
-                animation-range: exit 0% exit 100%;
-            }
-        }
-    }
-    @keyframes louzir-hero-depth {
-        from { transform: scale(1); }
-        to { transform: scale(1.06); }
+    @media (max-width: 359px) { .louzir-hero h1 { font-size: 32px; } }
+    @media (prefers-reduced-motion: reduce) {
+        .louzir-home *, .louzir-home .louzir-card img { animation: none !important; transition: none !important; scroll-behavior: auto; }
+        .louzir-card:hover img, .louzir-button:hover { transform: none; }
+        .louzir-marquee-track { width: 100%; }
+        .louzir-marquee-group { flex-wrap: wrap; min-width: 0; gap: 8px 24px; padding-block: 10px; }
+        .louzir-marquee-group > span { white-space: normal; }
+        .louzir-marquee-group[aria-hidden="true"], .louzir-marquee-toggle { display: none; }
     }
     @media print {
         .louzir-home * { animation: none !important; transform: none !important; opacity: 1 !important; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-        .louzir-home *, .louzir-home .louzir-card img { transition: none; scroll-behavior: auto; }
-        .louzir-card:hover img, .louzir-button:hover { transform: none; }
+        .louzir-marquee { display: none; }
     }
 </style>
