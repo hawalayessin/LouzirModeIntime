@@ -15,13 +15,14 @@
 
         <a
             href="{{ route('shop.home.index') }}"
-            class="flex items-center"
+            class="louzir-desktop-logo"
             aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.bagisto')"
         >
             <img
                 src="{{ $shopLogo }}"
                 class="object-contain"
-                style="width: 150px; height: 72px; object-fit: contain; margin-left: 4px;"
+                width="148"
+                height="60"
                 alt="{{ config('app.name') }}"
             >
         </a>
@@ -283,24 +284,24 @@
 
         <!-- Default category layout -->
         <div
-            class="flex items-center"
+            class="louzir-category-nav flex items-center"
             v-else-if="'{{ core()->getConfigData('general.design.categories.category_view') }}' !== 'sidebar'"
         >
             <div
-                class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
+                class="louzir-category-item group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
                 v-for="category in categories"
             >
                 <span>
                     <a
                         :href="category.url"
-                        class="inline-block px-5 uppercase"
+                        class="louzir-category-link inline-block px-5 uppercase"
                     >
                         @{{ category.name }}
                     </a>
                 </span>
 
                 <div
-                    class="pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
+                    class="louzir-category-panel pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
                     v-if="category.children && category.children.length"
                 >
                     <div class="flex justify-between gap-x-[70px]">
@@ -338,28 +339,31 @@
         <!-- Sidebar category layout -->
         <div v-else>
             <!-- Categories Navigation -->
-            <div class="flex items-center">
+            <div class="louzir-category-nav flex items-center">
                 <!-- "All" button for opening the category drawer -->
-                <div
-                    class="flex h-[77px] cursor-pointer items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
+                <button
+                    type="button"
+                    class="louzir-category-item louzir-all-categories flex h-[77px] cursor-pointer items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
                     @click="toggleCategoryDrawer"
+                    :aria-expanded="isDrawerActive"
+                    aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.categories')"
                 >
                     <span class="flex items-center gap-1 px-5 uppercase">
                         <span class="text-xl icon-hamburger"></span>
 
                         @lang('shop::app.components.layouts.header.desktop.bottom.all')
                     </span>
-                </div>
+                </button>
 
                 <!-- Show only first 4 categories in main navigation -->
                 <div
-                    class="group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
+                    class="louzir-category-item group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
                     v-for="category in categories.slice(0, 4)"
                 >
                     <span>
                         <a
                             :href="category.url"
-                            class="inline-block px-5 uppercase"
+                            class="louzir-category-link inline-block px-5 uppercase"
                         >
                             @{{ category.name }}
                         </a>
@@ -367,7 +371,7 @@
 
                     <!-- Dropdown for each category -->
                     <div
-                        class="pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
+                        class="louzir-category-panel pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
                         v-if="category.children && category.children.length"
                     >
                         <div class="flex justify-between gap-x-[70px]">

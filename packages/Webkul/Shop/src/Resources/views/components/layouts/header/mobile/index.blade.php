@@ -19,6 +19,21 @@
 
             {!! view_render_event('bagisto.shop.components.layouts.header.mobile.drawer.after') !!}
 
+            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.before') !!}
+
+            @if($showCompare)
+                <a
+                    class="louzir-mobile-compare"
+                    href="{{ route('shop.compare.index') }}"
+                    aria-label="@lang('shop::app.components.layouts.header.mobile.compare')"
+                >
+                    <span class="text-2xl cursor-pointer icon-compare" aria-hidden="true"></span>
+                </a>
+            @endif
+
+            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.after') !!}
+        </div>
+
             {!! view_render_event('bagisto.shop.components.layouts.header.mobile.logo.before') !!}
 
             @php
@@ -33,29 +48,16 @@
                 <img
                     src="{{ $mobileShopLogo }}"
                     class="object-contain"
+                    width="112"
+                    height="56"
                     alt="{{ config('app.name') }}"
                 >
             </a>
 
             {!! view_render_event('bagisto.shop.components.layouts.header.mobile.logo.after') !!}
-        </div>
-
         <!-- Right Navigation -->
         <div>
             <div class="louzir-mobile-actions">
-                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.before') !!}
-
-                @if($showCompare)
-                    <a
-                        href="{{ route('shop.compare.index') }}"
-                        aria-label="@lang('shop::app.components.layouts.header.mobile.compare')"
-                    >
-                        <span class="text-2xl cursor-pointer icon-compare"></span>
-                    </a>
-                @endif
-
-                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.after') !!}
-
                 {!! view_render_event('bagisto.shop.components.layouts.header.mobile.mini_cart.before') !!}
 
                 @if(core()->getConfigData('sales.checkout.shopping_cart.cart_page'))

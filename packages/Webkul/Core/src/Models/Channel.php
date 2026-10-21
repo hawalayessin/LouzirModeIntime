@@ -111,6 +111,12 @@ class Channel extends TranslatableModel implements ChannelContract
      */
     public function logo_url()
     {
+        $designLogo = core()->getConfigData('general.design.admin_logo.logo_image');
+
+        if ($designLogo && Storage::exists($designLogo)) {
+            return Storage::url($designLogo);
+        }
+
         if (! $this->logo || ! Storage::exists($this->logo)) {
             return asset('assets/logo-auth-transparent.png');
         }
@@ -131,8 +137,14 @@ class Channel extends TranslatableModel implements ChannelContract
      */
     public function favicon_url()
     {
-        if (! $this->favicon) {
-            return;
+        $designFavicon = core()->getConfigData('general.design.admin_logo.favicon');
+
+        if ($designFavicon && Storage::exists($designFavicon)) {
+            return Storage::url($designFavicon);
+        }
+
+        if (! $this->favicon || ! Storage::exists($this->favicon)) {
+            return asset('assets/louzir.png');
         }
 
         return Storage::url($this->favicon);

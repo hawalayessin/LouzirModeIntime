@@ -12,588 +12,7 @@
 @endPush
 
 @push('styles')
-    <style>
-        .louzir-auth-page {
-            --auth-bg: #faf9f7;
-            --auth-card: #ffffff;
-            --auth-ink: #1a1c1b;
-            --auth-muted: #5f6166;
-            --auth-soft: #f4f3f1;
-            --auth-border: #e1ded8;
-            --auth-accent: #79573d;
-            --auth-shadow: 0 12px 48px rgba(121, 87, 61, .08);
-            min-height: 100svh;
-            padding: 0 32px 18px;
-            background: var(--auth-bg);
-            color: var(--auth-ink);
-            font-family: "Poppins", "Segoe UI", sans-serif;
-            letter-spacing: 0;
-        }
-
-        .louzir-brand-header {
-            display: grid;
-            grid-template-columns: 1fr;
-            align-items: center;
-            justify-items: center;
-            max-width: 1280px;
-            height: 74px;
-            margin: auto;
-        }
-
-        .louzir-brand {
-            display: inline-flex;
-            width: fit-content;
-            flex-direction: column;
-            align-items: center;
-            color: var(--auth-ink);
-            text-decoration: none;
-            background: transparent;
-        }
-
-        .louzir-brand-logo {
-            width: auto;
-            max-width: 190px;
-            max-height: 58px;
-            object-fit: contain;
-            background: transparent;
-        }
-
-        .louzir-brand-name {
-            position: relative;
-            font-family: "Poppins", "Segoe UI", sans-serif;
-            font-size: 47px;
-            font-weight: 600;
-            line-height: .95;
-        }
-
-        .louzir-brand-flower {
-            position: absolute;
-            top: -11px;
-            right: -22px;
-            color: var(--auth-accent);
-            font-size: 24px;
-            line-height: 1;
-            transform: rotate(20deg);
-        }
-
-        .louzir-brand-subtitle {
-            margin-top: 8px;
-            font-size: 9px;
-            letter-spacing: 3.6px;
-        }
-
-        .louzir-header-caption {
-            display: none;
-            color: var(--auth-muted);
-            font-size: 12px;
-        }
-
-        .louzir-auth-layout {
-            display: grid;
-            grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
-            max-width: 1280px;
-            min-height: 570px;
-            margin: 0 auto;
-            overflow: hidden;
-            border: 1px solid var(--auth-border);
-            border-radius: 8px;
-            background: var(--auth-card);
-            box-shadow: var(--auth-shadow);
-        }
-
-        .louzir-register-layout {
-            height: auto;
-            min-height: 570px;
-        }
-
-        .louzir-editorial-panel {
-            position: relative;
-            min-width: 0;
-            overflow: hidden;
-            background: var(--auth-soft);
-        }
-
-        .louzir-editorial-panel::after {
-            position: absolute;
-            inset: 0;
-            content: "";
-            background:
-                linear-gradient(180deg, rgba(250, 249, 247, .08) 0%, rgba(250, 249, 247, .1) 48%, rgba(250, 249, 247, .78) 100%),
-                linear-gradient(90deg, rgba(250, 249, 247, .18) 0%, rgba(250, 249, 247, 0) 55%);
-            pointer-events: none;
-        }
-
-        .louzir-editorial-panel img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: 50% 45%;
-        }
-
-        .louzir-editorial-label {
-            position: absolute;
-            top: 34px;
-            left: 34px;
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            color: var(--auth-accent);
-            font-size: 10px;
-            letter-spacing: 2px;
-            z-index: 1;
-            text-shadow: 0 1px 12px rgba(250, 249, 247, .9);
-        }
-
-        .louzir-editorial-line {
-            width: 27px;
-            height: 1px;
-            background: var(--auth-accent);
-        }
-
-        .louzir-editorial-copy {
-            position: absolute;
-            bottom: 58px;
-            left: 38px;
-            color: var(--auth-ink);
-            z-index: 1;
-            max-width: 300px;
-            text-shadow: 0 1px 18px rgba(250, 249, 247, .95);
-        }
-
-        .louzir-editorial-eyebrow {
-            color: var(--auth-accent);
-            font-size: 9px;
-            letter-spacing: 2.4px;
-        }
-
-        .louzir-editorial-copy h2 {
-            margin: 14px 0 17px;
-            font-family: "Poppins", "Segoe UI", sans-serif;
-            font-size: 40px;
-            font-weight: 600;
-            line-height: 1.07;
-        }
-
-        .louzir-editorial-copy p {
-            color: var(--auth-accent);
-            font-size: 12px;
-            line-height: 1.85;
-        }
-
-        .louzir-editorial-bottom {
-            position: absolute;
-            bottom: 18px;
-            left: 38px;
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            color: var(--auth-accent);
-            font-size: 8px;
-            letter-spacing: 2px;
-            z-index: 1;
-            text-shadow: 0 1px 12px rgba(250, 249, 247, .9);
-        }
-
-        .louzir-form-panel {
-            display: flex;
-            min-width: 0;
-            min-height: 0;
-            flex-direction: column;
-            align-items: center;
-            padding: 12px 44px 16px;
-        }
-
-        .louzir-register-panel {
-            justify-content: flex-start;
-            padding: 14px 44px 18px;
-        }
-
-        .louzir-form-content {
-            width: 100%;
-            max-width: 480px;
-        }
-
-        .louzir-register-panel .louzir-form-content {
-            max-width: 480px;
-        }
-
-        .louzir-welcome-icon {
-            display: none;
-            width: 32px;
-            height: 32px;
-            margin-bottom: 8px;
-            place-items: center;
-            border: 1px solid var(--auth-border);
-            border-radius: 50%;
-            background: var(--auth-bg);
-            color: var(--auth-accent);
-            font-size: 18px;
-        }
-
-        .louzir-form-eyebrow {
-            margin-bottom: 5px;
-            color: var(--auth-accent);
-            font-size: 9px;
-            letter-spacing: 2px;
-        }
-
-        .louzir-form-title {
-            font-family: "Poppins", "Segoe UI", sans-serif;
-            font-size: 30px;
-            font-weight: 600;
-            line-height: 1.15;
-        }
-
-        .louzir-form-heading {
-            display: flex;
-            align-items: end;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .louzir-login-return {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            min-height: 38px;
-            margin-top: 6px;
-            padding: 8px 12px;
-            border: 1px solid var(--auth-border);
-            border-radius: 6px;
-            color: var(--auth-accent);
-            background: var(--auth-card);
-            font-size: 12px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: background .15s ease, border-color .15s ease;
-        }
-
-        .louzir-login-return:hover {
-            background: var(--auth-soft);
-            border-color: var(--auth-accent);
-        }
-
-        .louzir-login-return:focus-visible {
-            outline: 2px solid var(--auth-accent);
-            outline-offset: 3px;
-        }
-
-        .louzir-register-panel .louzir-form-title {
-            font-size: 31px;
-        }
-
-        .louzir-form-intro {
-            margin-top: 6px;
-            color: var(--auth-muted);
-            font-size: 12px;
-            line-height: 1.7;
-        }
-
-        .louzir-register-panel .louzir-form-intro {
-            margin-top: 4px;
-            font-size: 11px;
-            line-height: 1.55;
-        }
-
-        .louzir-social-login {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .louzir-register-panel .louzir-social-login {
-            margin-top: 8px;
-        }
-
-        .louzir-social-login a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            height: 38px;
-            border: 1px solid var(--auth-border);
-            border-radius: 6px;
-            background: var(--auth-card);
-            color: var(--auth-ink);
-            font-size: 12px;
-            font-weight: 500;
-            transition: background .15s ease, border-color .15s ease;
-        }
-
-        .louzir-register-panel .louzir-social-login a {
-            height: 34px;
-        }
-
-        .louzir-social-login a:hover {
-            border-color: var(--auth-accent);
-            background: var(--auth-soft);
-        }
-
-        .louzir-social-login svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        .louzir-form-divider {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin: 9px 0;
-            color: var(--auth-muted);
-            font-size: 10px;
-        }
-
-        .louzir-register-panel .louzir-form-divider {
-            margin: 7px 0;
-        }
-
-        .louzir-form-divider span {
-            flex: 1;
-            height: 1px;
-            background: var(--auth-border);
-        }
-
-        .louzir-auth-form label {
-            display: block;
-            margin-bottom: 4px;
-            color: var(--auth-ink);
-            font-size: 11px;
-            font-weight: 500;
-        }
-
-        .louzir-auth-form .control-group {
-            margin-bottom: 6px;
-        }
-
-        .louzir-register-panel .louzir-auth-form .mb-4 {
-            margin-bottom: 8px;
-        }
-
-        .louzir-auth-form input:not([type="checkbox"]) {
-            height: 34px;
-            border-color: var(--auth-border);
-            border-radius: 6px;
-            background: var(--auth-card);
-            box-shadow: none;
-            color: var(--auth-ink);
-            font-size: 12px;
-        }
-
-        .louzir-register-panel .louzir-auth-form input:not([type="checkbox"]) {
-            height: 36px;
-            padding: 6px 12px;
-            min-width: 0;
-        }
-
-        .louzir-auth-form [class*="text-red"],
-        .louzir-auth-form .error {
-            margin-top: 4px;
-            font-size: 10px;
-            line-height: 1.25;
-        }
-
-        .louzir-auth-form input:not([type="checkbox"]):focus {
-            border-color: var(--auth-accent);
-            box-shadow: 0 0 0 1px var(--auth-accent);
-        }
-
-        .louzir-name-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
-        }
-
-        .louzir-checkbox-line {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            margin-bottom: 8px;
-            color: var(--auth-muted);
-            font-size: 10px;
-        }
-
-        .louzir-register-panel .louzir-checkbox-line {
-            display: flex;
-            margin-bottom: 10px;
-        }
-
-        .louzir-checkbox-line input {
-            width: 13px;
-            height: 13px;
-            accent-color: var(--auth-accent);
-            flex-shrink: 0;
-        }
-
-        .louzir-login-button {
-            width: 100%;
-            height: 40px;
-            border-radius: 6px;
-            background: #000;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 500;
-            transition: background .15s ease;
-        }
-
-        .louzir-register-panel .louzir-login-button {
-            height: 38px;
-        }
-
-        .louzir-login-button:hover {
-            background: var(--auth-ink);
-        }
-
-        .louzir-form-bottom {
-            display: none;
-            margin-top: auto;
-            padding-top: 8px;
-            color: var(--auth-accent);
-            font-family: "Poppins", "Segoe UI", sans-serif;
-            font-size: 15px;
-            font-style: normal;
-            text-align: center;
-        }
-
-        .louzir-auth-footer {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            gap: 16px;
-            max-width: 1280px;
-            margin: auto;
-            display: none;
-            color: var(--auth-muted);
-            font-size: 9px;
-        }
-
-        .louzir-auth-footer span:last-child {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .louzir-auth-link {
-            color: var(--auth-accent);
-            font-weight: 500;
-        }
-
-        .louzir-auth-switch {
-            margin-top: 12px;
-            text-align: center;
-            color: var(--auth-muted);
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .louzir-register-panel .louzir-auth-switch {
-            margin-top: 9px;
-            line-height: 1.35;
-        }
-
-        @media (min-width: 1500px) {
-            .louzir-register-layout {
-                min-height: 590px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .louzir-auth-page {
-                padding: 0 24px 18px;
-            }
-
-            .louzir-brand-header {
-                height: 66px;
-            }
-
-            .louzir-brand-logo {
-                max-width: 160px;
-                max-height: 50px;
-            }
-
-            .louzir-auth-layout,
-            .louzir-register-layout {
-                grid-template-columns: 1fr;
-                max-width: 630px;
-                height: auto;
-                min-height: 0;
-            }
-
-            .louzir-editorial-panel {
-                display: none;
-            }
-
-            .louzir-form-panel {
-                padding-right: 30px;
-                padding-left: 30px;
-            }
-
-            .louzir-register-panel {
-                padding: 18px 30px;
-            }
-
-            .louzir-form-title {
-                font-size: 28px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .louzir-auth-page {
-                padding: 0 14px 14px;
-            }
-
-            .louzir-brand-header {
-                grid-template-columns: 1fr;
-                justify-items: center;
-                height: 62px;
-            }
-
-            .louzir-header-caption {
-                display: none;
-            }
-
-            .louzir-auth-layout {
-                grid-template-columns: 1fr;
-                height: auto;
-                min-height: auto;
-            }
-
-            .louzir-editorial-panel {
-                display: none;
-            }
-
-            .louzir-form-panel {
-                padding: 16px 18px;
-            }
-
-            .louzir-name-grid {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-
-            .louzir-form-heading {
-                display: block;
-            }
-
-            .louzir-register-panel .louzir-auth-form input:not([type="checkbox"]) {
-                height: 40px;
-                font-size: 16px;
-            }
-
-            .louzir-auth-footer {
-                grid-template-columns: 1fr;
-                padding: 24px 0;
-                text-align: center;
-                font-size: 8px;
-            }
-
-            .louzir-auth-footer span:last-child {
-                justify-content: center;
-            }
-        }
-    </style>
+    @include('shop::customers.auth-styles')
 @endpush
 
 <x-shop::layouts
@@ -620,7 +39,7 @@
                 aria-label="@lang('shop::app.customers.signup-form.bagisto')"
             >
                 <img
-                    src="{{ asset('assets/logo-auth-transparent.png') }}"
+                    src="{{ core()->getCurrentChannel()->logo_url }}"
                     alt="{{ config('app.name') }}"
                     class="louzir-brand-logo"
                     width="190"
@@ -706,14 +125,16 @@
                             <div class="louzir-name-grid">
                                 <!-- First Name -->
                                 <x-shop::form.control-group>
-                                    <x-shop::form.control-group.label class="required">
+                                    <x-shop::form.control-group.label class="required" for="first_name">
                                         @lang('shop::app.customers.signup-form.first-name')
                                     </x-shop::form.control-group.label>
 
                                     <x-shop::form.control-group.control
                                         type="text"
                                         class="px-4 py-3"
+                                        id="first_name"
                                         name="first_name"
+                                        autocomplete="given-name"
                                         rules="required"
                                         :value="old('first_name')"
                                         :label="trans('shop::app.customers.signup-form.first-name')"
@@ -729,14 +150,16 @@
 
                                 <!-- Last Name -->
                                 <x-shop::form.control-group>
-                                    <x-shop::form.control-group.label class="required">
+                                    <x-shop::form.control-group.label class="required" for="last_name">
                                         @lang('shop::app.customers.signup-form.last-name')
                                     </x-shop::form.control-group.label>
 
                                     <x-shop::form.control-group.control
                                         type="text"
                                         class="px-4 py-3"
+                                        id="last_name"
                                         name="last_name"
+                                        autocomplete="family-name"
                                         rules="required"
                                         :value="old('last_name')"
                                         :label="trans('shop::app.customers.signup-form.last-name')"
@@ -753,14 +176,16 @@
 
                             <!-- Email -->
                             <x-shop::form.control-group>
-                                <x-shop::form.control-group.label class="required">
+                                <x-shop::form.control-group.label class="required" for="email">
                                     @lang('shop::app.customers.signup-form.email')
                                 </x-shop::form.control-group.label>
 
                                 <x-shop::form.control-group.control
                                     type="email"
                                     class="px-4 py-3"
+                                    id="email"
                                     name="email"
+                                    autocomplete="email"
                                     rules="required|email"
                                     :value="old('email')"
                                     :label="trans('shop::app.customers.signup-form.email')"
@@ -776,14 +201,16 @@
 
                             <!-- Password -->
                             <x-shop::form.control-group>
-                                <x-shop::form.control-group.label class="required">
+                                <x-shop::form.control-group.label class="required" for="password">
                                     @lang('shop::app.customers.signup-form.password')
                                 </x-shop::form.control-group.label>
 
                                 <x-shop::form.control-group.control
                                     type="password"
                                     class="px-4 py-3"
+                                    id="password"
                                     name="password"
+                                    autocomplete="new-password"
                                     rules="required|min:6"
                                     :value="old('password')"
                                     :label="trans('shop::app.customers.signup-form.password')"
@@ -800,14 +227,16 @@
 
                             <!-- Confirm Password -->
                             <x-shop::form.control-group>
-                                <x-shop::form.control-group.label>
+                                <x-shop::form.control-group.label for="password_confirmation">
                                     @lang('shop::app.customers.signup-form.confirm-pass')
                                 </x-shop::form.control-group.label>
 
                                 <x-shop::form.control-group.control
                                     type="password"
                                     class="px-4 py-3"
+                                    id="password_confirmation"
                                     name="password_confirmation"
+                                    autocomplete="new-password"
                                     rules="confirmed:@password"
                                     value=""
                                     :label="trans('shop::app.customers.signup-form.password')"
@@ -849,33 +278,17 @@
                                 core()->getConfigData('general.gdpr.settings.enabled')
                                 && core()->getConfigData('general.gdpr.agreement.enabled')
                             )
-                                <div class="mb-2 flex select-none items-center gap-1.5">
-                                    <x-shop::form.control-group.control
-                                        type="checkbox"
-                                        name="agreement"
-                                        id="agreement"
-                                        value="0"
-                                        rules="required"
-                                        for="agreement"
-                                    />
+                                @include('shop::customers.agreement')
 
-                                    <label
-                                        class="cursor-pointer select-none text-[10px] text-[#5f6166]"
-                                        for="agreement"
-                                        v-pre
+                                @if (core()->getConfigData('general.gdpr.agreement.agreement_content'))
+                                    <button
+                                        type="button"
+                                        class="louzir-terms-link"
+                                        @click="$refs.termsModal.open()"
                                     >
-                                        {{ core()->getConfigData('general.gdpr.agreement.agreement_label') }}
-                                    </label>
-
-                                    @if (core()->getConfigData('general.gdpr.agreement.agreement_content'))
-                                        <span
-                                            class="cursor-pointer text-[10px] text-[#79573d]"
-                                            @click="$refs.termsModal.open()"
-                                        >
-                                            @lang('shop::app.customers.signup-form.click-here')
-                                        </span>
-                                    @endif
-                                </div>
+                                        @lang('shop::app.customers.signup-form.click-here')
+                                    </button>
+                                @endif
 
                                 <x-shop::form.control-group.error control-name="agreement" />
                             @endif

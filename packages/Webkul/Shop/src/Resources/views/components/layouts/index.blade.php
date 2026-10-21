@@ -79,6 +79,8 @@
             @include('shop::components.layouts.header.styles')
         @endif
 
+        @include('shop::components.layouts.cookie.styles')
+
         @stack('styles')
 
         @include('shop::categories.styles')
