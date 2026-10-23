@@ -24,16 +24,16 @@ ini_set('memory_limit', '1024M');
 |
 */
 
-uses(AdminTestCase::class)->in('../packages/Webkul/Admin/tests');
-uses(CoreTestCase::class)->in('../packages/Webkul/Core/tests');
-uses(CustomerTestCase::class)->in('../packages/Webkul/Customer/tests');
-uses(DataGridTestCase::class)->in('../packages/Webkul/DataGrid/tests');
-uses(InstallerTestCase::class)->in('../packages/Webkul/Installer/tests');
-uses(PaymentTestCase::class)->in('../packages/Webkul/Payment/tests');
-uses(PayUTestCase::class)->in('../packages/Webkul/PayU/tests');
-uses(RazorpayTestCase::class)->in('../packages/Webkul/Razorpay/tests');
-uses(ShopTestCase::class)->in('../packages/Webkul/Shop/tests');
-uses(StripeTestCase::class)->in('../packages/Webkul/Stripe/tests');
+uses(AdminTestCase::class)->in('../packages/Louzir/Admin/tests');
+uses(CoreTestCase::class)->in('../packages/Louzir/Core/tests');
+uses(CustomerTestCase::class)->in('../packages/Louzir/Customer/tests');
+uses(DataGridTestCase::class)->in('../packages/Louzir/DataGrid/tests');
+uses(InstallerTestCase::class)->in('../packages/Louzir/Installer/tests');
+uses(PaymentTestCase::class)->in('../packages/Louzir/Payment/tests');
+uses(PayUTestCase::class)->in('../packages/Louzir/PayU/tests');
+uses(RazorpayTestCase::class)->in('../packages/Louzir/Razorpay/tests');
+uses(ShopTestCase::class)->in('../packages/Louzir/Shop/tests');
+uses(StripeTestCase::class)->in('../packages/Louzir/Stripe/tests');
 
 /*
 |--------------------------------------------------------------------------
