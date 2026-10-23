@@ -201,9 +201,13 @@
 
                             <!-- Password -->
                             <x-shop::form.control-group>
-                                <x-shop::form.control-group.label class="required" for="password">
-                                    @lang('shop::app.customers.signup-form.password')
-                                </x-shop::form.control-group.label>
+                                <div class="louzir-password-label">
+                                    <x-shop::form.control-group.label class="required" for="password">
+                                        @lang('shop::app.customers.signup-form.password')
+                                    </x-shop::form.control-group.label>
+
+                                    @include('shop::customers.password-toggle')
+                                </div>
 
                                 <x-shop::form.control-group.control
                                     type="password"
@@ -227,9 +231,13 @@
 
                             <!-- Confirm Password -->
                             <x-shop::form.control-group>
-                                <x-shop::form.control-group.label for="password_confirmation">
-                                    @lang('shop::app.customers.signup-form.confirm-pass')
-                                </x-shop::form.control-group.label>
+                                <div class="louzir-password-label">
+                                    <x-shop::form.control-group.label for="password_confirmation">
+                                        @lang('shop::app.customers.signup-form.confirm-pass')
+                                    </x-shop::form.control-group.label>
+
+                                    @include('shop::customers.password-toggle', ['controls' => 'password_confirmation'])
+                                </div>
 
                                 <x-shop::form.control-group.control
                                     type="password"
@@ -249,10 +257,6 @@
                             </x-shop::form.control-group>
 
                             {!! view_render_event('bagisto.shop.customers.signup_form.password_confirmation.after') !!}
-
-                            <div class="louzir-form-options">
-                                @include('shop::customers.password-toggle', ['controls' => 'password password_confirmation'])
-                            </div>
 
                             <!-- Captcha -->
                             @if (core()->getConfigData('customer.captcha.credentials.status'))

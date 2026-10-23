@@ -148,9 +148,13 @@
 
                             <!-- Password -->
                             <x-shop::form.control-group>
-                                <x-shop::form.control-group.label class="required" for="password">
-                                    @lang('shop::app.customers.login-form.password')
-                                </x-shop::form.control-group.label>
+                                <div class="louzir-password-label">
+                                    <x-shop::form.control-group.label class="required" for="password">
+                                        @lang('shop::app.customers.login-form.password')
+                                    </x-shop::form.control-group.label>
+
+                                    @include('shop::customers.password-toggle')
+                                </div>
 
                                 <x-shop::form.control-group.control
                                     type="password"
@@ -170,8 +174,6 @@
                             </x-shop::form.control-group>
 
                             <div class="louzir-form-options">
-                                @include('shop::customers.password-toggle')
-
                                 <a
                                     href="{{ route('shop.customers.forgot_password.create') }}"
                                     class="louzir-forgot-link"

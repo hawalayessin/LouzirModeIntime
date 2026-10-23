@@ -146,6 +146,12 @@
     .louzir-auth-form [class*="text-red"], .louzir-auth-form .error { font-size: 14px; line-height: 1.5; }
     .louzir-name-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
     .louzir-form-options { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+    .louzir-password-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+    .louzir-auth-form .louzir-password-label > label { margin-bottom: 0; }
+    .louzir-password-eye { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 36px; flex: 0 0 40px; padding: 8px; border: 0; border-radius: 6px; background: transparent; color: #655346; cursor: pointer; }
+    .louzir-password-eye svg { width: 20px; height: 20px; }
+    .louzir-password-eye:hover { background: #f0e9e2; color: #24211d; }
+    .louzir-password-eye:focus-visible { outline: 2px solid #8b6c4c; outline-offset: 2px; }
     .louzir-auth-form .louzir-checkbox-line { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; padding-block: 8px; min-height: 40px; font-size: 14px; cursor: pointer; }
     .louzir-checkbox-line input[type="checkbox"] { appearance: auto; position: static; width: 20px; height: 20px; margin: 1px 0 0; flex: 0 0 20px; accent-color: #181818; cursor: pointer; }
     .louzir-checkbox-line span { min-width: 0; overflow-wrap: anywhere; }
