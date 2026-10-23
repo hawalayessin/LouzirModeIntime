@@ -1,0 +1,592 @@
+<!--
+    This code needs to be refactored to reduce the amount of PHP in the Blade
+    template as much as possible.
+-->
+@php
+    $showCompare = (bool) core()->getConfigData('catalog.products.settings.compare_option');
+
+    $showWishlist = (bool) core()->getConfigData('customer.settings.wishlist.wishlist_option');
+@endphp
+
+<div class="louzir-mobile-bar flex flex-wrap gap-3 px-4 py-3 shadow-sm lg:hidden">
+    <div class="louzir-mobile-row">
+        <!-- Left Navigation -->
+        <div class="louzir-mobile-brand">
+            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.drawer.before') !!}
+
+            <!-- Drawer -->
+            <v-mobile-drawer></v-mobile-drawer>
+
+            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.drawer.after') !!}
+
+            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.before') !!}
+
+            @if($showCompare)
+                <a
+                    class="louzir-mobile-compare"
+                    href="{{ route('shop.compare.index') }}"
+                    aria-label="@lang('shop::app.components.layouts.header.mobile.compare')"
+                >
+                    <span class="text-2xl cursor-pointer icon-compare" aria-hidden="true"></span>
+                </a>
+            @endif
+
+            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.compare.after') !!}
+        </div>
+
+            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.logo.before') !!}
+
+            @php
+                $mobileShopLogo = core()->getCurrentChannel()->logo_url;
+            @endphp
+
+            <a
+                href="{{ route('shop.home.index') }}"
+                class="louzir-mobile-logo"
+                aria-label="@lang('shop::app.components.layouts.header.mobile.bagisto')"
+            >
+                <img
+                    src="{{ $mobileShopLogo }}"
+                    class="object-contain"
+                    width="112"
+                    height="56"
+                    alt="{{ config('app.name') }}"
+                >
+            </a>
+
+            {!! view_render_event('bagisto.shop.components.layouts.header.mobile.logo.after') !!}
+        <!-- Right Navigation -->
+        <div>
+            <div class="louzir-mobile-actions">
+                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.mini_cart.before') !!}
+
+                @if(core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
+                    @include('shop::checkout.cart.mini-cart')
+                @endif
+
+                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.mini_cart.after') !!}
+
+                @if (core()->getCurrentChannel()->locales()->count() > 1)
+                    <x-shop::dropdown class="louzir-locale" position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
+                        <x-slot:toggle>
+                            <button
+                                type="button"
+                                class="flex cursor-pointer items-center gap-1.5"
+                                aria-label="@lang('shop::app.components.layouts.header.mobile.locales')"
+                            >
+                                <img
+                                    src="{{ ! empty(core()->getCurrentLocale()->logo_url)
+                                            ? core()->getCurrentLocale()->logo_url
+                                            : bagisto_asset('images/default-language.svg')
+                                        }}"
+                                    alt=""
+                                    width="24"
+                                    height="16"
+                                >
+
+                                <span class="text-sm font-medium">{{ strtoupper(app()->getLocale()) }}</span>
+                            </button>
+                        </x-slot>
+
+                        <x-slot:content class="journal-scroll max-h-[500px] !p-0">
+                            <v-locale-switcher></v-locale-switcher>
+                        </x-slot:content>
+                    </x-shop::dropdown>
+                @endif
+
+                <!-- For Large screens -->
+                <div class="max-md:hidden">
+                    <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
+                        <x-slot:toggle>
+                            <button type="button" class="text-2xl cursor-pointer icon-users" aria-label="@lang('shop::app.components.layouts.header.mobile.account')"></button>
+                        </x-slot>
+
+                        <!-- Guest Dropdown -->
+                        @guest('customer')
+                            <x-slot:content>
+                                <div class="grid gap-2.5">
+                                    <p class="text-xl font-dmserif">
+                                        @lang('shop::app.components.layouts.header.mobile.welcome-guest')
+                                    </p>
+
+                                    <p class="text-sm">
+                                        @lang('shop::app.components.layouts.header.mobile.dropdown-text')
+                                    </p>
+                                </div>
+
+                                <p class="w-full mt-3 border border-zinc-200"></p>
+
+                                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.customers_action.before') !!}
+
+                                <div class="flex gap-4 mt-6">
+                                    {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.sign_in_button.before') !!}
+
+                                    <a
+                                        href="{{ route('shop.customer.session.create') }}"
+                                        class="block py-4 m-0 mx-auto text-base font-medium text-center text-white cursor-pointer w-max rounded-2xl bg-navyBlue px-7 ltr:ml-0 rtl:mr-0"
+                                    >
+                                        @lang('shop::app.components.layouts.header.mobile.sign-in')
+                                    </a>
+
+                                    <a
+                                        href="{{ route('shop.customers.register.index') }}"
+                                        class="m-0 mx-auto block w-max cursor-pointer rounded-2xl border-2 border-navyBlue bg-white px-7 py-3.5 text-center text-base font-medium text-navyBlue ltr:ml-0 rtl:mr-0"
+                                    >
+                                        @lang('shop::app.components.layouts.header.mobile.sign-up')
+                                    </a>
+
+                                    {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.sign_in_button.after') !!}
+                                </div>
+
+                                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.customers_action.after') !!}
+                            </x-slot>
+                        @endguest
+
+                        <!-- Customers Dropdown -->
+                        @auth('customer')
+                            <x-slot:content class="!p-0">
+                                <div class="grid gap-2.5 p-5 pb-0">
+                                    <p class="text-xl font-dmserif" v-pre>
+                                        @lang('shop::app.components.layouts.header.mobile.welcome')’
+                                        {{ auth()->guard('customer')->user()->first_name }}
+                                    </p>
+
+                                    <p class="text-sm">
+                                        @lang('shop::app.components.layouts.header.mobile.dropdown-text')
+                                    </p>
+                                </div>
+
+                                <p class="w-full mt-3 border border-zinc-200"></p>
+
+                                <div class="mt-2.5 grid gap-1 pb-2.5">
+                                    {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.profile_dropdown.links.before') !!}
+
+                                    <a
+                                        class="px-5 py-2 text-base cursor-pointer"
+                                        href="{{ route('shop.customers.account.profile.index') }}"
+                                    >
+                                        @lang('shop::app.components.layouts.header.mobile.profile')
+                                    </a>
+
+                                    <a
+                                        class="px-5 py-2 text-base cursor-pointer"
+                                        href="{{ route('shop.customers.account.orders.index') }}"
+                                    >
+                                        @lang('shop::app.components.layouts.header.mobile.orders')
+                                    </a>
+
+                                    @if ($showWishlist)
+                                        <a
+                                            class="px-5 py-2 text-base cursor-pointer"
+                                            href="{{ route('shop.customers.account.wishlist.index') }}"
+                                        >
+                                            @lang('shop::app.components.layouts.header.mobile.wishlist')
+                                        </a>
+                                    @endif
+
+                                    <!--Customers logout-->
+                                    @auth('customer')
+                                        <x-shop::form
+                                            method="DELETE"
+                                            action="{{ route('shop.customer.session.destroy') }}"
+                                            id="customerLogout"
+                                        />
+
+                                        <a
+                                            class="px-5 py-2 text-base cursor-pointer"
+                                            href="{{ route('shop.customer.session.destroy') }}"
+                                            onclick="event.preventDefault(); document.getElementById('customerLogout').submit();"
+                                        >
+                                            @lang('shop::app.components.layouts.header.mobile.logout')
+                                        </a>
+                                    @endauth
+
+                                    {!! view_render_event('bagisto.shop.components.layouts.header.mobile.index.profile_dropdown.links.after') !!}
+                                </div>
+                            </x-slot>
+                        @endauth
+                    </x-shop::dropdown>
+                </div>
+
+                <!-- For Medium and small screen -->
+                <div class="md:hidden">
+                    @guest('customer')
+                        <a
+                            href="{{ route('shop.customer.session.create') }}"
+                            aria-label="@lang('shop::app.components.layouts.header.mobile.account')"
+                        >
+                            <span class="text-2xl cursor-pointer icon-users"></span>
+                        </a>
+                    @endguest
+
+                    <!-- Customers Dropdown -->
+                    @auth('customer')
+                        <a
+                            href="{{ route('shop.customers.account.index') }}"
+                            aria-label="@lang('shop::app.components.layouts.header.mobile.account')"
+                        >
+                            <span class="text-2xl cursor-pointer icon-users"></span>
+                        </a>
+                    @endauth
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.before') !!}
+
+    <!-- Serach Catalog Form -->
+    <form action="{{ route('shop.search.index') }}" class="louzir-header-search flex items-center w-full" role="search">
+        <label
+            for="organic-search"
+            class="sr-only"
+        >
+            @lang('shop::app.components.layouts.header.mobile.search')
+        </label>
+
+        <div class="relative w-full">
+            <div class="icon-search pointer-events-none absolute top-3 flex items-center text-2xl max-md:text-xl max-sm:top-2.5 ltr:left-3 rtl:right-3"></div>
+
+            <input
+                type="text"
+                id="organic-search"
+                class="block w-full rounded-xl border border-['#E3E3E3'] px-11 py-3.5 text-sm font-medium text-gray-900 max-md:rounded-lg max-md:px-10 max-md:py-3 max-md:font-normal max-sm:text-xs"
+                name="query"
+                value="{{ request('query') }}"
+                placeholder="@lang('shop::app.components.layouts.header.mobile.search-text')"
+                required
+            >
+
+            @if (core()->getConfigData('catalog.products.settings.image_search'))
+                @include('shop::search.images.index')
+            @endif
+        </div>
+    </form>
+
+    {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.after') !!}
+</div>
+
+@pushOnce('scripts')
+    <script type="text/x-template" id="v-mobile-drawer-template">
+        <x-shop::drawer
+            position="left"
+            width="100%"
+            @close="onDrawerClose"
+        >
+            <x-slot:toggle>
+                <button type="button" class="text-2xl cursor-pointer icon-hamburger" aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.all')"></button>
+            </x-slot>
+
+            <x-slot:header>
+                <div class="flex items-center justify-between">
+                    <a href="{{ route('shop.home.index') }}">
+                        <img
+                            src="{{ core()->getCurrentChannel()->logo_url ?: asset('assets/logo2.png') }}"
+                            class="object-contain"
+                            style="width: 160px; height: 80px; object-fit: contain;"
+                            alt="{{ config('app.name') }}"
+                        >
+                    </a>
+                </div>
+            </x-slot>
+
+            <x-slot:content class="!p-0">
+                <!-- Account Profile Hero Section -->
+                <div class="p-4 border-b border-zinc-200">
+                    <div class="grid grid-cols-[auto_1fr] items-center gap-4 rounded-xl border border-zinc-200 p-2.5">
+                        <div>
+                            <img
+                                src="{{ auth()->user()?->image_url ??  bagisto_asset('images/user-placeholder.png') }}"
+                                class="h-[60px] w-[60px] rounded-full max-md:rounded-full"
+                            >
+                        </div>
+
+                        @guest('customer')
+                            <a
+                                href="{{ route('shop.customer.session.create') }}"
+                                class="flex text-base font-medium"
+                            >
+                                @lang('shop::app.components.layouts.header.mobile.login')
+
+                                <i class="icon-double-arrow text-2xl ltr:ml-2.5 rtl:mr-2.5"></i>
+                            </a>
+                        @endguest
+
+                        @auth('customer')
+                            <div
+                                class="flex flex-col justify-between gap-2.5 max-md:gap-0"
+                                v-pre
+                            >
+                                <p class="text-2xl break-all font-mediums max-md:text-xl">Hello! {{ auth()->user()?->first_name }}</p>
+
+                                <p class="no-underline text-zinc-500 max-md:text-sm">{{ auth()->user()?->email }}</p>
+                            </div>
+                        @endauth
+                    </div>
+                </div>
+
+                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.drawer.categories.before') !!}
+
+                <!-- Mobile category view -->
+                <v-mobile-category ref="mobileCategory"></v-mobile-category>
+
+                {!! view_render_event('bagisto.shop.components.layouts.header.mobile.drawer.categories.after') !!}
+            </x-slot>
+
+            <x-slot:footer>
+                <!-- Localization & Currency Section -->
+                @if(core()->getCurrentChannel()->locales()->count() > 1 || core()->getCurrentChannel()->currencies()->count() > 1 )
+                    <div class="fixed bottom-0 z-10 grid w-full max-w-full grid-cols-[1fr_auto_1fr] items-center justify-items-center border-t border-zinc-200 bg-white px-5 ltr:left-0 rtl:right-0">
+                        <!-- Filter Drawer -->
+                        <x-shop::drawer
+                            position="bottom"
+                            width="100%"
+                        >
+                            <!-- Drawer Toggler -->
+                            <x-slot:toggle>
+                                <div
+                                    class="flex cursor-pointer items-center gap-x-2.5 px-2.5 py-3.5 text-lg font-medium uppercase max-md:py-3 max-sm:text-base"
+                                    role="button"
+                                    v-pre
+                                >
+                                    {{ core()->getCurrentCurrency()->symbol . ' ' . core()->getCurrentCurrencyCode() }}
+                                </div>
+                            </x-slot>
+
+                            <!-- Drawer Header -->
+                            <x-slot:header>
+                                <div class="flex items-center justify-between">
+                                    <p class="text-lg font-semibold">
+                                        @lang('shop::app.components.layouts.header.mobile.currencies')
+                                    </p>
+                                </div>
+                            </x-slot>
+
+                            <!-- Drawer Content -->
+                            <x-slot:content class="!px-0">
+                                <div
+                                    class="overflow-auto"
+                                    :style="{ height: getCurrentScreenHeight }"
+                                >
+                                    <v-currency-switcher></v-currency-switcher>
+                                </div>
+                            </x-slot>
+                        </x-shop::drawer>
+
+                        <!-- Seperator -->
+                        <span class="h-5 w-0.5 bg-zinc-200"></span>
+
+                        <!-- Sort Drawer -->
+                        <x-shop::drawer
+                            position="bottom"
+                            width="100%"
+                        >
+                            <!-- Drawer Toggler -->
+                            <x-slot:toggle>
+                                <div
+                                    class="flex cursor-pointer items-center gap-x-2.5 px-2.5 py-3.5 text-lg font-medium uppercase max-md:py-3 max-sm:text-base"
+                                    role="button"
+                                    v-pre
+                                >
+                                    {{ strtoupper(match (app()->getLocale()) {
+                                        'en' => 'EN',
+                                        'ar' => 'AR',
+                                        'fr' => 'FR',
+                                        default => app()->getLocale(),
+                                    }) }}
+                                </div>
+                            </x-slot>
+
+                            <!-- Drawer Header -->
+                            <x-slot:header>
+                                <div class="flex items-center justify-between">
+                                    <p class="text-lg font-semibold">
+                                        @lang('shop::app.components.layouts.header.mobile.locales')
+                                    </p>
+                                </div>
+                            </x-slot>
+
+                            <!-- Drawer Content -->
+                            <x-slot:content class="!px-0">
+                                <div
+                                    class="overflow-auto"
+                                    :style="{ height: getCurrentScreenHeight }"
+                                >
+                                    <v-locale-switcher></v-locale-switcher>
+                                </div>
+                            </x-slot>
+                        </x-shop::drawer>
+                    </div>
+                @endif
+            </x-slot>
+        </x-shop::drawer>
+    </script>
+
+    <script
+        type="text/x-template"
+        id="v-mobile-category-template"
+    >
+        <!-- Wrapper with transition effects -->
+        <div class="relative h-full overflow-hidden">
+            <!-- Sliding container -->
+            <div
+                class="flex h-full transition-transform duration-300"
+                :class="{
+                    'ltr:translate-x-0 rtl:translate-x-0': currentViewLevel !== 'third',
+                    'ltr:-translate-x-full rtl:translate-x-full': currentViewLevel === 'third'
+                }"
+            >
+                <!-- First level view -->
+                <div class="flex-shrink-0 w-full h-full px-6 overflow-auto">
+                    <div class="py-4">
+                        <div
+                            v-for="category in categories"
+                            :key="category.id"
+                            :class="{'mb-2': category.children && category.children.length}"
+                        >
+                            <div class="flex items-center justify-between py-2 transition-colors duration-200 cursor-pointer">
+                                <a :href="category.url" class="text-base font-medium text-black">
+                                    @{{ category.name }}
+                                </a>
+                            </div>
+
+                            <!-- Second Level Categories -->
+                            <div v-if="category.children && category.children.length" >
+                                <div
+                                    v-for="secondLevelCategory in category.children"
+                                    :key="secondLevelCategory.id"
+                                >
+                                    <div
+                                        class="flex items-center justify-between py-2 transition-colors duration-200 cursor-pointer"
+                                        @click="showThirdLevel(secondLevelCategory, category, $event)"
+                                    >
+                                        <a :href="secondLevelCategory.url" class="text-sm font-normal">
+                                            @{{ secondLevelCategory.name }}
+                                        </a>
+
+                                        <span
+                                            v-if="secondLevelCategory.children && secondLevelCategory.children.length"
+                                            class="icon-arrow-right rtl:icon-arrow-left"
+                                        ></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third level view -->
+                <div
+                    class="flex-shrink-0 w-full h-full"
+                    v-if="currentViewLevel === 'third'"
+                >
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <button
+                            @click="goBackToMainView"
+                            class="flex items-center justify-center gap-2 focus:outline-none"
+                            aria-label="Go back"
+                        >
+                            <span class="text-lg icon-arrow-left rtl:icon-arrow-right"></span>
+                            <div class="text-base font-medium text-black">
+                                @lang('shop::app.components.layouts.header.mobile.back-button')
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Third Level Content -->
+                    <div class="px-6 py-4">
+                        <div
+                            v-for="thirdLevelCategory in currentSecondLevelCategory?.children"
+                            :key="thirdLevelCategory.id"
+                            class="mb-2"
+                        >
+                            <a
+                                :href="thirdLevelCategory.url"
+                                class="block py-2 text-sm transition-colors duration-200"
+                            >
+                                @{{ thirdLevelCategory.name }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="module">
+        app.component('v-mobile-category', {
+            template: '#v-mobile-category-template',
+
+            data() {
+                return  {
+                    categories: [],
+                    currentViewLevel: 'main',
+                    currentSecondLevelCategory: null,
+                    currentParentCategory: null
+                }
+            },
+
+            mounted() {
+                this.initCategories();
+            },
+
+            computed: {
+                getCurrentScreenHeight() {
+                    return window.innerHeight - (window.innerWidth < 920 ? 61 : 0) + 'px';
+                },
+            },
+
+            methods: {
+                initCategories() {
+                    this.getCategories();
+                },
+                getCategories() {
+                    this.$axios.get("{{ route('shop.api.categories.tree') }}")
+                        .then(response => {
+                            this.categories = response.data.data;
+                            this.isLoading = false;
+                            localStorage.setItem('categories', JSON.stringify(this.categories));
+                        })
+                        .catch(error => {
+                            console.log(error);
+
+                            try {
+                                const stored = localStorage.getItem('categories');
+
+                                this.categories = stored ? JSON.parse(stored) : [];
+                            } catch (e) {}
+
+                            this.isLoading = false;
+                        });
+                },
+
+                showThirdLevel(secondLevelCategory, parentCategory, event) {
+                    if (secondLevelCategory.children && secondLevelCategory.children.length) {
+                        this.currentSecondLevelCategory = secondLevelCategory;
+                        this.currentParentCategory = parentCategory;
+                        this.currentViewLevel = 'third';
+
+                        if (event) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                    }
+                },
+
+                goBackToMainView() {
+                    this.currentViewLevel = 'main';
+                }
+            },
+        });
+
+        app.component('v-mobile-drawer', {
+            template: '#v-mobile-drawer-template',
+
+            methods: {
+                onDrawerClose() {
+                    this.$refs.mobileCategory.currentViewLevel = 'main';
+                }
+            },
+        });
+    </script>
+@endPushOnce

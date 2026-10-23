@@ -1,0 +1,57 @@
+<?php
+
+namespace Webkul\Installer\Providers;
+
+use Illuminate\Routing\Router;
+use Illuminate\Support\ServiceProvider;
+use Webkul\Installer\Console\Commands\Installer as InstallerCommand;
+use Webkul\Installer\Console\Commands\SeedDemoProducts;
+use Webkul\Installer\Http\Middleware\CanInstall;
+use Webkul\Installer\Http\Middleware\Locale;
+use Webkul\Installer\Http\Middleware\UseFileSession;
+
+class InstallerServiceProvider extends ServiceProvider
+{
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerCommands();
+    }
+
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot(Router $router)
+    {
+        $router->middlewareGroup('install', [CanInstall::class]);
+
+        $router->aliasMiddleware('installer_locale', Locale::class);
+
+        $router->aliasMiddleware('installer_file_session', UseFileSession::class);
+
+        $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
+
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'installer');
+
+        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'installer');
+    }
+
+    /**
+     * Register the Installer Commands of this package.
+     */
+    protected function registerCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                InstallerCommand::class,
+                SeedDemoProducts::class,
+            ]);
+        }
+    }
+}

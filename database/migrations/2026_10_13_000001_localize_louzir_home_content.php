@@ -7,7 +7,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        $schema = require __DIR__.'/../../packages/Webkul/Shop/src/Config/home.php';
+        $schema = require __DIR__.'/../../packages/Louzir/Shop/src/Config/home.php';
         $codes = [];
 
         foreach ($schema as $group => $fields) {

@@ -1,176 +1,95 @@
-<p align="center">
-  <a href="http://www.bagisto.com">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bagisto/temp-media/0b0984778fae92633f57e625c5494ead1fe320c3/dark-logo-P5H7MBtx.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://bagisto.com/wp-content/themes/bagisto/images/logo.png">
-      <img src="https://bagisto.com/wp-content/themes/bagisto/images/logo.png" alt="LouzirModeIntime logo">
-    </picture>
-  </a>
-</p>
+# LouzirModeIntime
 
-<p align="center">
-    <a href="https://packagist.org/packages/bagisto/bagisto"><img src="https://poser.pugx.org/bagisto/bagisto/d/total.svg" alt="Total Downloads"></a>
-    <a href="https://packagist.org/packages/bagisto/bagisto"><img src="https://poser.pugx.org/bagisto/bagisto/v/stable.svg" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/bagisto/bagisto"><img src="https://poser.pugx.org/bagisto/bagisto/license.svg" alt="License"></a>
-    <a href="#backers"><img src="https://opencollective.com/bagisto/backers/badge.svg" alt="Backers on Open Collective"></a>
-    <a href="#sponsors"><img src="https://opencollective.com/bagisto/sponsors/badge.svg" alt="Sponsors on Open Collective"></a>
-    <a href="https://www.codetriage.com/bagisto/bagisto"><img src="https://www.codetriage.com/bagisto/bagisto/badges/users.svg" alt="Open Source Helpers"></a>
-</p>
+Boutique de lingerie, vêtements de nuit, homewear et accessoires, personnalisée à partir de **Bagisto et Laravel** pour Louzir Mode Intime.
 
-<p align="center">
-    <a href="https://twitter.com/intent/follow?screen_name=bagistoshop"><img src="https://img.shields.io/twitter/follow/bagistoshop?style=social"></a>
-    <a href="https://www.youtube.com/channel/UCbrfqnhyiDv-bb9QuZtonYQ"><img src="https://img.shields.io/youtube/channel/subscribers/UCbrfqnhyiDv-bb9QuZtonYQ?style=social"></a>
-</p>
+[Ouvrir la boutique de démonstration](https://louzirmodeintime-production.up.railway.app/)
 
-<p align="center">
-    ➡️ <a href="https://bagisto.com/en/">Website</a> | <a href="https://devdocs.bagisto.com/">Documentation</a> | <a href="https://devdocs.bagisto.com/2.3/introduction/installation.html#installation">Installation Guide</a> | <a href="https://devdocs.bagisto.com/2.3/introduction/docker.html">Docker Installation</a>  | <a href="https://forums.bagisto.com/">Forums</a> | <a href="https://www.facebook.com/groups/bagisto/">Community</a> ⬅️
-</p>
+## Fonctionnalités
 
+- Boutique et administration en français par défaut.
+- Boutique disponible en français, anglais et arabe, avec affichage de droite à gauche en arabe.
+- Dinar tunisien (TND), avec des prix à trois décimales, par exemple `119,900 DT`.
+- Adresses tunisiennes avec sélection du gouvernorat, de la municipalité et du code postal.
+- Catalogue, stocks, panier et commande en tant qu’invité ou client connecté.
+- Accueil, identité visuelle, bandeau promotionnel et couleur du bandeau configurables dans l’administration.
+- Formulaires de connexion et d’inscription adaptés aux écrans mobiles.
 
-<p align="center" style="display: inline;">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/ar.svg" alt="Arabic" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/de.svg" alt="German" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/us.svg" alt="English" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/es.svg" alt="Spanish" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/ir.svg" alt="Persian" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/it.svg" alt="Italian" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/nl.svg" alt="Dutch" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/pl.svg" alt="Polish" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/pt.svg" alt="Portuguese" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/tr.svg" alt="Turkish" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/eg.svg" alt="Egyptian" width="24" height="24">
-    <img class="flag-img" src="https://flagicons.lipis.dev/flags/4x3/cn.svg" alt="Chinese" width="24" height="24">
-</p>
+## Structure
 
-<a href="https://www.youtube.com/watch?v=OHbte7hdxYU">
-    <img class="flag-img" src="https://raw.githubusercontent.com/bagisto/temp-media/master/bagisto-featured.png" alt="Chinese" width="100%">
-</a>
+| Dossier | Contenu |
+| --- | --- |
+| `app/`, `config/` | Application et configuration Laravel |
+| `packages/Louzir/` | Modules Bagisto et personnalisations de la boutique |
+| `database/migrations/` | Évolution de la base et configuration de la boutique tunisienne |
+| `database/seeders/` | Données de démonstration ajoutées explicitement |
+| `public/assets/` | Images, logos et visuels de la boutique |
+| `tests/`, `packages/Louzir/*/tests/` | Tests de l’application et des modules |
 
-# Introduction
+Les namespaces PHP d’origine sont conservés pour assurer la compatibilité des modules. Les personnalisations du projet s’appuient sur le moteur e-commerce Bagisto ; elles ne constituent pas une réécriture complète de ce moteur.
 
-LouzirModeIntime is an opensource [laravel eCommerce](https://www.bagisto.com/) framework built on some of the hottest technologies such as [Laravel](https://laravel.com/) (a [PHP](https://secure.php.net/) framework) and [Vue.js](https://vuejs.org/) a progressive Javascript framework.
+## Installation locale
 
-LouzirModeIntime can help you cut down your time, cost, and workforce for building online stores or migrating from physical stores to the ever-demanding online world. Your business—whether small or huge—can benefit. The best part, it's straightforward to set it up!
+Prérequis : **PHP 8.3 ou supérieur, Composer 2, Node.js et MySQL**. Les extensions PHP nécessaires sont indiquées dans `composer.json`.
 
-![Repo Stats](https://raw.githubusercontent.com/bagisto/temp-media/master/stats.webp)
+```sh
+composer install
+cp .env.example .env
+php artisan key:generate
+```
 
-# Getting Started
+Configurer les accès à une base locale dans `.env`. Les valeurs par défaut sont :
 
-![Getting Started](https://raw.githubusercontent.com/bagisto/temp-media/master/geting-starded.png)
+```dotenv
+APP_LOCALE=fr
+APP_FALLBACK_LOCALE=fr
+APP_CURRENCY=TND
+APP_TIMEZONE=Africa/Tunis
+INSTALLER_ENABLED=false
+```
 
-[Install LouzirModeIntime](https://devdocs.bagisto.com/2.3/introduction/installation.html#install-using-gui-installer) with or without Composer (Check [Requirement Details](https://bagisto.com/en/download/))
+Pour une nouvelle base, consulter `php artisan list` et les commandes d’installation de cette version de Bagisto. L’installateur web est désactivé par défaut. Ne pas lancer une réinstallation sur une base existante.
 
-Follow the [Getting Started with LouzirModeIntime](https://www.youtube.com/watch?v=s_DhQrjK8Tw&list=PLe30vg_FG4OS3BU8rHUKQZ2mnX45xwSMc) Tutorial
+```sh
+php artisan migrate
+php artisan storage:link
+php artisan serve
+```
 
-You can browse through the Free [Live Demo](https://demo.bagisto.com/)
+Les interfaces des modules possèdent leurs propres fichiers `package.json` et configurations Vite, notamment dans `packages/Louzir/Shop/`, `Admin/` et `Installer/`.
 
-## ☁️ Cloud Installation via Amazon AMI
+## Catalogue de démonstration
 
-You can also deploy LouzirModeIntime quickly using our pre-configured Amazon Machine Image (AMI) available on the AWS Marketplace:
+Sur une boutique de test initialisée, avec un canal, une famille d’attributs et un stock actif :
 
-👉 [**Launch LouzirModeIntime on AWS**](https://aws.amazon.com/marketplace/pp/prodview-r3xv62axcqkpa)
+```sh
+php artisan db:seed --class=DemoCatalogSeeder
+php artisan cache:clear
+php artisan db:seed --class=DemoSubcategoriesSeeder
+php artisan responsecache:clear
+```
 
-This AMI allows you to get started with LouzirModeIntime on a cloud environment without manual setup. Ideal for scalable production or testing environments.
+Le catalogue contient huit produits avec images, cinq collections et six sous-catégories : Nuisettes, Bodies, Ensembles de lingerie, Pyjamas, Tenues de détente et Bijoux. Les ajouts sont identifiés comme données de test. Les seeders peuvent être relancés sans créer de doublons ni remplacer les modifications existantes des produits.
 
-# Accelerate Your Online Store Launch with the LouzirModeIntime Starter Pack!
+## Vérifications
 
-Empower your e-commerce journey with the [LouzirModeIntime Starter Pack](https://store.webkul.com/bagisto-starter-pack.html), streamlining setup and integration for a seamless online store launch. Get ready to unlock success in the digital marketplace! 
+```sh
+composer validate --no-check-publish
+php artisan test
+```
 
-# Open Source B2B eCommerce Platform
+Les tests utilisant MySQL nécessitent une base de test distincte et une configuration `.env.testing` adaptée. Les tests de migration `tests/Unit/TunisianStoreDefaultsTest.php` utilisent SQLite en mémoire et nécessitent l’extension `pdo_sqlite`.
 
-The [B2B eCommerce Platform](https://bagisto.com/en/b2b-commerce-platform/) enhances your LouzirModeIntime store with advanced Business-to-Business (B2B) features. It enables company-based purchasing, multi-user access, quote negotiation, and procurement management — empowering businesses to handle B2B workflows efficiently within a single platform.
+Les contrôles de source en intégration continue vérifient le manifeste Composer, la syntaxe PHP et les espaces dans les modifications ; ils n’exécutent pas la suite complète des tests fonctionnels.
 
-![LouzirModeIntime B2B Ecommerce Image](https://github.com/bagisto/temp-media/blob/master/intro-banner.webp)
+## Déploiement
 
-# Multi Vendor Marketplace
+La démonstration est hébergée sur Railway. Les variables d’environnement et les données du canal doivent correspondre aux langues et à la devise souhaitées. Les images téléversées sont conservées dans un volume persistant monté sur `/app/storage/app/public`.
 
-[Multi Vendor Marketplace](https://bagisto.com/en/laravel-multi-vendor-marketplace/) transforms a standard store into a complete marketplace, allowing the admin to manage sellers, commissions, product approvals, and order handling, while giving vendors a dedicated dashboard to manage their catalog, orders, and transactions.
+Les fichiers `.env`, sauvegardes de bases, données clients et journaux de tests restent hors du dépôt. Les paiements de démonstration doivent utiliser des comptes de test.
 
-![Multi Vendor Marketplace Image](https://github.com/bagisto/temp-media/blob/master/multi-vendor-marketplace.webp)
+## Technologies et licences
 
-# Multi Tenant eCommerce
+- [Bagisto](https://github.com/bagisto/bagisto) : moteur e-commerce.
+- [Laravel](https://laravel.com/) : framework de l’application.
 
-[Multi Tenant eCommerce](https://bagisto.com/en/laravel-multi-tenant-saas/) in LouzirModeIntime allows businesses to build a SaaS-based marketplace platform where multiple vendors or merchants can create and manage their own individual stores under a single system.
-
-![Multi Tenant eCommerce Image](https://github.com/bagisto/temp-media/blob/master/multi-tenant.webp)
-
-# POS 
-
-[Point of Sale](https://bagisto.com/en/laravel-pos/) system manages retail operations efficiently, handling inventory management and fast customer checkout for your store.
-
-![POS Image](https://github.com/bagisto/temp-media/blob/master/pos.webp)
-
-# Headless Commerce
-
-The power of headless laravel commerce now comes to LouzirModeIntime enabling you to experience seamless and easily scalable storefront performance. Backed by some of the hottest tech stacks, LouzirModeIntime commerce can now be used to build powerful headless commerce solutions offering blazing-fast speed and easy customization powered by Next.js
-
-## Next.js Commerce
-
-![Next.js Logo](https://raw.githubusercontent.com/bagisto/temp-media/master/next.png)
-
-Develop and deploy your next headless commerce storefronts with Next JS and LouzirModeIntime: [https://github.com/bagisto/nextjs-commerce](https://github.com/bagisto/nextjs-commerce)
-
-# Open Source Mobile eCommerce
-
-Revolutionize Your Online Store with LouzirModeIntime's Open Source eCommerce Mobile 
-
-![Mobile View Example Screens](https://raw.githubusercontent.com/bagisto/temp-media/master/open-source-ecommerce-mobile.png)
-
-Mobile eCommerce powered by Flutter & Laravel: https://github.com/bagisto/opensource-ecommerce-mobile-app
-
-# AI Powered eCommerce
-
-You can integrate popular large language models like GPT-5, Gemini 3, Mistral, and LLaMA 4, Grok (xAI),GLM 4.6,Kimi-K2, Qwen 3, Deepseek etc to build [AI-powered eCommerce](https://bagisto.com/en/extensions/laravel-chatbot-using-openai-chatgpt-llm/) applications with LouzirModeIntime. Some of the popular use cases where you can make use of LLMs to build AI apps are chatbot, automated product descriptions, customer support, search, and recommendations.
-
-![AI Powered eCommerce Examples](https://raw.githubusercontent.com/bagisto/temp-media/master/ai_powered_ecommerce.png)
-
-You can incorporate LLM API with your bagisto applications to send and receive queries and ensure proper error handling and rate limiting to prevent overuse of the API
-
-# Decentralised eCommerce
-
-Build [decentralised applications](https://bagisto.com/en/services/blockchain-commerce/) with LouzirModeIntime on popular blockchains like Ethereum and Solana by integrating smart contracts with the eCommerce platform. You can have decentralised marketplaces, [NFT marketplaces](https://bagisto.com/en/nft-marketplace/), and decentralised e-signing with the laravel eCommerce system.
-
-![Decentralized Ecommerce Example Screens](https://raw.githubusercontent.com/bagisto/temp-media/master/decentralised-ecommerce.png)
-
-# Commerce For Every Need
-
-![Commerce Store Examples](https://raw.githubusercontent.com/bagisto/temp-media/master/every-need.png)
-
-With LouzirModeIntime, you can easily create use cases for various commerce needs like Marketplaces, PWA, Native Mobile Apps, Multi-Tenants systems, Blockchain and many more.
-
-# Built In Extensions
-
-![200+ Prebuilt Extensions](https://raw.githubusercontent.com/bagisto/temp-media/master/built_in_extension.png)
-
-Make use of 100+ LouzirModeIntime pre-built extensions from [LouzirModeIntime Extension Markeptlace](https://bagisto.com/en/extensions/)
-
-# Community
-
-![Forum and Facebook Communities](https://raw.githubusercontent.com/bagisto/temp-media/master/community.png)
-
-Get LouzirModeIntime support on [Facebook Group](https://www.facebook.com/groups/bagisto) and [Forum](https://forums.bagisto.com/)
-Would like to help us build the most developer-friendly E-Commerce platform? Start by reading our [Contributing Guide](https://github.com/bagisto/bagisto/blob/master/.github/CONTRIBUTING.md)!
-
-# License
-LouzirModeIntime is a fully open-source Laravel eCommerce framework that will always remain free under the [MIT License](https://github.com/bagisto/bagisto/blob/master/LICENSE).
-
-# Security Vulnerabilities
-If you think that you have found a security issue in LouzirModeIntime, please do not use the issue tracker and do not post it publicly. Instead, all security issues must be sent to [mailto:support@bagisto.com](mailto:support@bagisto.com).
-
-# Contributors
-
-This project is on [Open Collective](https://opencollective.com/bagisto), and it exists thanks to the people who contribute.
-
-<a href="https://github.com/bagisto/bagisto/graphs/contributors"><img src="https://opencollective.com/bagisto/contributors.svg?width=890&button=false"/></a>
-
-# Backers
-
-Thank you to all our backers! 🙏
-
-<a href="https://opencollective.com/bagisto" target="_blank"><img src="https://opencollective.com/bagisto/backers.svg?width=890"></a>
-
-# Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
-
-<a href="https://opencollective.com/bagisto" target="_blank"><img src="https://opencollective.com/bagisto/sponsors.svg?width=890&isActive=true"></a>
+Les mentions de copyright et licences des composants d’origine sont conservées.

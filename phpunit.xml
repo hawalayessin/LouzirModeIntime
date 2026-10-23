@@ -6,61 +6,65 @@
     colors="true"
 >
     <testsuites>
+        <testsuite name="Application Unit Test">
+            <directory suffix="Test.php">tests/Unit</directory>
+        </testsuite>
+
         <!-- Admin package testsuites. -->
         <testsuite name="Admin Feature Test">
-            <directory suffix="Test.php">packages/Webkul/Admin/tests/Feature</directory>
+            <directory suffix="Test.php">packages/Louzir/Admin/tests/Feature</directory>
         </testsuite>
 
         <!-- Core package testsuites. -->
         <testsuite name="Core Unit Test">
-            <directory suffix="Test.php">packages/Webkul/Core/tests/Unit</directory>
+            <directory suffix="Test.php">packages/Louzir/Core/tests/Unit</directory>
         </testsuite>
 
         <!-- Customer package testsuites. -->
         <testsuite name="Customer Unit Test">
-            <directory suffix="Test.php">packages/Webkul/Customer/tests/Unit</directory>
+            <directory suffix="Test.php">packages/Louzir/Customer/tests/Unit</directory>
         </testsuite>
 
         <!-- DataGrid package testsuites. -->
         <testsuite name="DataGrid Unit Test">
-            <directory suffix="Test.php">packages/Webkul/DataGrid/tests/Unit</directory>
+            <directory suffix="Test.php">packages/Louzir/DataGrid/tests/Unit</directory>
         </testsuite>
 
         <!-- Installer package testsuites. -->
         <testsuite name="Installer Feature Test">
-            <directory suffix="Test.php">packages/Webkul/Installer/tests/Feature</directory>
+            <directory suffix="Test.php">packages/Louzir/Installer/tests/Feature</directory>
         </testsuite>
 
         <!-- PayU package testsuites. -->
         <testsuite name="PayU Unit Test">
-            <directory suffix="Test.php">packages/Webkul/PayU/tests/Unit</directory>
+            <directory suffix="Test.php">packages/Louzir/PayU/tests/Unit</directory>
         </testsuite>
 
         <testsuite name="PayU Feature Test">
-            <directory suffix="Test.php">packages/Webkul/PayU/tests/Feature</directory>
+            <directory suffix="Test.php">packages/Louzir/PayU/tests/Feature</directory>
         </testsuite>
 
         <!-- Razorpay package testsuites. -->
         <testsuite name="Razorpay Unit Test">
-            <directory suffix="Test.php">packages/Webkul/Razorpay/tests/Unit</directory>
+            <directory suffix="Test.php">packages/Louzir/Razorpay/tests/Unit</directory>
         </testsuite>
 
         <testsuite name="Razorpay Feature Test">
-            <directory suffix="Test.php">packages/Webkul/Razorpay/tests/Feature</directory>
+            <directory suffix="Test.php">packages/Louzir/Razorpay/tests/Feature</directory>
         </testsuite>
 
         <!-- Shop package testsuites. -->
         <testsuite name="Shop Feature Test">
-            <directory suffix="Test.php">packages/Webkul/Shop/tests/Feature</directory>
+            <directory suffix="Test.php">packages/Louzir/Shop/tests/Feature</directory>
         </testsuite>
 
         <!-- Stripe package testsuites. -->
         <testsuite name="Stripe Unit Test">
-            <directory suffix="Test.php">packages/Webkul/Stripe/tests/Unit</directory>
+            <directory suffix="Test.php">packages/Louzir/Stripe/tests/Unit</directory>
         </testsuite>
 
         <testsuite name="Stripe Feature Test">
-            <directory suffix="Test.php">packages/Webkul/Stripe/tests/Feature</directory>
+            <directory suffix="Test.php">packages/Louzir/Stripe/tests/Feature</directory>
         </testsuite>
     </testsuites>
 
