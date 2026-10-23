@@ -19,6 +19,7 @@ class AuthFormsConfigurationTest extends TestCase
         Schema::create('channels', function (Blueprint $table) {
             $table->id();
             $table->string('code');
+            $table->string('theme')->default('default');
         });
         Schema::create('locales', function (Blueprint $table) {
             $table->id();
@@ -81,5 +82,26 @@ class AuthFormsConfigurationTest extends TestCase
         $this->assertFalse((bool) core()->getConfigData('general.gdpr.agreement.enabled', 'default', 'fr'));
         $this->assertTrue((bool) core()->getConfigData('general.gdpr.agreement.enabled', 'default', 'en'));
         $this->assertSame('Mon libellé personnalisé', core()->getConfigData('general.gdpr.agreement.agreement_label', 'default', 'fr'));
+    }
+
+    public function test_diagnostic_detects_a_login_view_overridden_by_the_active_theme(): void
+    {
+        $relative = 'storage/framework/testing/auth-view-'.bin2hex(random_bytes(8));
+        $directory = base_path($relative);
+        mkdir($directory.'/customers', 0777, true);
+        $fixture = $directory.'/customers/sign-in.blade.php';
+        file_put_contents($fixture, 'Custom login view');
+        config(['themes.shop.default.views_path' => $relative]);
+
+        try {
+            $this->artisan('louzir:auth-status')
+                ->expectsOutput('Vue surchargée par le thème : sign-in')
+                ->expectsOutput('default / fr : conditions affichées')
+                ->assertSuccessful();
+        } finally {
+            unlink($fixture);
+            rmdir($directory.'/customers');
+            rmdir($directory);
+        }
     }
 }

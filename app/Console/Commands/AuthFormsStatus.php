@@ -12,6 +12,10 @@ class AuthFormsStatus extends Command
 
     public function handle(): int
     {
+        $channel = core()->getDefaultChannel();
+        $theme = $channel->theme ?: config('themes.shop-default');
+        themes()->set(themes()->exists($theme) ? $theme : config('themes.shop-default'));
+
         $rows = [];
         foreach (['sign-in', 'sign-up', 'auth-styles', 'agreement', 'password-toggle'] as $name) {
             $path = view()->getFinder()->find('shop::customers.'.$name);
@@ -23,7 +27,6 @@ class AuthFormsStatus extends Command
         }
         $this->table(['Vue', 'Fichier chargé', 'SHA-256'], $rows);
 
-        $channel = core()->getDefaultChannel();
         foreach ($channel->locales as $locale) {
             $enabled = core()->getConfigData('general.gdpr.settings.enabled', $channel->code, $locale->code)
                 && core()->getConfigData('general.gdpr.agreement.enabled', $channel->code, $locale->code);
