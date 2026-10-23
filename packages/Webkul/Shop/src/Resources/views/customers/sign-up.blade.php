@@ -422,10 +422,40 @@
         }
 
         .louzir-checkbox-line input {
-            width: 13px;
-            height: 13px;
+            width: 15px;
+            height: 15px;
+            margin: 0;
+            border: 1.5px solid #cfc3ba;
+            border-radius: 4px;
+            background: #fff;
             accent-color: var(--auth-accent);
             flex-shrink: 0;
+        }
+
+        .louzir-terms-line {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 8px;
+            color: var(--auth-muted);
+            font-size: 10px;
+        }
+
+        .louzir-terms-line input {
+            width: 15px;
+            height: 15px;
+            margin: 0;
+            border: 1.5px solid #cfc3ba;
+            border-radius: 4px;
+            background: #fff;
+            accent-color: var(--auth-accent);
+            flex: 0 0 auto;
+        }
+
+        .louzir-terms-line label,
+        .louzir-terms-line span {
+            color: var(--auth-muted);
+            font-size: 10px;
         }
 
         .louzir-login-button {
@@ -849,15 +879,14 @@
                                 core()->getConfigData('general.gdpr.settings.enabled')
                                 && core()->getConfigData('general.gdpr.agreement.enabled')
                             )
-                                <div class="mb-2 flex select-none items-center gap-1.5">
-                                    <x-shop::form.control-group.control
+                                <div class="louzir-terms-line">
+                                    <input
                                         type="checkbox"
                                         name="agreement"
                                         id="agreement"
-                                        value="0"
-                                        rules="required"
-                                        for="agreement"
-                                    />
+                                        value="1"
+                                        required
+                                    >
 
                                     <label
                                         class="cursor-pointer select-none text-[10px] text-[#5f6166]"
