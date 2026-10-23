@@ -70,6 +70,24 @@ php artisan responsecache:clear
 
 Le catalogue contient huit produits avec images, cinq collections et six sous-catégories : Nuisettes, Bodies, Ensembles de lingerie, Pyjamas, Tenues de détente et Bijoux. Les ajouts sont identifiés comme données de test. Les seeders peuvent être relancés sans créer de doublons ni remplacer les modifications existantes des produits.
 
+## Mise à jour après un pull
+
+```sh
+git switch main
+git pull --ff-only origin main
+composer install --no-interaction
+php artisan migrate
+php artisan optimize:clear
+php artisan responsecache:clear
+php artisan louzir:auth-status
+```
+
+Composer régénère les chemins des classes après le renommage des modules. Les deux commandes de cache actualisent notamment les vues et la configuration.
+
+Git ne copie pas les réglages enregistrés dans la base. La case des conditions générales dépend de **Configuration → Général → RGPD**, pour chaque langue et canal : activer les paramètres RGPD et l’accord. Les valeurs par défaut sont activées ; un choix explicite de désactivation dans l’administration est conservé.
+
+Si les formulaires restent différents, `louzir:auth-status` affiche le fichier effectivement utilisé, son empreinte et les réglages actifs. Une vue publiée dans `resources/themes/default/views/` ou `resources/views/vendor/shop/` peut remplacer celle du module ; le diagnostic signale ces surcharges.
+
 ## Vérifications
 
 ```sh

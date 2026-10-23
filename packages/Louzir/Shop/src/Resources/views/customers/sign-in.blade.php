@@ -170,15 +170,7 @@
                             </x-shop::form.control-group>
 
                             <div class="louzir-form-options">
-                                <label class="louzir-checkbox-line">
-                                    <input
-                                        type="checkbox"
-                                        id="show-password"
-                                        onchange="switchVisibility()"
-                                    >
-
-                                    @lang('shop::app.customers.login-form.show-password')
-                                </label>
+                                @include('shop::customers.password-toggle')
 
                                 <a
                                     href="{{ route('shop.customers.forgot_password.create') }}"
@@ -254,14 +246,5 @@
     @push('scripts')
         {!! \Webkul\Customer\Facades\Captcha::renderJS() !!}
 
-        <script>
-            function switchVisibility() {
-                let passwordField = document.getElementById("password");
-
-                passwordField.type = passwordField.type === "password"
-                    ? "text"
-                    : "password";
-            }
-        </script>
     @endpush
 </x-shop::layouts>

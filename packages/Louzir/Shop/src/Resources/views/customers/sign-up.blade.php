@@ -250,6 +250,10 @@
 
                             {!! view_render_event('bagisto.shop.customers.signup_form.password_confirmation.after') !!}
 
+                            <div class="louzir-form-options">
+                                @include('shop::customers.password-toggle', ['controls' => 'password password_confirmation'])
+                            </div>
+
                             <!-- Captcha -->
                             @if (core()->getConfigData('customer.captcha.credentials.status'))
                                 <x-shop::form.control-group>
