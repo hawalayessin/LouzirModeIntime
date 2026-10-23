@@ -414,6 +414,7 @@ return [
                 'name' => 'enabled',
                 'title' => 'admin::app.configuration.index.general.gdpr.settings.enabled',
                 'type' => 'boolean',
+                'default' => true,
                 'channel_based' => true,
                 'locale_based' => true,
             ],
@@ -428,6 +429,7 @@ return [
                 'name' => 'enabled',
                 'title' => 'admin::app.configuration.index.general.gdpr.agreement.enable',
                 'type' => 'boolean',
+                'default' => true,
                 'channel_based' => true,
                 'locale_based' => true,
             ], [
