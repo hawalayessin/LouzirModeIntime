@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'search' => 'ابحث…',
+    'no-results' => 'لا توجد نتائج',
     'country' => 'تونس',
     'governorate' => 'الولاية',
     'select-governorate' => 'اختر الولاية',

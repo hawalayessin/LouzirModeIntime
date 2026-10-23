@@ -4008,6 +4008,8 @@ return [
                     'title' => 'Content',
 
                     'header-offer' => [
+                        'background-color' => 'Announcement bar background color',
+                        'background-color-info' => 'Shared across all storefront pages. Text color adjusts automatically for readability.',
                         'title' => 'Header Offer Title',
                         'title-info' => 'Configure Header Offer Title with offer title, redirection title, and redirection link.',
                         'offer-title' => 'Offer Title',

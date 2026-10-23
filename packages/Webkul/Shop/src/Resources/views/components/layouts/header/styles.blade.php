@@ -2,10 +2,6 @@
     .louzir-header { border-bottom: 1px solid #e9e9e9; box-shadow: 0 2px 8px rgba(0, 0, 0, .025); }
     .louzir-header :is(a, button, input, [tabindex]):focus-visible { outline: 2px solid #181818; outline-offset: 3px; }
     .louzir-header :is(a, button) { touch-action: manipulation; }
-    .louzir-topbar > div { min-height: 36px; padding-inline: 32px; border-color: #ededed; }
-    .louzir-topbar [role="button"], .louzir-topbar p { padding-block: 7px; font-size: 12px; line-height: 20px; }
-    .louzir-topbar [class*="icon-arrow"] { font-size: 16px; }
-
     .louzir-desktop-bar { align-items: center; gap: 28px; min-height: 80px; padding: 0 32px; border: 0; }
     .louzir-desktop-brand { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; gap: 28px; }
     .louzir-desktop-logo { display: flex; align-items: center; justify-content: center; flex: 0 0 148px; height: 72px; }

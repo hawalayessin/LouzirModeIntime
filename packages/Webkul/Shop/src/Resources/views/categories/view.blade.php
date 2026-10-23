@@ -29,11 +29,11 @@
     @if ($category->banner_path)
         <div class="louzir-catalog-shell mt-8 max-md:mt-4">
             <x-shop::media.images.lazy
-                class="aspect-[4/1] max-h-full max-w-full rounded-xl"
+                class="louzir-category-banner"
                 src="{{ $category->banner_url }}"
                 alt="{{ $category->name }}"
-                width="1320"
-                height="300"
+                width="1440"
+                height="480"
             />
         </div>
     @endif

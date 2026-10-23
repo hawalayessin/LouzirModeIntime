@@ -4008,6 +4008,8 @@ return [
                     'title' => 'Contenu',
 
                     'header-offer' => [
+                        'background-color' => 'Couleur de fond de la bande',
+                        'background-color-info' => 'Couleur commune à toutes les pages de la boutique. Le texte adapte sa couleur pour rester lisible.',
                         'title' => 'Titre de l\'offre d\'en-tête',
                         'title-info' => 'Configurer le titre de l\'offre d\'en-tête avec le titre de l\'offre, le titre de redirection et le lien de redirection.',
                         'offer-title' => 'Titre de l\'offre',

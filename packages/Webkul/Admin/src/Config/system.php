@@ -84,6 +84,13 @@ return [
                 'name' => 'redirection_link',
                 'title' => 'admin::app.configuration.index.general.content.header-offer.redirection-link',
                 'type' => 'text',
+            ], [
+                'name' => 'background_color',
+                'title' => 'admin::app.configuration.index.general.content.header-offer.background-color',
+                'info' => 'admin::app.configuration.index.general.content.header-offer.background-color-info',
+                'type' => 'color',
+                'default' => '#1a1a1a',
+                'validation' => 'max:7',
             ],
         ],
     ], [

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Webkul\Customer\Models\Customer;
@@ -16,6 +17,14 @@ use function Pest\Laravel\get;
 use function Pest\Laravel\patchJson;
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\putJson;
+
+beforeEach(function () {
+    Http::fake([
+        'https://tn-municipality-api.vercel.app/api/municipalities' => Http::response([
+            ['Value' => 'TUNIS', 'Name' => 'TUNIS CENTRE', 'PostalCode' => '1000'],
+        ]),
+    ]);
+});
 
 it('should returns the profile page', function () {
     // Act and Assert.
@@ -242,7 +251,7 @@ it('should returns the create page of address', function () {
         ->assertSeeText(trans('shop::app.customers.account.addresses.create.last-name'))
         ->assertSeeText(trans('shop::app.customers.account.addresses.create.vat-id'))
         ->assertSeeText(trans('shop::app.customers.account.addresses.create.street-address'))
-        ->assertSeeText(trans('shop::app.customers.account.addresses.create.company-name'));
+        ->assertSeeText(trans('shop::app.customers.account.addresses.create.company-name'), false);
 });
 
 it('should fails the validation error when certain inputs not provided when store the customer address', function () {
@@ -272,10 +281,10 @@ it('should store the customer address', function () {
         'first_name' => $firstName = fake()->firstName(),
         'last_name' => $lastName = fake()->lastName(),
         'address' => [fake()->word()],
-        'country' => $countryCode = fake()->countryCode(),
-        'state' => $state = fake()->state(),
-        'city' => $city = fake()->city(),
-        'postcode' => $postCode = rand(11111, 99999),
+        'country' => $countryCode = 'TN',
+        'state' => $state = 'TUNIS',
+        'city' => $city = 'TUNIS CENTRE',
+        'postcode' => $postCode = '1000',
         'phone' => $phoneNumber = fake()->e164PhoneNumber(),
         'default_address' => fake()->randomElement([0, 1]),
         'address_type' => $addressType = CustomerAddress::ADDRESS_TYPE,
@@ -348,6 +357,7 @@ it('should update the customer address', function () {
 
     $customerAddress = CustomerAddress::factory()->create([
         'customer_id' => $customer->id,
+        'country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000',
     ]);
 
     // Act and Assert.
@@ -362,7 +372,7 @@ it('should update the customer address', function () {
         'country' => $customerAddress->country,
         'state' => $customerAddress->state,
         'city' => $customerAddress->city,
-        'postcode' => $postCode = rand(1111, 99999),
+        'postcode' => $postCode = '1000',
         'phone' => $customerAddress->phone,
         'default_address' => 1,
         'address_type' => $customerAddress->address_type,

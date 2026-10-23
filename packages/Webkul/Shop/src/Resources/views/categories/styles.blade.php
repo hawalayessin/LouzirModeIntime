@@ -6,6 +6,15 @@
         padding-inline: 32px;
     }
     .louzir-catalog-layout { display: flex; align-items: flex-start; gap: 28px; }
+    .louzir-category-banner {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 1;
+        object-fit: cover;
+        object-position: 50% 0%;
+        border-radius: 16px;
+    }
     .louzir-catalog-products { flex: 1; min-width: 0; }
     .louzir-filter-sidebar { flex: 0 0 260px; width: 260px; min-width: 0; }
     .louzir-filter-panel {
@@ -47,6 +56,7 @@
         .louzir-catalog-shell { padding-inline: 24px; }
     }
     @media (max-width: 767px) {
+        .louzir-category-banner { aspect-ratio: 16 / 9; border-radius: 12px; }
         .louzir-catalog-shell { padding-inline: 16px; }
         .louzir-filter-panel { max-height: none; overflow: visible; }
         .louzir-catalog-layout { gap: 0; }

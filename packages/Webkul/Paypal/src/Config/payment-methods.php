@@ -21,7 +21,7 @@ return [
         'title' => 'PayPal Standard',
         'description' => 'PayPal Standard',
         'active' => false,
-        'business_account' => 'test@webkul.com',
+        'business_account' => '',
         'sort' => 5,
     ],
 ];

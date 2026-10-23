@@ -5,7 +5,7 @@ namespace Webkul\Shop\Http\Controllers\API;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Event;
 use Webkul\Customer\Repositories\CustomerAddressRepository;
-use Webkul\Shop\Http\Requests\Customer\AddressRequest;
+use Webkul\Shop\Http\Requests\Customer\TunisiaAddressRequest;
 use Webkul\Shop\Http\Resources\AddressResource;
 
 class AddressController extends APIController
@@ -30,7 +30,7 @@ class AddressController extends APIController
     /**
      * Create a new address for customer.
      */
-    public function store(AddressRequest $request): JsonResource
+    public function store(TunisiaAddressRequest $request): JsonResource
     {
         $customer = auth()->guard('customer')->user();
 
@@ -73,7 +73,7 @@ class AddressController extends APIController
     /**
      * Update address for customer.
      */
-    public function update(AddressRequest $request): JsonResource
+    public function update(TunisiaAddressRequest $request): JsonResource
     {
         $customer = auth()->guard('customer')->user();
 

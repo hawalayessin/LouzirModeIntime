@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'enabled' => env('INSTALLER_ENABLED', env('APP_ENV', 'production') !== 'production'),
+    'enabled' => env('INSTALLER_ENABLED', false),
 ];

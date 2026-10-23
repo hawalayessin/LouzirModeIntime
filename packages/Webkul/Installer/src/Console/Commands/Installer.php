@@ -4,7 +4,6 @@ namespace Webkul\Installer\Console\Commands;
 
 use DateTimeZone;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Webkul\Installer\Events\ComposerEvents;
@@ -450,8 +449,6 @@ class Installer extends Command
             $this->info('Email: '.$adminEmail);
             $this->info('Password: '.$adminPassword);
             $this->info('Cheers!');
-
-            Event::dispatch('bagisto.installed');
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
         }

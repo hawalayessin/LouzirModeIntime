@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 use Webkul\Attribute\Models\Attribute;
 use Webkul\Category\Models\Category;
 use Webkul\Category\Models\CategoryTranslation;
@@ -340,12 +341,14 @@ it('should update mass categories', function () {
 it('should search categories with mega search', function () {
     // Arrange.
     $category = (new CategoryFaker)->factory()->create();
+    $name = 'category-search-'.Str::uuid();
+    $category->translate('en')->update(['name' => $name]);
 
     // Act and Assert.
     $this->loginAsAdmin();
 
     getJson(route('admin.catalog.categories.search', [
-        'query' => $category->name,
+        'query' => $name,
     ]))
         ->assertOk()
         ->assertJsonPath('data.0.id', $category->id)

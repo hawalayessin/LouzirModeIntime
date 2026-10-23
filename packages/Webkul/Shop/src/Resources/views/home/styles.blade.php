@@ -4,9 +4,6 @@
     .louzir-shell { width: min(100%, 1440px); margin-inline: auto; padding-inline: 48px; }
     .louzir-title, .louzir-card-content h3, .louzir-boutique-info h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 600; line-height: 1.2; text-wrap: balance; }
     .louzir-kicker { display: block; font-size: 11px; line-height: 1.5; text-transform: uppercase; font-weight: 600; }
-    body:has(.louzir-home) .louzir-topbar { background: #1a1a1a; color: #fff; }
-    body:has(.louzir-home) .louzir-topbar > div { border-color: #333; }
-    body:has(.louzir-home) .louzir-topbar [class*="journal-scroll"] { color: #181818; }
 
     .louzir-marquee { display: flex; align-items: center; min-height: 38px; background: #151515; color: #e8d5ce; }
     .louzir-marquee-window { flex: 1; min-width: 0; overflow: hidden; }

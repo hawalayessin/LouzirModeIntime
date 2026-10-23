@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Webkul\Admin\Mail\Order\CreatedNotification as AdminOrderCreatedNotification;
 use Webkul\Checkout\Models\Cart;
@@ -20,6 +21,14 @@ use Webkul\Sales\Models\OrderPayment;
 use Webkul\Shop\Mail\Order\CreatedNotification as ShopOrderCreatedNotification;
 
 use function Pest\Laravel\postJson;
+
+beforeEach(function () {
+    Http::fake([
+        'https://tn-municipality-api.vercel.app/api/municipalities' => Http::response([
+            ['Value' => 'TUNIS', 'Name' => 'TUNIS CENTRE', 'PostalCode' => '1000'],
+        ]),
+    ]);
+});
 
 it('should handle certain validation errors when storing the guest user address for cart billing and shipping', function () {
     // Arrange.
@@ -220,9 +229,9 @@ it('should store the shipping address as the billing address when use_for_shippi
         'additional' => $additional,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -328,9 +337,9 @@ it('should store the billing and shipping address for guest user', function () {
         'additional' => $additional,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -441,9 +450,9 @@ it('should store the billing address for non stockable items for guest user', fu
         'additional' => $additional,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -547,9 +556,9 @@ it('should store the shipping address as the billing address when use_for_shippi
         'additional' => $additional,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -660,9 +669,9 @@ it('should store the billing and shipping address for customer', function () {
         'additional' => $additional,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -778,9 +787,9 @@ it('should store the billing address for non stockable items for customer', func
         'additional' => $additional,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -887,9 +896,9 @@ it('should fails the certain validation errors when use for shipping is set to f
         'additional' => $additional,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -962,9 +971,9 @@ it('should fails the certain validation errors when use for shipping is set to f
         'additional' => $additional,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -3978,7 +3987,7 @@ it('should not return the cash on delivery payment method if product is download
         'address_type' => CartAddress::ADDRESS_TYPE_BILLING,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     CartPayment::factory()->create([
         'cart_id' => $cart->id,
@@ -3986,7 +3995,7 @@ it('should not return the cash on delivery payment method if product is download
         'method_title' => core()->getConfigData('sales.payment_methods.'.$paymentMethod.'.title'),
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -4080,7 +4089,7 @@ it('should not return the shipping methods if product is downloadable', function
         'address_type' => CartAddress::ADDRESS_TYPE_BILLING,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     CartPayment::factory()->create([
         'cart_id' => $cart->id,
@@ -4088,7 +4097,7 @@ it('should not return the shipping methods if product is downloadable', function
         'method_title' => core()->getConfigData('sales.payment_methods.'.$paymentMethod.'.title'),
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -4181,7 +4190,7 @@ it('should not return the cash on delivery payment method if product is virtual'
         'address_type' => CartAddress::ADDRESS_TYPE_BILLING,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     CartPayment::factory()->create([
         'cart_id' => $cart->id,
@@ -4189,7 +4198,7 @@ it('should not return the cash on delivery payment method if product is virtual'
         'method_title' => core()->getConfigData('sales.payment_methods.'.$paymentMethod.'.title'),
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 
@@ -4283,7 +4292,7 @@ it('should not return the shipping methods if product is virtual', function () {
         'address_type' => CartAddress::ADDRESS_TYPE_BILLING,
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     CartPayment::factory()->create([
         'cart_id' => $cart->id,
@@ -4291,7 +4300,7 @@ it('should not return the shipping methods if product is virtual', function () {
         'method_title' => core()->getConfigData('sales.payment_methods.'.$paymentMethod.'.title'),
     ]);
 
-    $customerAddress = CustomerAddress::factory()->create()->toArray();
+    $customerAddress = CustomerAddress::factory()->create(['country' => 'TN', 'state' => 'TUNIS', 'city' => 'TUNIS CENTRE', 'postcode' => '1000'])->toArray();
 
     cart()->setCart($cart);
 

@@ -301,12 +301,9 @@
 
                             <span>@lang('installer::app.installer.index.bagisto-info')</span>
 
-                            <a
-                                class="bg-white text-blue-600 underline"
-                                href="https://webkul.com/"
-                            >
+                            <span>
                                 @lang('installer::app.installer.index.webkul')
-                            </a>
+                            </span>
                         </p>
                     </div>
                 </div>

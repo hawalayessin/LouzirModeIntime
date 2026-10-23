@@ -4,11 +4,13 @@ namespace Webkul\Shop\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Webkul\Core\Rules\PhoneNumber;
-use Webkul\Core\Rules\PostCode;
 use Webkul\Customer\Rules\VatIdRule;
+use Webkul\Shop\Http\Requests\Concerns\ValidatesTunisianAddress;
 
 class CartAddressRequest extends FormRequest
 {
+    use ValidatesTunisianAddress;
+
     /**
      * Rules.
      *
@@ -29,9 +31,9 @@ class CartAddressRequest extends FormRequest
      */
     public function rules(): array
     {
-        if ($this->has('billing')) {
-            $this->mergeAddressRules('billing');
-        }
+        $this->rules = [];
+
+        $this->mergeAddressRules('billing');
 
         if (! $this->input('billing.use_for_shipping')) {
             $this->mergeAddressRules('shipping');
@@ -51,12 +53,12 @@ class CartAddressRequest extends FormRequest
             "{$addressType}.last_name" => ['required'],
             "{$addressType}.email" => ['required'],
             "{$addressType}.address" => ['required', 'array', 'min:1'],
-            "{$addressType}.city" => ['required'],
-            "{$addressType}.country" => core()->isCountryRequired() ? ['required'] : ['nullable'],
-            "{$addressType}.state" => core()->isStateRequired() ? ['required'] : ['nullable'],
-            "{$addressType}.postcode" => core()->isPostCodeRequired() ? ['required', new PostCode] : [new PostCode],
             "{$addressType}.phone" => ['required', new PhoneNumber],
         ]);
+
+        $this->mergeWithRules($this->tunisianAddressRules(
+            (array) $this->input($addressType, []), $addressType.'.'
+        ));
 
         if ($addressType == 'billing') {
             $this->mergeWithRules([

@@ -1,3 +1,5 @@
+@include('shop::components.form.tunisia-address-scripts')
+
 @pushOnce('scripts')
     <script
         type="text/x-template"
@@ -151,127 +153,18 @@
 
             {!! view_render_event('bagisto.shop.checkout.onepage.address.form.address.after') !!}
 
-            <div class="grid grid-cols-2 gap-x-5 max-md:grid-cols-1">
-                <!-- Country -->
-                <x-shop::form.control-group class="!mb-4">
-                    <x-shop::form.control-group.label class="{{ core()->isCountryRequired() ? 'required' : '' }} !mt-0">
-                        @lang('shop::app.checkout.onepage.address.country')
-                    </x-shop::form.control-group.label>
+            <v-tunisia-address
+                :key="controlName + '-' + address.id"
+                :field-prefix="controlName"
+                :initial-state="address.state || ''"
+                :initial-city="address.city || ''"
+                :initial-postcode="address.postcode || ''"
+            ></v-tunisia-address>
 
-                    <x-shop::form.control-group.control
-                        type="select"
-                        ::name="controlName + '.country'"
-                        ::value="address.country"
-                        v-model="selectedCountry"
-                        rules="{{ core()->isCountryRequired() ? 'required' : '' }}"
-                        :label="trans('shop::app.checkout.onepage.address.country')"
-                        :placeholder="trans('shop::app.checkout.onepage.address.country')"
-                    >
-                        <option value="">
-                            @lang('shop::app.checkout.onepage.address.select-country')
-                        </option>
-
-                        <option
-                            v-for="country in countries"
-                            :value="country.code"
-                        >
-                            @{{ country.name }}
-                        </option>
-                    </x-shop::form.control-group.control>
-
-                    <x-shop::form.control-group.error ::name="controlName + '.country'" />
-                </x-shop::form.control-group>
-
-                {!! view_render_event('bagisto.shop.checkout.onepage.address.form.country.after') !!}
-
-                <!-- State -->
-                <x-shop::form.control-group>
-                    <x-shop::form.control-group.label class="{{ core()->isStateRequired() ? 'required' : '' }} !mt-0">
-                        @lang('shop::app.checkout.onepage.address.state')
-                    </x-shop::form.control-group.label>
-
-                    <template v-if="states">
-                        <template v-if="haveStates">
-                            <x-shop::form.control-group.control
-                                type="select"
-                                ::name="controlName + '.state'"
-                                rules="{{ core()->isStateRequired() ? 'required' : '' }}"
-                                ::value="address.state"
-                                :label="trans('shop::app.checkout.onepage.address.state')"
-                                :placeholder="trans('shop::app.checkout.onepage.address.state')"
-                            >
-                                <option value="">
-                                    @lang('shop::app.checkout.onepage.address.select-state')
-                                </option>
-
-                                <option
-                                    v-for='(state, index) in states[selectedCountry]'
-                                    :value="state.code"
-                                >
-                                    @{{ state.default_name }}
-                                </option>
-                            </x-shop::form.control-group.control>
-                        </template>
-
-                        <template v-else>
-                            <x-shop::form.control-group.control
-                                type="text"
-                                ::name="controlName + '.state'"
-                                ::value="address.state"
-                                rules="{{ core()->isStateRequired() ? 'required' : '' }}"
-                                :label="trans('shop::app.checkout.onepage.address.state')"
-                                :placeholder="trans('shop::app.checkout.onepage.address.state')"
-                            />
-                        </template>
-                    </template>
-
-                    <x-shop::form.control-group.error ::name="controlName + '.state'" />
-                </x-shop::form.control-group>
-
-                {!! view_render_event('bagisto.shop.checkout.onepage.address.form.state.after') !!}
-            </div>
-
-            <div class="grid grid-cols-2 gap-x-5 max-md:grid-cols-1">
-                <!-- City -->
-                <x-shop::form.control-group>
-                    <x-shop::form.control-group.label class="required !mt-0">
-                        @lang('shop::app.checkout.onepage.address.city')
-                    </x-shop::form.control-group.label>
-
-                    <x-shop::form.control-group.control
-                        type="text"
-                        ::name="controlName + '.city'"
-                        ::value="address.city"
-                        rules="required"
-                        :label="trans('shop::app.checkout.onepage.address.city')"
-                        :placeholder="trans('shop::app.checkout.onepage.address.city')"
-                    />
-
-                    <x-shop::form.control-group.error ::name="controlName + '.city'" />
-                </x-shop::form.control-group>
-
-                {!! view_render_event('bagisto.shop.checkout.onepage.address.form.city.after') !!}
-
-                <!-- Postcode -->
-                <x-shop::form.control-group>
-                    <x-shop::form.control-group.label class="{{ core()->isPostCodeRequired() ? 'required' : '' }} !mt-0">
-                        @lang('shop::app.checkout.onepage.address.postcode')
-                    </x-shop::form.control-group.label>
-
-                    <x-shop::form.control-group.control
-                        type="text"
-                        ::name="controlName + '.postcode'"
-                        ::value="address.postcode"
-                        rules="{{ core()->isPostCodeRequired() ? 'required' : '' }}|postcode"
-                        :label="trans('shop::app.checkout.onepage.address.postcode')"
-                        :placeholder="trans('shop::app.checkout.onepage.address.postcode')"
-                    />
-
-                    <x-shop::form.control-group.error ::name="controlName + '.postcode'" />
-                </x-shop::form.control-group>
-
-                {!! view_render_event('bagisto.shop.checkout.onepage.address.form.postcode.after') !!}
-            </div>
+            {!! view_render_event('bagisto.shop.checkout.onepage.address.form.country.after') !!}
+            {!! view_render_event('bagisto.shop.checkout.onepage.address.form.state.after') !!}
+            {!! view_render_event('bagisto.shop.checkout.onepage.address.form.city.after') !!}
+            {!! view_render_event('bagisto.shop.checkout.onepage.address.form.postcode.after') !!}
 
             <!-- Phone Number -->
             <x-shop::form.control-group>
@@ -324,45 +217,6 @@
                 },
             },
 
-            data() {
-                return {
-                    selectedCountry: this.address.country,
-
-                    countries: [],
-
-                    states: null,
-                }
-            },
-
-            computed: {
-                haveStates() {
-                    return !! this.states[this.selectedCountry]?.length;
-                },
-            },
-
-            mounted() {
-                this.getCountries();
-
-                this.getStates();
-            },
-
-            methods: {
-                getCountries() {
-                    this.$axios.get("{{ route('shop.api.core.countries') }}")
-                        .then(response => {
-                            this.countries = response.data.data;
-                        })
-                        .catch(() => {});
-                },
-
-                getStates() {
-                    this.$axios.get("{{ route('shop.api.core.states') }}")
-                        .then(response => {
-                            this.states = response.data.data;
-                        })
-                        .catch(() => {});
-                },
-            }
         });
     </script>
 @endPushOnce

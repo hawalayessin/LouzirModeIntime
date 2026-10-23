@@ -3,6 +3,10 @@
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
+beforeEach(function () {
+    config(['installer.enabled' => true]);
+});
+
 it('should block access to installer index page when application is already installed', function () {
     // Act and Assert.
     get(route('installer.index'))

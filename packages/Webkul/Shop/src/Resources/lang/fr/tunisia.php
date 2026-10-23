@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'search' => 'Rechercher…',
+    'no-results' => 'Aucun résultat',
     'country' => 'Tunisie',
     'governorate' => 'Gouvernorat',
     'select-governorate' => 'Sélectionnez un gouvernorat',

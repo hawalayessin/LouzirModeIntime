@@ -4,7 +4,6 @@ namespace Webkul\Installer\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Event;
 use Webkul\Installer\Helpers\DatabaseManager;
 
 class CanInstall
@@ -56,8 +55,6 @@ class CanInstall
 
         if (app(DatabaseManager::class)->isInstalled()) {
             touch(storage_path('installed'));
-
-            Event::dispatch('bagisto.installed');
 
             return true;
         }

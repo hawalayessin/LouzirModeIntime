@@ -79,6 +79,10 @@ class ConfigurationForm extends FormRequest
             }
         }
 
+        if ($this->has('general.content.header_offer.background_color')) {
+            $rules['general.content.header_offer.background_color'] = ['nullable', 'string', 'regex:/^#[0-9a-fA-F]{6}$/'];
+        }
+
         return $rules;
     }
 

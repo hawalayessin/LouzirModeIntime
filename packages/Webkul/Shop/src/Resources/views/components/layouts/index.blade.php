@@ -75,6 +75,8 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap"
         />
 
+        @include('shop::components.layouts.header.topbar-styles')
+
         @if ($hasHeader)
             @include('shop::components.layouts.header.styles')
         @endif
@@ -122,6 +124,8 @@
             <x-shop::modal.confirm />
 
             <!-- Page Header Blade Component -->
+            <x-shop::layouts.header.topbar />
+
             @if ($hasHeader)
                 <x-shop::layouts.header />
             @endif

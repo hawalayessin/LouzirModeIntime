@@ -116,6 +116,7 @@
                 >
                     <input
                         type="color"
+                        :id="name"
                         v-bind="field"
                         :class="[errors.length ? 'border border-red-500' : '']"
                         class="w-full appearance-none rounded-md border text-sm text-gray-600 transition-all hover:border-gray-400 dark:text-gray-300 dark:hover:border-gray-400"
