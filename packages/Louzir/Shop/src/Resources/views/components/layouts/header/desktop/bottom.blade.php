@@ -1,3 +1,5 @@
+@include('shop::components.categories.navigation')
+
 {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.before') !!}
 
 <div class="louzir-desktop-bar flex min-h-[56px] w-full justify-between border border-b border-l-0 border-r-0 border-t-0">
@@ -408,9 +410,11 @@
 
             <!-- LouzirModeIntime Drawer Integration -->
             <x-shop::drawer
+                class="louzir-category-drawer"
                 position="left"
                 width="400px"
-                ::is-active="isDrawerActive"
+                ref="categoryDrawer"
+                @open="onDrawerToggle"
                 @toggle="onDrawerToggle"
                 @close="onDrawerClose"
             >
@@ -418,105 +422,14 @@
 
                 <x-slot:header class="border-b border-gray-200">
                     <div class="flex items-center justify-between w-full">
-                        <p class="text-xl font-medium">
+                        <p class="louzir-category-heading">
                             @lang('shop::app.components.layouts.header.desktop.bottom.categories')
                         </p>
                     </div>
                 </x-slot>
 
                 <x-slot:content class="!px-0">
-                    <!-- Wrapper with transition effects -->
-                    <div class="relative h-full overflow-hidden">
-                        <!-- Sliding container -->
-                        <div
-                            class="flex h-full transition-transform duration-300"
-                            :class="{
-                                'ltr:translate-x-0 rtl:translate-x-0': currentViewLevel !== 'third',
-                                'ltr:-translate-x-full rtl:translate-x-full': currentViewLevel === 'third'
-                            }"
-                        >
-                            <!-- First level view -->
-                            <div class="h-[calc(100vh-74px)] w-full flex-shrink-0 overflow-auto">
-                                <div class="py-4">
-                                    <div
-                                        v-for="category in categories"
-                                        :key="category.id"
-                                        :class="{'mb-2': category.children && category.children.length}"
-                                    >
-                                        <div class="flex items-center justify-between px-6 py-2 transition-colors duration-200 cursor-pointer hover:bg-gray-100">
-                                            <a
-                                                :href="category.url"
-                                                class="text-base font-medium text-black"
-                                            >
-                                                @{{ category.name }}
-                                            </a>
-                                        </div>
-
-                                        <!-- Second Level Categories -->
-                                        <div v-if="category.children && category.children.length" >
-                                            <div
-                                                v-for="secondLevelCategory in category.children"
-                                                :key="secondLevelCategory.id"
-                                            >
-                                                <div
-                                                    class="flex items-center justify-between px-6 py-2 transition-colors duration-200 cursor-pointer hover:bg-gray-100"
-                                                    @click="showThirdLevel(secondLevelCategory, category, $event)"
-                                                >
-                                                    <a
-                                                        :href="secondLevelCategory.url"
-                                                        class="text-sm font-normal"
-                                                    >
-                                                        @{{ secondLevelCategory.name }}
-                                                    </a>
-
-                                                    <span
-                                                        v-if="secondLevelCategory.children && secondLevelCategory.children.length"
-                                                        class="icon-arrow-right rtl:icon-arrow-left"
-                                                    ></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Third level view -->
-                            <div
-                                class="flex-shrink-0 w-full h-full"
-                                v-if="currentViewLevel === 'third'"
-                            >
-                                <div class="px-6 py-4 border-b border-gray-200">
-                                    <button
-                                        @click="goBackToMainView"
-                                        class="flex items-center justify-center gap-2 focus:outline-none"
-                                        aria-label="Go back"
-                                    >
-                                        <span class="text-lg icon-arrow-left rtl:icon-arrow-right"></span>
-
-                                        <p class="text-base font-medium text-black">
-                                            @lang('shop::app.components.layouts.header.desktop.bottom.back-button')
-                                        </p>
-                                    </button>
-                                </div>
-
-                                <!-- Third Level Content -->
-                                <div class="py-4">
-                                    <div
-                                        v-for="thirdLevelCategory in currentSecondLevelCategory?.children"
-                                        :key="thirdLevelCategory.id"
-                                        class="mb-2"
-                                    >
-                                        <a
-                                            :href="thirdLevelCategory.url"
-                                            class="block px-6 py-2 text-sm transition-colors duration-200 hover:bg-gray-100"
-                                        >
-                                            @{{ thirdLevelCategory.name }}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <v-category-browser :categories="categories" prefix="desktop" :loading="isLoading" />
                 </x-slot>
             </x-shop::drawer>
         </div>
@@ -531,9 +444,6 @@
                     isLoading: true,
                     categories: [],
                     isDrawerActive: false,
-                    currentViewLevel: 'main',
-                    currentSecondLevelCategory: null,
-                    currentParentCategory: null
                 }
             },
 
@@ -578,9 +488,10 @@
                 },
 
                 toggleCategoryDrawer() {
-                    this.isDrawerActive = !this.isDrawerActive;
                     if (this.isDrawerActive) {
-                        this.currentViewLevel = 'main';
+                        this.$refs.categoryDrawer.close();
+                    } else {
+                        this.$refs.categoryDrawer.open();
                     }
                 },
 
@@ -591,23 +502,6 @@
                 onDrawerClose(event) {
                     this.isDrawerActive = false;
                 },
-
-                showThirdLevel(secondLevelCategory, parentCategory, event) {
-                    if (secondLevelCategory.children && secondLevelCategory.children.length) {
-                        this.currentSecondLevelCategory = secondLevelCategory;
-                        this.currentParentCategory = parentCategory;
-                        this.currentViewLevel = 'third';
-
-                        if (event) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                    }
-                },
-
-                goBackToMainView() {
-                    this.currentViewLevel = 'main';
-                }
             },
         });
     </script>

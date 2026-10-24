@@ -1,3 +1,5 @@
+@inject('homeContent', 'Webkul\Shop\Helpers\HomeContent')
+
 @php
     $channels = core()->getAllChannels();
 
@@ -135,6 +137,8 @@
                 </div>
 
                 <div class="box-shadow rounded bg-white p-4 dark:bg-gray-900">
+                    <input type="hidden" name="keys[]" value="{{ json_encode($child) }}">
+
                     @foreach ($child->getFields() as $field)
                         @if (
                             $field->getType() == 'blade'

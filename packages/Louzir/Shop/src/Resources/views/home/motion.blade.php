@@ -21,7 +21,7 @@
             const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
             const animations = new Map();
             const targets = new Set(home.querySelectorAll(
-                '.louzir-hero-photo, .louzir-hero-copy > *, .louzir-feature, .louzir-section-head, .louzir-card, .louzir-signature-head, .louzir-signature-product, .louzir-boutique-card, .louzir-community-card'
+                '.louzir-feature, .louzir-section-head, .louzir-card, .louzir-signature-head, .louzir-signature-product, .louzir-boutique-card, .louzir-community-card'
             ));
 
             // Keep the document visible by default, including without JavaScript.

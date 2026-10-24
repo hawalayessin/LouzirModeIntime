@@ -1,3 +1,5 @@
+@include('shop::components.categories.navigation')
+
 <!--
     This code needs to be refactored to reduce the amount of PHP in the Blade
     template as much as possible.
@@ -269,30 +271,21 @@
 @pushOnce('scripts')
     <script type="text/x-template" id="v-mobile-drawer-template">
         <x-shop::drawer
+            class="louzir-category-drawer"
             position="left"
             width="100%"
-            @close="onDrawerClose"
         >
             <x-slot:toggle>
                 <button type="button" class="text-2xl cursor-pointer icon-hamburger" aria-label="@lang('shop::app.components.layouts.header.desktop.bottom.all')"></button>
             </x-slot>
 
-            <x-slot:header>
-                <div class="flex items-center justify-between">
-                    <a href="{{ route('shop.home.index') }}">
-                        <img
-                            src="{{ core()->getCurrentChannel()->logo_url ?: asset('assets/logo2.png') }}"
-                            class="object-contain"
-                            style="width: 160px; height: 80px; object-fit: contain;"
-                            alt="{{ config('app.name') }}"
-                        >
-                    </a>
-                </div>
+            <x-slot:header class="border-b border-gray-200">
+                <p class="louzir-category-heading">@lang('shop::app.components.layouts.header.desktop.bottom.categories')</p>
             </x-slot>
 
             <x-slot:content class="!p-0">
                 <!-- Account Profile Hero Section -->
-                <div class="p-4 border-b border-zinc-200">
+                <div class="louzir-category-account p-4 border-b border-zinc-200">
                     <div class="grid grid-cols-[auto_1fr] items-center gap-4 rounded-xl border border-zinc-200 p-2.5">
                         <div>
                             <img
@@ -426,91 +419,7 @@
         type="text/x-template"
         id="v-mobile-category-template"
     >
-        <!-- Wrapper with transition effects -->
-        <div class="relative h-full overflow-hidden">
-            <!-- Sliding container -->
-            <div
-                class="flex h-full transition-transform duration-300"
-                :class="{
-                    'ltr:translate-x-0 rtl:translate-x-0': currentViewLevel !== 'third',
-                    'ltr:-translate-x-full rtl:translate-x-full': currentViewLevel === 'third'
-                }"
-            >
-                <!-- First level view -->
-                <div class="flex-shrink-0 w-full h-full px-6 overflow-auto">
-                    <div class="py-4">
-                        <div
-                            v-for="category in categories"
-                            :key="category.id"
-                            :class="{'mb-2': category.children && category.children.length}"
-                        >
-                            <div class="flex items-center justify-between py-2 transition-colors duration-200 cursor-pointer">
-                                <a :href="category.url" class="text-base font-medium text-black">
-                                    @{{ category.name }}
-                                </a>
-                            </div>
-
-                            <!-- Second Level Categories -->
-                            <div v-if="category.children && category.children.length" >
-                                <div
-                                    v-for="secondLevelCategory in category.children"
-                                    :key="secondLevelCategory.id"
-                                >
-                                    <div
-                                        class="flex items-center justify-between py-2 transition-colors duration-200 cursor-pointer"
-                                        @click="showThirdLevel(secondLevelCategory, category, $event)"
-                                    >
-                                        <a :href="secondLevelCategory.url" class="text-sm font-normal">
-                                            @{{ secondLevelCategory.name }}
-                                        </a>
-
-                                        <span
-                                            v-if="secondLevelCategory.children && secondLevelCategory.children.length"
-                                            class="icon-arrow-right rtl:icon-arrow-left"
-                                        ></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Third level view -->
-                <div
-                    class="flex-shrink-0 w-full h-full"
-                    v-if="currentViewLevel === 'third'"
-                >
-                    <div class="px-6 py-4 border-b border-gray-200">
-                        <button
-                            @click="goBackToMainView"
-                            class="flex items-center justify-center gap-2 focus:outline-none"
-                            aria-label="Go back"
-                        >
-                            <span class="text-lg icon-arrow-left rtl:icon-arrow-right"></span>
-                            <div class="text-base font-medium text-black">
-                                @lang('shop::app.components.layouts.header.mobile.back-button')
-                            </div>
-                        </button>
-                    </div>
-
-                    <!-- Third Level Content -->
-                    <div class="px-6 py-4">
-                        <div
-                            v-for="thirdLevelCategory in currentSecondLevelCategory?.children"
-                            :key="thirdLevelCategory.id"
-                            class="mb-2"
-                        >
-                            <a
-                                :href="thirdLevelCategory.url"
-                                class="block py-2 text-sm transition-colors duration-200"
-                            >
-                                @{{ thirdLevelCategory.name }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <v-category-browser :categories="categories" prefix="mobile" :loading="isLoading" />
     </script>
 
     <script type="module">
@@ -520,20 +429,12 @@
             data() {
                 return  {
                     categories: [],
-                    currentViewLevel: 'main',
-                    currentSecondLevelCategory: null,
-                    currentParentCategory: null
+                    isLoading: true
                 }
             },
 
             mounted() {
                 this.initCategories();
-            },
-
-            computed: {
-                getCurrentScreenHeight() {
-                    return window.innerHeight - (window.innerWidth < 920 ? 61 : 0) + 'px';
-                },
             },
 
             methods: {
@@ -559,34 +460,11 @@
                             this.isLoading = false;
                         });
                 },
-
-                showThirdLevel(secondLevelCategory, parentCategory, event) {
-                    if (secondLevelCategory.children && secondLevelCategory.children.length) {
-                        this.currentSecondLevelCategory = secondLevelCategory;
-                        this.currentParentCategory = parentCategory;
-                        this.currentViewLevel = 'third';
-
-                        if (event) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                    }
-                },
-
-                goBackToMainView() {
-                    this.currentViewLevel = 'main';
-                }
             },
         });
 
         app.component('v-mobile-drawer', {
             template: '#v-mobile-drawer-template',
-
-            methods: {
-                onDrawerClose() {
-                    this.$refs.mobileCategory.currentViewLevel = 'main';
-                }
-            },
         });
     </script>
 @endPushOnce

@@ -181,12 +181,18 @@
                         @if ($customAttributes->isNotEmpty())
                             {!! view_render_event("bagisto.admin.catalog.product.edit.form.{$group->code}.before", ['product' => $product]) !!}
 
-                            <div class="box-shadow relative rounded bg-white p-4 dark:bg-gray-900">
+                            <div class="box-shadow relative rounded bg-white p-4 dark:bg-gray-900" data-attribute-group="{{ $group->code }}">
                                 <p 
                                     class="mb-4 text-base font-semibold text-gray-800 dark:text-white"
                                     v-pre
                                 >
-                                    {{ $group->name }}
+                                    @php
+                                        $groupLabelKey = 'installer::app.seeders.attribute.attribute-groups.'.str_replace('_', '-', $group->code);
+                                        $groupLabel = ! $group->is_user_defined && $group->name === trans($groupLabelKey, [], 'en')
+                                            ? trans($groupLabelKey)
+                                            : $group->name;
+                                    @endphp
+                                    {{ $groupLabel }}
                                 </p>
 
                                 @if ($group->code == 'meta_description')
@@ -197,8 +203,9 @@
                                     {!! view_render_event("bagisto.admin.catalog.product.edit.form.{$group->code}.controls.before", ['product' => $product]) !!}
 
                                     <x-admin::form.control-group class="last:!mb-0">
-                                        <x-admin::form.control-group.label>
-                                            {!! $attribute->admin_name . ($attribute->is_required ? '<span class="required"></span>' : '') !!}
+                                        <x-admin::form.control-group.label :for="$attribute->code">
+                                            {{ $attribute->admin_name }}
+                                            @if ($attribute->is_required) <span class="required"></span> @endif
 
                                             @if (
                                                 $attribute->value_per_channel

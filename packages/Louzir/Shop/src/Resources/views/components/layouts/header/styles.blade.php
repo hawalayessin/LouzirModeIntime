@@ -68,4 +68,34 @@
         .louzir-mobile-brand .icon-hamburger, .louzir-mobile-compare, .louzir-locale button { width: 32px; }
     }
     @media (prefers-reduced-motion: reduce) { .louzir-header-search input { transition: none; } }
+
+    .louzir-category-tree, .louzir-category-children { list-style: none; margin: 0; padding: 0; }
+    .louzir-category-row { display: flex; align-items: center; min-height: 44px; padding-inline-end: 12px; border-bottom: 1px solid #f1f1f1; }
+    .louzir-category-row:hover { background: #f8f7f5; }
+    .louzir-category-row a { flex: 1; min-width: 0; padding-block: 10px; font-size: 13px; line-height: 1.5; color: #222; overflow-wrap: anywhere; }
+    .louzir-category-root > .louzir-category-row a { font-size: 14px; font-weight: 500; }
+    .louzir-category-branch-toggle { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; padding: 0; color: #555; border-radius: 4px; }
+    .louzir-category-branch-toggle:hover { background: #eeece8; }
+    .louzir-category-branch-toggle svg { width: 18px; height: 18px; transition: transform .2s; }
+    .louzir-category-branch-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .louzir-category-row :is(a, button):focus-visible { outline: 2px solid #222; outline-offset: -2px; }
+    @media (prefers-reduced-motion: reduce) { .louzir-category-branch-toggle svg { transition: none; } }
+
+
+    .louzir-category-drawer > .fixed { top: var(--louzir-navbar-bottom, 116px); bottom: 0; }
+    .louzir-category-heading { font-size: 16px; font-weight: 600; }
+    .louzir-category-search { position: sticky; top: 0; z-index: 1; padding: 12px 16px; background: white; border-bottom: 1px solid #f1f1f1; }
+    .louzir-category-search-field { display: flex; align-items: center; gap: 8px; min-height: 42px; padding-inline: 10px; border: 1px solid #dedbd5; border-radius: 6px; background: #faf9f7; color: #666; }
+    .louzir-category-search-field:focus-within { border-color: #777; outline: 1px solid #777; }
+    .louzir-category-search-field > svg { flex: 0 0 17px; width: 17px; height: 17px; }
+    .louzir-category-search-field input { min-width: 0; width: 100%; border: 0; padding: 10px 0; background: transparent; color: #222; font-size: 13px; line-height: 20px; outline: 0; box-shadow: none; }
+    .louzir-header .louzir-category-search-field input:focus, .louzir-header .louzir-category-search-field input:focus-visible { outline: none; outline-offset: 0; box-shadow: none; border: 0; }
+    .louzir-category-search-field input::-webkit-search-cancel-button { appearance: none; }
+    .louzir-category-search-field button { display: grid; place-items: center; flex: 0 0 32px; width: 32px; height: 32px; border-radius: 4px; }
+    .louzir-category-search-field button svg { width: 16px; height: 16px; }
+    .louzir-category-search-field button:focus-visible { outline: 2px solid #222; }
+    .louzir-category-empty { padding: 20px; font-size: 13px; color: #666; }
+    .louzir-category-account a, .louzir-category-account p { font-size: 14px; }
+    .louzir-category-account img { width: 40px; height: 40px; }
+    @media (max-width: 640px) { .louzir-category-search-field input { font-size: 16px; } }
 </style>

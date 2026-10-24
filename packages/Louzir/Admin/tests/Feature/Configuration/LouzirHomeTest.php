@@ -65,7 +65,8 @@ it('escapes edited content and prevents Vue template evaluation', function () {
     $this->get(route('shop.home.index', ['locale' => $this->locale]))
         ->assertOk()
         ->assertSee('&lt;script&gt;alert(1)&lt;/script&gt; {{ 7 * 7 }}', false)
-        ->assertSee('class="louzir-hero" v-pre', false)
+        ->assertSee('class="louzir-hero louzir-carousel"', false)
+        ->assertSee('data-interval="5" v-pre', false)
         ->assertDontSee('<script>alert(1)</script>', false);
 });
 
@@ -106,7 +107,7 @@ it('uploads a home image and restores the original image when removed', function
     ]))->assertSessionHasNoErrors();
 
     expect(app(HomeContent::class)->value('image-1', $this->channel->code, $this->locale))
-        ->toBe(asset('assets/home/stitch-2026/hero.webp'));
+        ->toBe(asset('assets/home/hero-carousel/lingerie.webp'));
 });
 
 it('isolates localized edits across languages and channels', function () {

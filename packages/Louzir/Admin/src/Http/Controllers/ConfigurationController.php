@@ -88,7 +88,7 @@ class ConfigurationController extends Controller
             }
         }
 
-        $this->coreConfigRepository->create($request->except(['_token', 'admin_locale']));
+        $this->coreConfigRepository->create($request->except(['_token', 'admin_locale', 'keys']));
 
         session()->flash('success', trans('admin::app.configuration.index.save-message'));
 

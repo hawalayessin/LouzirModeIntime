@@ -5,6 +5,7 @@ use Webkul\Sales\Models\Order;
 
 return [
     ...require __DIR__.'/louzir-home.php',
+    ...require __DIR__.'/shipping.php',
 
     /**
      * General.
@@ -1856,7 +1857,7 @@ return [
         ],
     ], [
         'key' => 'sales.carriers.flatrate',
-        'name' => 'admin::app.configuration.index.sales.shipping-methods.flat-rate-shipping.page-title',
+        'name' => 'admin::shipping.normal',
         'info' => 'admin::app.configuration.index.sales.shipping-methods.flat-rate-shipping.title-info',
         'sort' => 2,
         'fields' => [
@@ -1879,7 +1880,7 @@ return [
                 'title' => 'admin::app.configuration.index.sales.shipping-methods.flat-rate-shipping.rate',
                 'type' => 'text',
                 'depends' => 'active:1',
-                'validation' => 'required_if:active,1|numeric',
+                'validation' => 'required_if:active,1|decimal',
                 'channel_based' => true,
                 'locale_based' => false,
             ], [

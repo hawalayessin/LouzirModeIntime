@@ -52,6 +52,10 @@ class HomeContent
                 return in_array((string) $value, ['0', '1'], true) ? (string) $value : $fallback;
             }
 
+            if ($field['type'] === 'color') {
+                return preg_match('/^#[0-9a-fA-F]{6}$/', $value) === 1 ? $value : $fallback;
+            }
+
             if ($field['type'] === 'number') {
                 $number = filter_var($value, FILTER_VALIDATE_INT);
 
@@ -70,6 +74,48 @@ class HomeContent
         }
 
         return '';
+    }
+
+    /** Return enabled slides in editorial order, preserving the original hero settings. */
+    public function heroSlides(): array
+    {
+        $slides = [];
+
+        if ($this->value('hero-slide-1-enabled') === '1') {
+            $slides[] = [
+                'id' => 1,
+                'image' => $this->value('image-1'),
+                'alt' => $this->value('hero-image-alt'),
+                'kicker' => $this->value('hero-kicker'),
+                'title' => $this->value('hero-brand-title'),
+                'tagline' => trim($this->value('hero-title-start').' '.$this->value('hero-title-emphasis')),
+                'description' => $this->value('hero-description'),
+                'button' => $this->value('hero-discover'),
+                'url' => $this->value('hero-discover-url'),
+                'x' => $this->value('hero-position-x'),
+                'y' => $this->value('hero-position-y'),
+                'mobile_x' => $this->value('hero-mobile-x'),
+                'overlay' => $this->value('hero-overlay'),
+            ];
+        }
+
+        foreach ([2, 3] as $id) {
+            if ($this->value('hero-'.$id.'-enabled') !== '1') {
+                continue;
+            }
+
+            $slide = ['id' => $id];
+            foreach (['image', 'alt', 'kicker', 'title', 'tagline', 'description', 'button', 'url'] as $key) {
+                $slide[$key] = $this->value('hero-'.$id.'-'.$key);
+            }
+            $slide['x'] = $this->value('hero-'.$id.'-position-x');
+            $slide['y'] = $this->value('hero-'.$id.'-position-y');
+            $slide['mobile_x'] = $this->value('hero-'.$id.'-mobile-x');
+            $slide['overlay'] = $this->value('hero-'.$id.'-overlay');
+            $slides[] = $slide;
+        }
+
+        return $slides;
     }
 
     public static function validUrl(string $value, bool $map = false): bool

@@ -71,7 +71,8 @@
                                             </p>
                                             
                                             <p class="mt-2.5 text-xs font-medium max-md:mt-1 max-sm:mt-0 max-sm:font-normal max-sm:text-zinc-500">
-                                                <span class="font-medium">@{{ rate.method_title }}</span> - @{{ rate.method_description }}
+                                                <span class="font-medium">@{{ rate.method_title }}</span>
+                                                <template v-if="rate.method_description && rate.method_description !== rate.method_title"> - @{{ rate.method_description }}</template>
                                             </p>
                                         </div>
                                     </label>

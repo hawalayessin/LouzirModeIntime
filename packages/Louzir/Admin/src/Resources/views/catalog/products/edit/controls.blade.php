@@ -157,7 +157,7 @@
 
         @break
     @case('boolean')
-        @php $selectedValue = old($attribute->code) ?: $product[$attribute->code] @endphp
+        @php $selectedValue = old($attribute->code, $product[$attribute->code]) @endphp
 
         <x-admin::form.control-group.control
             type="switch"

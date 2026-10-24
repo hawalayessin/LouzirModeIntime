@@ -1,18 +1,18 @@
 @php
-    $value = system_config()->getConfigData($field->getNameKey(), $currentChannel->code, $currentLocale->code);
-
     if (str_starts_with($field->getNameKey(), 'general.louzir_home.') && $field->type !== 'image') {
-        $value = app(\Webkul\Shop\Helpers\HomeContent::class)->value($field->getName(), $currentChannel->code, $currentLocale->code);
+        $homeValue = $homeContent->value($field->getName(), $currentChannel->code, $currentLocale->code);
+        $submittedValue = old($field->getNameKey(), $homeValue);
+        $value = is_scalar($submittedValue) ? $submittedValue : $homeValue;
+    } else {
+        $value = system_config()->getConfigData($field->getNameKey(), $currentChannel->code, $currentLocale->code);
     }
 @endphp
 
-<input
-    type="hidden"
-    name="keys[]"
-    value="{{ json_encode($child) }}"
-/>
-
 <div class="mb-4 last:!mb-0">
+    @if (str_starts_with($field->getNameKey(), 'general.louzir_home.') && $field->type === 'image' && in_array($field->getName(), ['image-1', 'hero-2-image', 'hero-3-image']))
+        <img src="{{ $homeContent->value($field->getName(), $currentChannel->code, $currentLocale->code) }}"
+            alt="{{ trans($field->getTitle()) }}" class="mb-3 max-w-full rounded" style="width: 320px; aspect-ratio: 16 / 9; object-fit: cover" loading="lazy">
+    @endif
     <v-configurable
         name="{{ $field->getNameField() }}"
         value="{{ $value }}"
@@ -215,8 +215,31 @@
                 </v-field>
             </template>
            
+            <!-- Home switches register with the form and submit one explicit 0/1 value. -->
+            <template v-if="field.type == 'boolean' && field.is_visible && isHomeSetting">
+                <v-field :name="name" :value="String(value || '0')" rules="one_of:0,1" :label="label"
+                    v-slot="{ value: switchValue, handleChange }">
+                    <input type="hidden" :name="name" :value="switchValue" />
+                    <label class="relative inline-flex cursor-pointer items-center">
+                        <input
+                            type="checkbox"
+                            :aria-label="label"
+                            :value="1"
+                            :id="name"
+                            class="peer sr-only"
+                            :checked="switchValue === '1'"
+                            role="switch"
+                            :aria-checked="switchValue === '1'"
+                            @change="handleChange($event.target.checked ? '1' : '0')"
+                        >
+
+                        <div class="peer h-5 w-9 cursor-pointer rounded-full bg-gray-200 after:absolute after:top-0.5 after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-blue-300 after:ltr:left-0.5 peer-checked:after:ltr:translate-x-full after:rtl:right-0.5 peer-checked:after:rtl:-translate-x-full dark:bg-gray-800 dark:after:border-white dark:after:bg-white dark:peer-checked:bg-gray-950"></div>
+                    </label>
+                </v-field>
+            </template>
+
             <!-- Boolean/Switch input -->
-            <template v-if="field.type == 'boolean' && field.is_visible">
+            <template v-if="field.type == 'boolean' && field.is_visible && !isHomeSetting">
                 <input
                     type="hidden"
                     :name="name"
@@ -467,6 +490,10 @@
             },
 
             computed: {
+                isHomeSetting() {
+                    return this.name.startsWith('general[louzir_home][');
+                },
+
                 savedSelections() {
                     return this.value ? this.value.split(',') : [];
                 }

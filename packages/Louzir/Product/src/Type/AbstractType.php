@@ -570,7 +570,7 @@ abstract class AbstractType
         return $group->custom_attributes()
             ->select(
                 'attributes.*',
-                'attribute_translations.name as admin_name',
+                DB::raw("COALESCE(NULLIF(TRIM(attribute_translations.name), ''), NULLIF(attributes.admin_name, ''), attributes.code) as admin_name"),
                 'attribute_translations.locale',
             )
             ->whereNotIn('code', $this->skipAttributes)

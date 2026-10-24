@@ -37,78 +37,70 @@ class CoreConfigRepository extends Repository
             unset($data['channel']);
         }
 
+        $configuration = [];
+
         foreach ($data as $method => $fieldData) {
-            $recursiveData = $this->recursiveArray($fieldData, $method);
+            $configuration += $this->recursiveArray($fieldData, $method);
+        }
 
-            foreach ($recursiveData as $fieldName => $value) {
-                $field = core()->getConfigField($fieldName);
+        $storedValues = $this->model->newQuery()
+            ->whereIn('code', array_keys($configuration))
+            ->get()
+            ->groupBy('code');
 
-                $channelBased = ! empty($field['channel_based']);
+        foreach ($configuration as $fieldName => $value) {
+            $field = core()->getConfigField($fieldName);
+            $channelBased = ! empty($field['channel_based']);
+            $localeBased = ! empty($field['locale_based']);
+            $records = ($storedValues->get($fieldName) ?? collect())
+                ->filter(fn ($record) => (! $channelBased || $record->channel_code === $channel)
+                    && (! $localeBased || $record->locale_code === $locale));
 
-                $localeBased = ! empty($field['locale_based']);
+            if (is_array($value) && ! isset($value['delete'])) {
+                $value = implode(',', $value);
+            }
 
-                if (
-                    gettype($value) == 'array'
-                    && ! isset($value['delete'])
-                ) {
-                    $value = implode(',', $value);
+            $uploaded = request()->hasFile($fieldName);
+
+            if ($uploaded) {
+                $value = request()->file($fieldName)->store('configuration');
+            }
+
+            $attributes = [
+                'code' => $fieldName,
+                'value' => $value,
+                'locale_code' => $localeBased ? $locale : null,
+                'channel_code' => $channelBased ? $channel : null,
+            ];
+
+            if ($records->isEmpty()) {
+                if (! is_array($value) || ! isset($value['delete'])) {
+                    parent::create($attributes);
                 }
 
-                if (! empty($field['channel_based'])) {
-                    if (! empty($field['locale_based'])) {
-                        $coreConfigValue = $this->model
-                            ->where('code', $fieldName)
-                            ->where('locale_code', $locale)
-                            ->where('channel_code', $channel)
-                            ->get();
-                    } else {
-                        $coreConfigValue = $this->model
-                            ->where('code', $fieldName)
-                            ->where('channel_code', $channel)
-                            ->get();
-                    }
-                } else {
-                    if (! empty($field['locale_based'])) {
-                        $coreConfigValue = $this->model
-                            ->where('code', $fieldName)
-                            ->where('locale_code', $locale)
-                            ->get();
-                    } else {
-                        $coreConfigValue = $this->model
-                            ->where('code', $fieldName)
-                            ->get();
-                    }
+                continue;
+            }
+
+            foreach ($records as $record) {
+                if (isset($value['delete'])) {
+                    parent::delete($record->id);
+
+                    continue;
                 }
 
-                if (request()->hasFile($fieldName)) {
-                    $value = request()->file($fieldName)->store('configuration');
+                if ($uploaded && $record->value) {
+                    Storage::delete($record->value);
                 }
 
-                if (! count($coreConfigValue)) {
-                    parent::create([
-                        'code' => $fieldName,
-                        'value' => $value,
-                        'locale_code' => $localeBased ? $locale : null,
-                        'channel_code' => $channelBased ? $channel : null,
-                    ]);
-                } else {
-                    foreach ($coreConfigValue as $coreConfig) {
-                        if (request()->hasFile($fieldName)) {
-                            Storage::delete($coreConfig['value']);
-                        }
+                $storedValue = $value === null ? null : (string) $value;
 
-                        if (isset($value['delete'])) {
-                            parent::delete($coreConfig['id']);
-                        } else {
-                            parent::update([
-                                'code' => $fieldName,
-                                'value' => $value,
-                                'locale_code' => $localeBased ? $locale : null,
-                                'channel_code' => $channelBased ? $channel : null,
-                            ], $coreConfig->id);
-                        }
-                    }
+                if (! $uploaded && $record->value === $storedValue
+                    && $record->locale_code === $attributes['locale_code']
+                    && $record->channel_code === $attributes['channel_code']) {
+                    continue;
                 }
+
+                parent::update($attributes, $record->id);
             }
         }
 
@@ -196,29 +188,13 @@ class CoreConfigRepository extends Repository
      */
     public function recursiveArray(array $formData, string $method, array &$data = [], array &$recursiveArrayData = [])
     {
-        foreach ($formData as $form => $formValue) {
-            $value = $method.'.'.$form;
+        foreach ($formData as $form => $value) {
+            $fieldName = $method.'.'.$form;
 
-            if (is_array($formValue)) {
-                $dim = $this->countDim($formValue);
-
-                if ($dim > 1) {
-                    $this->recursiveArray($formValue, $value, $data, $recursiveArrayData);
-                } elseif ($dim == 1) {
-                    $data[$value] = $formValue;
-                }
-            }
-        }
-
-        foreach ($data as $key => $value) {
-            $field = core()->getConfigField($key);
-
-            if ($field) {
-                $recursiveArrayData[$key] = $value;
+            if (is_array($value) && ! core()->getConfigField($fieldName)) {
+                $this->recursiveArray($value, $fieldName, $data, $recursiveArrayData);
             } else {
-                foreach ($value as $key1 => $val) {
-                    $recursiveArrayData[$key.'.'.$key1] = $val;
-                }
+                $recursiveArrayData[$fieldName] = $value;
             }
         }
 

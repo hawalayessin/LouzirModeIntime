@@ -5,13 +5,13 @@
     .louzir-title, .louzir-card-content h3, .louzir-boutique-info h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 600; line-height: 1.2; text-wrap: balance; }
     .louzir-kicker { display: block; font-size: 11px; line-height: 1.5; text-transform: uppercase; font-weight: 600; }
 
-    .louzir-marquee { display: flex; align-items: center; min-height: 38px; background: #151515; color: #e8d5ce; }
+    .louzir-marquee { display: flex; align-items: center; min-height: 38px; background: var(--marquee-background, #151515); color: var(--marquee-color, #e8d5ce); }
     .louzir-marquee-window { flex: 1; min-width: 0; overflow: hidden; }
     .louzir-marquee-track { display: flex; width: max-content; direction: ltr; animation: louzir-ticker var(--marquee-duration, 32s) linear infinite; }
     .louzir-marquee-group { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-around; gap: 48px; min-width: calc(100vw - 40px); padding-inline: 24px; }
     .louzir-marquee-group > span { display: inline-flex; align-items: center; gap: 28px; font-size: 11px; font-weight: 500; white-space: nowrap; text-transform: uppercase; }
-    .louzir-marquee-group .icon-star { color: #d5b18b; font-size: 14px; }
-    .louzir-marquee-toggle { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 38px; border-inline-start: 1px solid #353535; }
+    .louzir-marquee-group .icon-star { color: var(--marquee-accent, #d5b18b); font-size: 14px; }
+    .louzir-marquee-toggle { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 38px; border-inline-start: 1px solid currentColor; color: inherit; background: transparent; }
     .louzir-pause-symbol { display: block; width: 10px; height: 12px; border-inline: 3px solid currentColor; }
     .louzir-marquee.is-paused .louzir-pause-symbol { width: 0; height: 0; border: 6px solid transparent; border-inline-start: 9px solid currentColor; border-inline-end: 0; }
     .louzir-marquee:is(:hover, :focus-within, .is-paused) .louzir-marquee-track { animation-play-state: paused; }
@@ -83,7 +83,7 @@
     .louzir-signature-empty .louzir-button { margin-top: 16px; }
     .louzir-signature-product { min-width: 0; border: 1px solid #e5e2dc; border-radius: 2px; background: #fff; }
     .louzir-signature-product > div:first-child { width: 100%; max-width: none; max-height: none; border-radius: 0; }
-    .louzir-signature-product > div:nth-child(2) { max-width: none; margin-top: 0; transform: none; gap: 10px; padding: 16px; }
+    .louzir-signature-product > div:nth-child(2) { min-width: 0; max-width: none; margin-top: 0; transform: none; gap: 10px; padding: 16px; }
     .louzir-signature-product > div:nth-child(2) > p { font: 600 16px/1.4 "Playfair Display", Georgia, serif; overflow-wrap: anywhere; word-break: normal; max-width: none; }
     .louzir-signature-product .action-items { display: flex; opacity: 1; flex-wrap: wrap; gap: 8px; }
     .louzir-signature-product .action-items button { flex: 1 1 100%; min-height: 40px; padding: 10px; border: 1px solid #181818; border-radius: 2px; background: #181818; color: #fff; font-size: 12px; }
@@ -107,7 +107,8 @@
     .louzir-community p { max-width: 560px; font-size: 14px; color: #c6c6c6; }
     .louzir-community .louzir-actions { margin-top: 0; flex-wrap: nowrap; }
     .louzir-home :is(a, button, summary):focus-visible { outline: 2px solid #181818; outline-offset: -3px; }
-    .louzir-marquee button:focus-visible, .louzir-hero a:focus-visible, .louzir-community a:focus-visible { outline-color: #fff; }
+    .louzir-marquee button:focus-visible { outline-color: currentColor; }
+    .louzir-hero a:focus-visible, .louzir-community a:focus-visible { outline-color: #fff; }
     .louzir-home :is(a,button) { touch-action: manipulation; }
 
     @media (max-width: 900px) {
@@ -170,4 +171,55 @@
         .louzir-home * { animation: none !important; transform: none !important; opacity: 1 !important; }
         .louzir-marquee { display: none; }
     }
+
+    /* A shared grid row keeps every slide the same height, including long translations. */
+    .louzir-carousel::before { display: none; }
+    .louzir-slides { display: grid; }
+    .louzir-slide { grid-area: 1 / 1; position: relative; isolation: isolate; min-width: 0; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .8s ease, visibility .8s; }
+    .louzir-slide.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
+    .louzir-slide::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(0,0,0,var(--hero-overlay)) 0%, rgba(0,0,0,.32) 52%, rgba(0,0,0,.08) 100%); }
+    .louzir-carousel .louzir-hero-photo { position: absolute; inset: 0; height: 100%; width: 100%; aspect-ratio: auto; object-fit: cover; object-position: var(--hero-x) var(--hero-y); z-index: -2; }
+    .louzir-carousel .louzir-hero-grid { min-height: 640px; padding-block: 64px 104px; }
+    .louzir-carousel :is(h1, h2) { margin-block: 18px 4px; font-size: clamp(36px, 4vw, 60px); line-height: 1.12; overflow-wrap: anywhere; }
+    .louzir-carousel .louzir-hero-kicker { border-radius: 999px; letter-spacing: .1em; }
+    .louzir-carousel-controls { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 0 max(32px, calc((100% - 1344px) / 2)) 24px; pointer-events: none; }
+    .louzir-carousel-controls button { pointer-events: auto; }
+    .louzir-carousel-controls .louzir-carousel-navigation { display: contents; }
+    .louzir-carousel [data-carousel-prev], .louzir-carousel [data-carousel-next] { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; display: grid; place-items: center; padding: 0; line-height: 0; background: #00000040; border-color: #ffffff80; backdrop-filter: blur(6px); }
+    .louzir-carousel [data-carousel-prev] { left: 24px; }
+    .louzir-carousel [data-carousel-next] { right: 24px; }
+    .louzir-carousel [data-carousel-prev] svg, .louzir-carousel [data-carousel-next] svg { display: block; width: 20px; height: 20px; margin: 0; }
+    @media (min-width: 641px) { .louzir-carousel .louzir-hero-grid { padding-inline: 96px; } }
+    .louzir-carousel-controls[hidden] { display: none; }
+    .louzir-carousel-pagination, .louzir-carousel-navigation { display: flex; align-items: center; gap: 8px; }
+    .louzir-carousel-counter { font-size: 12px; letter-spacing: .15em; margin-inline-end: 14px; font-variant-numeric: tabular-nums; }
+    .louzir-carousel button { color: white; min-width: 44px; height: 44px; border: 1px solid #ffffff55; border-radius: 50%; background: #ffffff0d; cursor: pointer; }
+    .louzir-carousel button:hover { background: #ffffff26; }
+    .louzir-carousel .louzir-carousel-dot { display: grid; place-items: center; width: 44px; border: 0; border-radius: 0; background: transparent; }
+    .louzir-carousel-dot span { display: block; height: 4px; width: 14px; border-radius: 4px; background: #ffffff66; transition: width .3s, background .3s; }
+    .louzir-carousel-dot[aria-current="true"] span { width: 36px; background: #e8d5ce; }
+    .louzir-carousel button:focus-visible { outline: 2px solid white; outline-offset: 3px; }
+    .louzir-carousel:focus-visible { outline: 2px solid #e8d5ce; outline-offset: -3px; }
+    @media (max-width: 900px) {
+        .louzir-carousel .louzir-hero-photo { object-position: var(--hero-mobile-x) var(--hero-y); }
+        .louzir-carousel .louzir-hero-grid { min-height: 660px; }
+        .louzir-slide::before { background: linear-gradient(90deg, rgba(0,0,0,var(--hero-overlay)), rgba(0,0,0,.38)); }
+    }
+    @media (max-width: 640px) {
+        .louzir-carousel .louzir-hero-grid { min-height: 680px; padding-block: 48px 110px; }
+        .louzir-carousel .louzir-hero-copy { max-width: 100%; }
+        .louzir-carousel .louzir-hero-description { font-size: 15px; }
+        .louzir-carousel-controls { padding: 0 20px 20px; gap: 4px; }
+        .louzir-carousel [data-carousel-prev], .louzir-carousel [data-carousel-next] { width: 44px; height: 44px; background: #00000070; }
+        .louzir-carousel [data-carousel-prev] { left: 4px; }
+        .louzir-carousel [data-carousel-next] { right: 4px; }
+        .louzir-carousel .louzir-hero-copy { padding-inline: 30px; }
+        .louzir-carousel .louzir-hero-grid { min-height: 760px; }
+        .louzir-carousel-counter { margin-inline-end: 0; font-size: 10px; }
+        .louzir-carousel-pagination, .louzir-carousel-navigation { gap: 0; }
+        .louzir-carousel .louzir-carousel-dot { min-width: 36px; width: 36px; }
+        .louzir-carousel-dot[aria-current="true"] span { width: 28px; }
+        .louzir-carousel-navigation { gap: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .louzir-slide { transition: none; } }
 </style>

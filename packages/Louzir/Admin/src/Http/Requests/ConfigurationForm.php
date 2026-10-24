@@ -61,7 +61,9 @@ class ConfigurationForm extends FormRequest
 
                 $rules[$key] = ['nullable', 'string', 'max:2000'];
 
-                if ($field['type'] === 'boolean') {
+                if ($field['type'] === 'color') {
+                    $rules[$key] = ['nullable', 'string', 'regex:/^#[0-9a-fA-F]{6}$/'];
+                } elseif ($field['type'] === 'boolean') {
                     $rules[$key] = ['required', 'boolean'];
                 } elseif ($field['type'] === 'number') {
                     $rules[$key] = ['required', 'integer', 'min:'.$field['min'], 'max:'.$field['max']];
@@ -75,6 +77,21 @@ class ConfigurationForm extends FormRequest
                             $fail(trans('validation.url', ['attribute' => $attribute]));
                         }
                     };
+                }
+            }
+        }
+
+        foreach (['flatrate', 'express'] as $carrier) {
+            $prefix = 'sales.carriers.'.$carrier.'.';
+            foreach ([
+                'active' => ['required', 'boolean'],
+                'default_rate' => ['required', 'numeric', 'min:0', 'max:999999.999'],
+                'type' => ['required', 'in:per_order,per_unit'],
+                'title' => ['required_if:'.$prefix.'active,1', 'nullable', 'string', 'max:255'],
+                'description' => ['nullable', 'string', 'max:2000'],
+            ] as $field => $validation) {
+                if ($this->has($prefix.$field)) {
+                    $rules[$prefix.$field] = $validation;
                 }
             }
         }

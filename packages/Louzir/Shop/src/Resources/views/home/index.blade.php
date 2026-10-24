@@ -18,6 +18,7 @@
 
 @push('scripts')
     @include('shop::home.motion')
+    @include('shop::home.hero-carousel-script')
 
     @if (! empty($categories))
         <script>
@@ -33,7 +34,7 @@
         @if ($homeContent->value('marquee-enabled') === '1' && $marqueeItems->isNotEmpty())
             <section
                 class="louzir-marquee"
-                style="--marquee-duration: {{ $homeContent->value('marquee-speed') }}s"
+                style="--marquee-duration: {{ $homeContent->value('marquee-speed') }}s; --marquee-background: {{ $homeContent->value('marquee-background') }}; --marquee-color: {{ $homeContent->value('marquee-color') }}; --marquee-accent: {{ $homeContent->value('marquee-accent') }}"
                 aria-label="@lang('shop::home.marquee-label')"
                 v-pre
             >
@@ -60,34 +61,7 @@
             </section>
         @endif
 
-        @if ($homeContent->value('hero-enabled') === '1')
-            <section class="louzir-hero" v-pre>
-                <img class="louzir-hero-photo" src="{{ $homeContent->value('image-1') }}"
-                    alt="{{ $homeContent->value('hero-image-alt') }}" width="1408" height="768" fetchpriority="high">
-                <div class="louzir-shell louzir-hero-grid">
-                    <div class="louzir-hero-copy">
-                        <span class="louzir-kicker louzir-hero-kicker">{{ $homeContent->value('hero-kicker') }}</span>
-                        <h1 class="louzir-title" translate="no">{{ $homeContent->value('hero-brand-title') }}</h1>
-                        <p class="louzir-hero-tagline">{{ $homeContent->value('hero-title-start') }} {{ $homeContent->value('hero-title-emphasis') }}</p>
-                        <p class="louzir-hero-description">{{ $homeContent->value('hero-description') }}</p>
-                        <div class="louzir-actions">
-                            <a href="{{ $homeContent->value('hero-discover-url') }}" class="louzir-button primary">{{ $homeContent->value('hero-discover') }}</a>
-                            <a href="{{ $homeContent->value('hero-stores-url') }}" class="louzir-button secondary">{{ $homeContent->value('hero-stores') }}</a>
-                        </div>
-                        <div class="louzir-socials">
-                            <span>{{ $homeContent->value('official-socials') }}</span>
-                            <a class="louzir-chip" href="{{ $homeContent->value('facebook-url') }}" target="_blank" rel="noopener noreferrer">Facebook</a>
-                            <a class="louzir-chip" href="{{ $homeContent->value('linktree-url') }}" target="_blank" rel="noopener noreferrer">Linktree</a>
-                        </div>
-                    </div>
-                </div>
-                <span class="louzir-hero-edition">{{ $homeContent->value('edition') }}</span>
-            </section>
-            <div class="louzir-shell louzir-edition" v-pre>
-                <div><span>{{ $homeContent->value('arrival') }}</span><p>{{ $homeContent->value('soft-fabrics') }}</p></div>
-                <strong>{{ $homeContent->value('edition') }}</strong>
-            </div>
-        @endif
+        @include('shop::home.hero-carousel')
 
         @if ($homeContent->value('services-enabled') === '1')
             <section class="louzir-strip" v-pre>

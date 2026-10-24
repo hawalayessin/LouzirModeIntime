@@ -19,9 +19,10 @@ foreach (HomeContent::schema() as $group => $definitions) {
         $fields[] = [
             'name' => $name,
             'title' => 'admin::louzir-home.fields.'.$name,
-            'type' => in_array($definition['type'], ['image', 'boolean', 'number', 'select']) ? $definition['type'] : 'text',
+            'type' => in_array($definition['type'], ['image', 'boolean', 'number', 'select', 'color']) ? $definition['type'] : 'text',
             'validation' => match ($definition['type']) {
                 'image' => 'image',
+                'color' => 'max:7',
                 'boolean' => 'boolean',
                 'number' => 'integer|min:'.$definition['min'].'|max:'.$definition['max'],
                 'select' => 'in:'.implode(',', $definition['options']),
@@ -31,7 +32,7 @@ foreach (HomeContent::schema() as $group => $definitions) {
             'locale_based' => isset($definition['translation']),
         ];
 
-        if (in_array($definition['type'], ['boolean', 'number', 'select'])) {
+        if (in_array($definition['type'], ['boolean', 'number', 'select', 'color'])) {
             $fields[array_key_last($fields)]['default'] = $definition['fallback'];
         }
 

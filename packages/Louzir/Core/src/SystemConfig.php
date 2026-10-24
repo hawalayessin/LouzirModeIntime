@@ -16,6 +16,8 @@ class SystemConfig
      */
     public array $items = [];
 
+    private ?array $fieldsByName = null;
+
     /**
      * The configuration item keys that should not be shown in the admin system settings UI.
      */
@@ -175,21 +177,17 @@ class SystemConfig
      */
     public function getConfigField(string $fieldName): ?array
     {
-        foreach ($this->retrieveCoreConfig() as $coreData) {
-            if (! isset($coreData['fields'])) {
-                continue;
-            }
+        if ($this->fieldsByName === null) {
+            $this->fieldsByName = [];
 
-            foreach ($coreData['fields'] as $field) {
-                $name = $coreData['key'].'.'.$field['name'];
-
-                if ($name == $fieldName) {
-                    return $field;
+            foreach ($this->retrieveCoreConfig() as $section) {
+                foreach ($section['fields'] ?? [] as $field) {
+                    $this->fieldsByName[$section['key'].'.'.$field['name']] ??= $field;
                 }
             }
         }
 
-        return null;
+        return $this->fieldsByName[$fieldName] ?? null;
     }
 
     /**
