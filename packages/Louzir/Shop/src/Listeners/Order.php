@@ -6,10 +6,19 @@ use Webkul\Sales\Contracts\Order as OrderContract;
 use Webkul\Sales\Contracts\OrderComment;
 use Webkul\Shop\Mail\Order\CanceledNotification;
 use Webkul\Shop\Mail\Order\CommentedNotification;
+use Webkul\Shop\Mail\Order\ConfirmedNotification;
 use Webkul\Shop\Mail\Order\CreatedNotification;
 
 class Order extends Base
 {
+    public function afterConfirmed(OrderContract $order): void
+    {
+        if (! (core()->getConfigData('emails.general.notifications.emails.general.notifications.confirm_order') ?? true)) {
+            return;
+        }
+        $this->prepareMail($order, new ConfirmedNotification($order));
+    }
+
     /**
      * After order is created
      *

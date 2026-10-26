@@ -9,6 +9,7 @@
     $customAttributeValues = $productViewHelper->getAdditionalData($product);
 
     $attributeData = collect($customAttributeValues)->filter(fn ($item) => ! empty($item['value']));
+    $recommendationSettings = \Webkul\Shop\Services\RecommendationSettings::current();
 @endphp
 
 <!-- SEO Meta Content -->
@@ -70,196 +71,11 @@
         <x-shop::shimmer.products.view />
     </v-product>
 
-    <!-- Information Section -->
-    <div class="1180:mt-20">
-        <div class="max-1180:hidden">
-            <x-shop::tabs
-                position="center"
-                ref="productTabs"
-            >
-                <!-- Description Tab -->
-                {!! view_render_event('bagisto.shop.products.view.description.before', ['product' => $product]) !!}
+    @include('shop::products.view.editorial-details')
 
-                <x-shop::tabs.item
-                    id="descritpion-tab"
-                    class="container mt-[60px] !p-0"
-                    :title="trans('shop::app.products.view.description')"
-                    :is-selected="true"
-                >
-                    <div class="container mt-[60px] max-1180:px-5">
-                        <p class="text-lg text-zinc-500 max-1180:text-sm">
-                            {!! $product->description !!}
-                        </p>
-                    </div>
-                </x-shop::tabs.item>
-
-                {!! view_render_event('bagisto.shop.products.view.description.after', ['product' => $product]) !!}
-
-                <!-- Additional Information Tab -->
-                @if(count($attributeData))
-                    <x-shop::tabs.item
-                        id="information-tab"
-                        class="container mt-[60px] !p-0"
-                        :title="trans('shop::app.products.view.additional-information')"
-                        :is-selected="false"
-                    >
-                        <div class="container mt-[60px] max-1180:px-5">
-                            <div class="mt-8 grid max-w-max grid-cols-[auto_1fr] gap-4">
-                                @foreach ($customAttributeValues as $customAttributeValue)
-                                    @if (! empty($customAttributeValue['value']))
-                                        <div class="grid">
-                                            <p class="text-base text-black">
-                                                {!! $customAttributeValue['label'] !!}
-                                            </p>
-                                        </div>
-
-                                        @if ($customAttributeValue['type'] == 'file')
-                                            <a
-                                                href="{{ Storage::url($product[$customAttributeValue['code']]) }}"
-                                                download="{{ $customAttributeValue['label'] }}"
-                                            >
-                                                <span class="icon-download text-2xl"></span>
-                                            </a>
-                                        @elseif ($customAttributeValue['type'] == 'image')
-                                            <a
-                                                href="{{ Storage::url($product[$customAttributeValue['code']]) }}"
-                                                download="{{ $customAttributeValue['label'] }}"
-                                            >
-                                                <img
-                                                    class="min-h-5 min-w-5 h-5 w-5"
-                                                    src="{{ Storage::url($customAttributeValue['value']) }}"
-                                                />
-                                            </a>
-                                        @else
-                                            <div class="grid">
-                                                <p class="text-base text-zinc-500">
-                                                    {!! $customAttributeValue['value'] !!}
-                                                </p>
-                                            </div>
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div>
-                    </x-shop::tabs.item>
-                @endif
-
-                <!-- Reviews Tab -->
-                <x-shop::tabs.item
-                    id="review-tab"
-                    class="container mt-[60px] !p-0"
-                    :title="trans('shop::app.products.view.review')"
-                    :is-selected="false"
-                >
-                    @include('shop::products.view.reviews')
-                </x-shop::tabs.item>
-            </x-shop::tabs>
-        </div>
-    </div>
-
-    <!-- Information Section -->
-    <div class="container mt-6 grid gap-3 !p-0 max-1180:px-5 1180:hidden">
-        <!-- Description Accordion -->
-        <x-shop::accordion
-            class="max-md:border-none"
-            :is-active="true"
-        >
-            <x-slot:header class="bg-gray-100 max-md:!py-3 max-sm:!py-2">
-                <p class="text-base font-medium 1180:hidden">
-                    @lang('shop::app.products.view.description')
-                </p>
-            </x-slot>
-
-            <x-slot:content class="max-sm:px-0">
-                <div class="mb-5 text-lg text-zinc-500 max-1180:text-sm max-md:mb-1 max-md:px-4">
-                    {!! $product->description !!}
-                </div>
-            </x-slot>
-        </x-shop::accordion>
-
-        <!-- Additional Information Accordion -->
-        @if (count($attributeData))
-            <x-shop::accordion
-                class="max-md:border-none"
-                :is-active="false"
-            >
-                <x-slot:header class="bg-gray-100 max-md:!py-3 max-sm:!py-2">
-                    <p class="text-base font-medium 1180:hidden">
-                        @lang('shop::app.products.view.additional-information')
-                    </p>
-                </x-slot>
-
-                <x-slot:content class="max-sm:px-0">
-                    <div class="container max-1180:px-5">
-                        <div class="grid max-w-max grid-cols-[auto_1fr] gap-4 text-lg text-zinc-500 max-1180:text-sm">
-                            @foreach ($customAttributeValues as $customAttributeValue)
-                                @if (! empty($customAttributeValue['value']))
-                                    <div class="grid">
-                                        <p
-                                            class="text-base text-black"
-                                            v-pre
-                                        >
-                                            {{ $customAttributeValue['label'] }}
-                                        </p>
-                                    </div>
-
-                                    @if ($customAttributeValue['type'] == 'file')
-                                        <a
-                                            href="{{ Storage::url($product[$customAttributeValue['code']]) }}"
-                                            download="{{ $customAttributeValue['label'] }}"
-                                        >
-                                            <span class="icon-download text-2xl"></span>
-                                        </a>
-                                    @elseif ($customAttributeValue['type'] == 'image')
-                                        <a
-                                            href="{{ Storage::url($product[$customAttributeValue['code']]) }}"
-                                            download="{{ $customAttributeValue['label'] }}"
-                                        >
-                                            <img
-                                                class="min-h-5 min-w-5 h-5 w-5"
-                                                src="{{ Storage::url($customAttributeValue['value']) }}"
-                                                alt="Product Image"
-                                            />
-                                        </a>
-                                    @else
-                                        <div class="grid">
-                                            <p
-                                                class="text-base text-zinc-500"
-                                                v-pre
-                                            >
-                                                {{ $customAttributeValue['value'] ?? '-' }}
-                                            </p>
-                                        </div>
-                                    @endif
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                </x-slot>
-            </x-shop::accordion>
-        @endif
-
-        <!-- Reviews Accordion -->
-        <x-shop::accordion
-            class="max-md:border-none"
-            :is-active="false"
-        >
-            <x-slot:header
-                class="bg-gray-100 max-md:!py-3 max-sm:!py-2"
-                id="review-accordian-button"
-            >
-                <p class="text-base font-medium">
-                    @lang('shop::app.products.view.review')
-                </p>
-            </x-slot>
-
-            <x-slot:content>
-                @include('shop::products.view.reviews')
-            </x-slot>
-        </x-shop::accordion>
-    </div>
-
-    <v-product-associations />
+    @if ($recommendationSettings->limit > 0 || $recommendationSettings->upSellLimit > 0)
+        <v-product-associations />
+    @endif
 
     {!! view_render_event('bagisto.shop.products.view.after', ['product' => $product]) !!}
 
@@ -288,13 +104,13 @@
                         v-model="is_buy_now"
                     >
 
-                    <div class="container px-[60px] max-1180:px-0">
-                        <div class="mt-12 flex gap-9 max-1180:flex-wrap max-lg:mt-0 max-sm:gap-y-4">
+                    <div class="louzir-product-page container px-[60px] max-1180:px-0">
+                        <div class="louzir-product-layout mt-12 flex gap-9 max-1180:flex-wrap max-lg:mt-0 max-sm:gap-y-4">
                             <!-- Gallery Blade Inclusion -->
                             @include('shop::products.view.gallery')
 
                             <!-- Details -->
-                            <div class="relative max-w-[590px] max-1180:w-full max-1180:max-w-full max-1180:px-5 max-sm:px-4">
+                            <div class="louzir-product-purchase relative max-w-[590px] max-1180:w-full max-1180:max-w-full max-1180:px-5 max-sm:px-4">
                                 {!! view_render_event('bagisto.shop.products.name.before', ['product' => $product]) !!}
 
                                 <div class="flex justify-between gap-4">
@@ -366,9 +182,9 @@
 
                                 {!! view_render_event('bagisto.shop.products.short_description.before', ['product' => $product]) !!}
 
-                                <p class="mt-6 text-lg text-zinc-500 max-sm:mt-1.5 max-sm:text-sm">
+                                <div class="louzir-richtext mt-6" v-pre>
                                     {!! $product->short_description !!}
-                                </p>
+                                </div>
 
                                 {!! view_render_event('bagisto.shop.products.short_description.after', ['product' => $product]) !!}
 
@@ -767,25 +583,10 @@
                     },
 
                     scrollToReview() {
-                        let accordianElement = document.querySelector('#review-accordian-button');
-
-                        if (accordianElement) {
-                            accordianElement.click();
-
-                            accordianElement.scrollIntoView({
-                                behavior: 'smooth'
-                            });
-                        }
-
-                        let tabElement = document.querySelector('#review-tab-button');
-
-                        if (tabElement) {
-                            tabElement.click();
-
-                            tabElement.scrollIntoView({
-                                behavior: 'smooth'
-                            });
-                        }
+                        const reviews = document.getElementById('product-reviews');
+                        if (!reviews) return;
+                        reviews.open = true;
+                        reviews.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
                     },
 
                     ensureQuantity(formData) {
@@ -801,19 +602,23 @@
             type="text/x-template"
             id="v-product-associations-template"
         >
-            <div ref="carouselWrapper">
+            <div ref="carouselWrapper" data-product-recommendations style="min-height: 1px">
                 <template v-if="isVisible">
                     <!-- Featured Products -->
+                    @if ($recommendationSettings->limit > 0)
                     <x-shop::products.carousel
                         :title="trans('shop::app.products.view.related-product-title')"
                         :src="route('shop.api.products.related.index', ['id' => $product->id])"
                     />
+                    @endif
 
                     <!-- Up-sell Products -->
+                    @if ($recommendationSettings->upSellLimit > 0)
                     <x-shop::products.carousel
                         :title="trans('shop::app.products.view.up-sell-title')"
                         :src="route('shop.api.products.up-sell.index', ['id' => $product->id])"
                     />
+                    @endif
                 </template>
             </div>
         </script>
@@ -829,20 +634,28 @@
                 },
 
                 mounted() {
-                    const observer = new IntersectionObserver(
+                    if (!('IntersectionObserver' in window)) {
+                        this.isVisible = true;
+                        return;
+                    }
+                    this.observer = new IntersectionObserver(
                         (entries) => {
                             entries.forEach((entry) => {
                                 if (entry.isIntersecting) {
                                     this.isVisible = true;
-                                    observer.unobserve(entry.target); // Stop observing
+                                    this.observer.disconnect();
                                 }
                             });
                         },
-                        { threshold: 0.1 }
+                        { threshold: 0, rootMargin: '0px 0px 200px 0px' }
                     );
 
-                    observer.observe(this.$refs.carouselWrapper);
-                }
+                    this.observer.observe(this.$refs.carouselWrapper);
+                },
+
+                beforeUnmount() {
+                    this.observer?.disconnect();
+                },
             });
         </script>
 

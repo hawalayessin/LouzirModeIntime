@@ -18,7 +18,7 @@
     {!! view_render_event('bagisto.shop.checkout.onepage.header.before') !!}
 
     <!-- Page Header -->
-    <div class="flex-wrap">
+    <div class="louzir-checkout-header flex-wrap">
         <div class="flex w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[60px] py-4 max-lg:px-8 max-sm:px-4">
             <div class="flex items-center gap-x-14 max-[1180px]:gap-x-9">
                 <a
@@ -44,7 +44,7 @@
     {!! view_render_event('bagisto.shop.checkout.onepage.header.after') !!}
 
     <!-- Page Content -->
-    <div class="container px-[60px] max-lg:px-8 max-sm:px-4">
+    <div class="louzir-checkout-page container px-[60px] max-lg:px-8 max-sm:px-4">
 
         {!! view_render_event('bagisto.shop.checkout.onepage.breadcrumbs.before') !!}
 
@@ -56,6 +56,10 @@
         {!! view_render_event('bagisto.shop.checkout.onepage.breadcrumbs.after') !!}
 
         <!-- Checkout Vue Component -->
+        <section class="louzir-page-intro">
+            <h1>@lang('shop::app.checkout.onepage.index.checkout')</h1>
+            <p>@lang('shop::storefront.checkout-intro')</p>
+        </section>
         <v-checkout>
             <!-- Shimmer Effect -->
             <x-shop::shimmer.checkout.onepage />
@@ -75,7 +79,7 @@
             <template v-else>
                 <div class="grid grid-cols-[1fr_auto] gap-8 max-lg:grid-cols-[1fr] max-md:gap-5">
                     <!-- Included Checkout Summary Blade File For Mobile view -->
-                    <div class="hidden max-md:block">
+                    <div class="louzir-checkout-summary hidden max-md:block">
                         @include('shop::checkout.onepage.summary')
                     </div>
 
@@ -100,13 +104,13 @@
                     </div>
 
                     <!-- Included Checkout Summary Blade File For Desktop view -->
-                    <div class="sticky top-8 block h-max w-[442px] max-w-full max-lg:w-auto max-lg:max-w-[442px] ltr:pl-8 max-lg:ltr:pl-0 rtl:pr-8 max-lg:rtl:pr-0">
-                        <div class="block max-md:hidden">
+                    <div class="louzir-checkout-review sticky top-8 block h-max w-[442px] max-w-full max-lg:w-auto max-lg:max-w-[442px] ltr:pl-8 max-lg:ltr:pl-0 rtl:pr-8 max-lg:rtl:pr-0">
+                        <div class="louzir-checkout-summary block max-md:hidden">
                             @include('shop::checkout.onepage.summary')
                         </div>
 
                         <div
-                            class="flex justify-end"
+                            class="louzir-checkout-actions"
                             v-if="canPlaceOrder"
                         >
                             <template v-if="cart.payment_method == 'paypal_smart_button'">
@@ -121,7 +125,7 @@
                             <template v-else>
                                 <x-shop::button
                                     type="button"
-                                    class="primary-button w-max rounded-2xl bg-navyBlue px-11 py-3 max-md:mb-4 max-md:w-full max-md:max-w-full max-md:rounded-lg max-sm:py-1.5"
+                                    class="primary-button louzir-place-order"
                                     :title="trans('shop::app.checkout.onepage.summary.place-order')"
                                     ::disabled="isPlacingOrder"
                                     ::loading="isPlacingOrder"

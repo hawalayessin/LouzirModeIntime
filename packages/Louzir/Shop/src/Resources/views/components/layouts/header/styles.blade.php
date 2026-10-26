@@ -7,12 +7,12 @@
     .louzir-desktop-logo { display: flex; align-items: center; justify-content: center; flex: 0 0 148px; height: 72px; }
     .louzir-desktop-logo img { width: 148px; height: 60px; object-fit: contain; }
     .louzir-desktop-brand > :last-child { min-width: 0; }
-    .louzir-category-nav { flex-wrap: wrap; gap: 0 4px; }
-    .louzir-category-item { height: 80px; max-width: 220px; border-bottom-width: 2px; font-size: 13px; line-height: 1.5; }
+    .louzir-category-nav { position: relative; flex-wrap: wrap; gap: 0 4px; }
+    .louzir-category-item { position: static; height: 80px; max-width: 220px; border-bottom-width: 2px; font-size: 13px; line-height: 1.5; }
     .louzir-category-item:hover { border-color: #181818; border-bottom-width: 2px; }
     .louzir-category-link, .louzir-all-categories > span { padding-inline: 12px; text-transform: none; overflow-wrap: anywhere; }
     .louzir-all-categories > span { gap: 8px; }
-    .louzir-category-panel { top: 100%; max-width: min(850px, calc(100vw - 80px)); border-color: #ededed; border-radius: 0 0 4px 4px; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
+    .louzir-category-panel { top: 100%; inset-inline-start: 0; inset-inline-end: auto; max-width: min(850px, calc(100vw - 240px)); border-color: #ededed; border-radius: 0 0 4px 4px; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
     .louzir-category-item:focus-within > .louzir-category-panel { opacity: 1; pointer-events: auto; transform: translateY(0); }
     .louzir-desktop-tools { display: flex; align-items: center; flex: 0 0 auto; gap: 20px; margin-inline-start: auto; }
     .louzir-desktop-search { width: 300px; min-width: 0; }

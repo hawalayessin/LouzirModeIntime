@@ -69,8 +69,11 @@ class Customer extends Base
      */
     public function afterSubscribed($customer)
     {
+        if (! (core()->getConfigData('emails.general.notifications.emails.general.notifications.newsletter_subscription') ?? true)) {
+            return;
+        }
         try {
-            Mail::queue(new SubscriptionNotification($customer));
+            Mail::queue((new SubscriptionNotification($customer))->locale(app()->getLocale())->afterCommit());
         } catch (\Exception $e) {
             report($e);
         }

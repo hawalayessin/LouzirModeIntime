@@ -15,6 +15,8 @@ const output = 'storage/framework/testing';
         const response = await page.goto(base + '/?locale=fr', { waitUntil: 'networkidle' });
         check(response.status() === 200, 'Homepage returns 200');
         await page.waitForSelector('.louzir-carousel[data-initialized="true"]');
+        const reject = page.getByRole('button', { name: 'Rejeter', exact: true });
+        if (await reject.isVisible()) await reject.click();
         return { context, page };
     };
     const active = page => page.locator('.louzir-slide.is-active').getAttribute('aria-label');
@@ -27,7 +29,7 @@ const output = 'storage/framework/testing';
         await hero.hover();
         check(await page.locator('.louzir-slide').count() === 3, 'Three slides');
         const layout = await hero.evaluate(el => {
-            const hero = el.getBoundingClientRect();
+            const hero = el.querySelector('.is-active img').getBoundingClientRect();
             return [...el.querySelectorAll('[data-carousel-prev], [data-carousel-next]')].map(button => {
                 const rect = button.getBoundingClientRect();
                 return { center: rect.y + rect.height / 2, heroCenter: hero.y + hero.height / 2 };
@@ -61,6 +63,7 @@ const output = 'storage/framework/testing';
         await context.close();
 
         const auto = await open({ viewport: { width: 1440, height: 1050 } });
+        await auto.page.locator('.louzir-carousel-dot').first().click();
         await auto.page.mouse.move(1430, 1040);
         await auto.page.waitForTimeout(5300);
         check(await active(auto.page) === '2 / 3', 'Autoplay after five seconds');
@@ -105,13 +108,13 @@ const output = 'storage/framework/testing';
         await mobile.page.setViewportSize({ width: 320, height: 800 });
         check(await mobile.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'No overflow at 320px');
         const mobileLayout = await mobileHero.evaluate(el => {
-            const hero = el.getBoundingClientRect();
+            const hero = el.querySelector('.is-active img').getBoundingClientRect();
             return [...el.querySelectorAll('[data-carousel-prev], [data-carousel-next]')].every(button => {
                 const rect = button.getBoundingClientRect();
                 return Math.abs(rect.y + rect.height / 2 - (hero.y + hero.height / 2)) < 2;
             });
         });
-        check(mobileLayout, 'Arrows vertically centered at 320px');
+        check(mobileLayout, 'Arrows vertically centered on the mobile image at 320px');
         await mobile.page.keyboard.press('End');
         const socks = mobile.page.locator('.louzir-slide.is-active img');
         check((await socks.getAttribute('src')).includes('cotton-socks.webp'), 'Socks image published in the third slide');

@@ -1,24 +1,11 @@
-@component('shop::emails.layout')
-    <div style="margin-bottom: 34px;">
-        <p style="font-weight: bold;font-size: 20px;color: #121A26;line-height: 24px;margin-bottom: 24px">
-            @lang('shop::app.emails.dear', ['customer_name' => ! empty($fullName) ? $fullName : $subscribersList->email ]), 👋
-        </p>
-
-        <p style="font-size: 16px;color: #384860;line-height: 24px;">
-            @lang('shop::app.emails.customers.subscribed.greeting')
-        </p>
-    </div>
-
-    <p style="font-size: 16px;color: #384860;line-height: 24px;margin-bottom: 40px">
-        @lang('shop::app.emails.customers.subscribed.description')
-    </p>
-
-    <div style="display: flex;margin-bottom: 95px">
-        <a
-            href="{{ route('shop.subscription.destroy', $subscribersList->token) }}"
-            style="padding: 16px 45px;justify-content: center;align-items: center;gap: 10px;border-radius: 2px;background: #060C3B;color: #FFFFFF;text-decoration: none;text-transform: uppercase;font-weight: 700;"
-        >
-            @lang('shop::app.emails.customers.subscribed.unsubscribe')
-        </a>
-    </div>
+@php
+    $emailChannel = \Webkul\Core\Models\Channel::find($subscribersList->channel_id) ?? core()->getCurrentChannel();
+    $emailTitle = trans('shop::app.emails.customers.subscribed.subject');
+    $intro = core()->getConfigData('emails.configure.customer_messages.newsletter_message', $emailChannel->code, app()->getLocale()) ?: trans('shop::order-mail.newsletter-message');
+    $intro = strtr($intro, [':store' => core()->getSenderEmailDetails()['name'], ':customer' => $subscribersList->customer?->name ?? '']);
+@endphp
+@component('shop::emails.message-layout', compact('emailChannel', 'emailTitle'))
+    <p style="white-space:pre-line">{{ $intro }}</p>
+    <p><a href="{{ route('shop.home.index') }}" style="color:#1a1c1b">@lang('shop::order-mail.store')</a></p>
+    <p style="margin-top:32px;font-size:13px"><a href="{{ route('shop.subscription.destroy', $subscribersList->token) }}" style="color:#45464c">@lang('shop::app.emails.customers.subscribed.unsubscribe')</a></p>
 @endcomponent

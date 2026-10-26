@@ -18,7 +18,7 @@ return [
         'title' => 'Livraison express',
         'description' => 'Livraison express à domicile',
         'active' => true,
-        'default_rate' => '8',
+        'default_rate' => '15',
         'type' => 'per_order',
         'class' => Express::class,
     ],

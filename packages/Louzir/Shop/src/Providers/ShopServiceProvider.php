@@ -5,6 +5,7 @@ namespace Webkul\Shop\Providers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Webkul\Core\Http\Middleware\PreventRequestsDuringMaintenance;
@@ -13,6 +14,7 @@ use Webkul\Shop\Http\Middleware\CacheResponse;
 use Webkul\Shop\Http\Middleware\Currency;
 use Webkul\Shop\Http\Middleware\Locale;
 use Webkul\Shop\Http\Middleware\Theme;
+use Webkul\Shop\Services\RecommendationCache;
 
 class ShopServiceProvider extends ServiceProvider
 {
@@ -56,6 +58,12 @@ class ShopServiceProvider extends ServiceProvider
         Blade::anonymousComponentPath(__DIR__.'/../Resources/views/components', 'shop');
 
         $this->app->register(EventServiceProvider::class);
+
+        Event::listen([
+            'catalog.product.create.after', 'catalog.product.update.after', 'catalog.product.delete.before',
+            'catalog.category.update.after', 'catalog.category.delete.before',
+            'core.configuration.save.after', 'core.channel.update.after',
+        ], RecommendationCache::class.'@invalidate');
     }
 
     /**

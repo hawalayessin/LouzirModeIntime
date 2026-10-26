@@ -56,6 +56,25 @@ it('replaces an uploaded logo and removes the previous file', function () {
     $this->get('/')->assertOk()->assertSee('src="'.Storage::url($path).'"', false);
 });
 
+it('uses the configured logo in the admin header drawer and both theme settings', function () {
+    $this->loginAsAdmin();
+
+    $this->post($this->url, array_merge($this->payload, [
+        'general' => ['design' => ['admin_logo' => [
+            'logo_image' => UploadedFile::fake()->image('wide-brand.png', 1800, 300),
+        ]]],
+    ]))->assertSessionHasNoErrors()->assertRedirect();
+
+    $path = CoreConfig::where('code', 'general.design.admin_logo.logo_image')->firstOrFail()->value;
+    $logoUrl = Storage::url($path);
+    $this->get(route('admin.dashboard.index'))->assertOk()
+        ->assertSee('id="logo-image"', false)
+        ->assertSee('id="logo-image-drawer"', false)
+        ->assertSee('src="'.$logoUrl.'"', false)
+        ->assertSee('logo: '.json_encode($logoUrl), false)
+        ->assertSee('dark_logo: '.json_encode($logoUrl), false);
+});
+
 it('restores the channel logo after the design logo is removed', function () {
     $this->loginAsAdmin();
     Storage::put('channels/channel-logo.png', 'channel image');

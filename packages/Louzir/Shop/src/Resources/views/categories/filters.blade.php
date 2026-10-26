@@ -25,14 +25,16 @@
     >
         <!-- Drawer Toggler -->
         <x-slot:toggle>
-            <div
+            <button
+                type="button"
+                data-catalog-filter-trigger
                 class="flex cursor-pointer items-center gap-x-2.5 px-2.5 py-3.5 text-base font-medium uppercase max-md:py-3"
                 @click="isDrawerActive.filter = true"
             >
                 <span class="icon-filter-1 text-2xl"></span>
 
                 @lang('shop::app.categories.filters.filter')
-            </div>
+            </button>
         </x-slot>
 
         <!-- Drawer Header -->
@@ -42,12 +44,6 @@
                     @lang('shop::app.categories.filters.filters')
                 </p>
 
-                <p
-                    class="cursor-pointer text-sm font-medium ltr:mr-[50px] rtl:ml-[50px]"
-                    @click="clearFilters('filter', '')"
-                >
-                    @lang('shop::app.categories.filters.clear-all')
-                </p>
             </div>
         </x-slot>
 
@@ -117,19 +113,25 @@
         <!-- Filters Container -->
         <template v-else>
             <div class="louzir-filter-panel panel-side journal-scroll">
+                <div v-if="hasError" class="grid gap-3 py-4" role="alert">
+                    <p>@lang('shop::storefront.filters-error')</p>
+                    <button type="button" class="secondary-button px-4 py-2" @click="getFilters">
+                        @lang('shop::storefront.retry')
+                    </button>
+                </div>
                 <!-- Filters Header Container -->
-                <div class="flex h-[50px] items-center justify-between border-b border-zinc-200 pb-2.5 max-md:hidden">
+                <div class="louzir-filter-heading flex items-center justify-between">
                     <p class="text-lg font-semibold max-sm:font-medium">
                         @lang('shop::app.categories.filters.filters')
                     </p>
 
-                    <p
+                    <button type="button"
                         class="cursor-pointer text-xs font-medium"
                         tabindex="0"
                         @click="clear()"
                     >
                         @lang('shop::app.categories.filters.clear-all')
-                    </p>
+                    </button>
                 </div>
 
                 <!-- Filters Items Vue Component -->
@@ -141,6 +143,9 @@
                     @values-applied="applyFilter(filter, $event)"
                 >
                 </v-filter-item>
+                <button v-if="! hasError" type="button" class="primary-button louzir-filter-apply" @click="submitFilters">
+                    @lang('shop::filters.apply')
+                </button>
             </div>
         </template>
     </script>
@@ -150,18 +155,14 @@
         type="text/x-template"
         id="v-filter-item-template"
     >
-        <x-shop::accordion class="last:border-b-0">
+        <details open class="louzir-filter-group" :data-filter-code="filter.code">
             <!-- Filter Item Header -->
-            <x-slot:header class="px-0 py-2.5 max-sm:!pb-1.5">
-                <div class="flex items-center justify-between">
-                    <p class="text-lg font-semibold max-sm:text-base max-sm:font-medium">
-                        @{{ filter.name }}
-                    </p>
-                </div>
-            </x-slot>
+            <summary class="louzir-filter-title">
+                <span>@{{ filter.name }}</span>
+            </summary>
 
             <!-- Filter Item Content -->
-            <x-slot:content class="!p-0">
+            <div class="louzir-filter-content">
                 <!-- Price Range Filter -->
                 <ul v-if="filter.type === 'price'">
                     <li>
@@ -179,70 +180,44 @@
                     <!-- Search Box For Options -->
                     <div
                         class="flex flex-col gap-1"
-                        v-if="filter.type !== 'boolean'"
+                        v-if="filter.type !== 'boolean' && (filter.code !== 'size' || meta?.total > 12 || searchQuery)"
                     >
-                        <div class="relative">
+                        <div class="louzir-filter-search relative">
                             <div class="icon-search pointer-events-none absolute top-3 flex items-center text-2xl max-md:text-xl max-sm:top-2.5 ltr:left-3 rtl:right-3"></div>
 
                             <input
                                 type="text"
                                 class="block w-full rounded-xl border border-zinc-200 px-11 py-3.5 text-sm font-medium text-gray-900 max-md:rounded-lg max-md:px-10 max-md:py-3 max-md:font-normal max-sm:text-xs"
-                                placeholder="@lang('shop::app.categories.filters.search.title')"
+                                :placeholder="@js(trans('shop::filters.search')).replace(':filter', filter.name)"
+                                :aria-label="@js(trans('shop::filters.search')).replace(':filter', filter.name)"
                                 v-model="searchQuery"
                                 v-debounce:500="searchOptions"
                             />
                         </div>
 
-                        <p
-                            class="mt-1 flex flex-row-reverse text-xs text-gray-600"
-                            v-text="
-                                '@lang('shop::app.categories.filters.search.results-info', ['currentCount' => 'currentCount', 'totalCount' => 'totalCount'])'
-                                    .replace('currentCount', options.length)
-                                    .replace('totalCount', meta.total)
-                            "
-                            v-if="meta && meta.total > 0"
-                        >
-                        </p>
                     </div>
 
                     <!-- Filter Options -->
-                    <ul class="pb-3 text-base text-gray-700">
+                    <ul class="louzir-filter-options" :class="{ 'louzir-size-options': filter.code === 'size' }">
                         <template v-if="options.length">
                             <li
                                 :key="`${filter.id}_${option.id}`"
                                 v-for="(option, optionIndex) in options"
                             >
-                                <div class="flex select-none items-center gap-x-4 rounded hover:bg-gray-100 max-sm:gap-x-1 max-sm:!p-0 ltr:pl-2 rtl:pr-2">
+                                <label class="louzir-filter-option">
                                     <input
                                         type="checkbox"
-                                        :id="`filter_${filter.id}_option_ ${option.id}`"
-                                        class="peer hidden"
+                                        :id="`filter_${filter.id}_option_${option.id}`"
                                         :value="option.id"
                                         v-model="appliedValues"
                                         @change="applyValue"
                                     />
 
-                                    <label
-                                        class="icon-uncheck peer-checked:icon-check-box cursor-pointer text-2xl text-navyBlue peer-checked:text-navyBlue max-sm:text-xl"
-                                        role="checkbox"
-                                        aria-checked="false"
-                                        :aria-label="option.name"
-                                        :aria-labelledby="'label_option_' + option.id"
-                                        tabindex="0"
-                                        :for="`filter_${filter.id}_option_ ${option.id}`"
-                                    >
-                                    </label>
-
-                                    <label
-                                        class="w-full cursor-pointer p-2 text-base text-gray-900 max-sm:p-1 max-sm:text-sm ltr:pl-0 rtl:pr-0"
-                                        :id="'label_option_' + option.id"
-                                        :for="`filter_${filter.id}_option_ ${option.id}`"
-                                        role="button"
-                                        tabindex="0"
-                                    >
+                                    <span v-if="option.swatch" class="louzir-filter-swatch" :style="{ backgroundColor: option.swatch }" aria-hidden="true"></span>
+                                    <span>
                                         @{{ option.name }}
-                                    </label>
-                                </div>
+                                    </span>
+                                </label>
                             </li>
                         </template>
 
@@ -309,8 +284,8 @@
                         </button>
                     </div>
                 </template>
-            </x-slot>
-        </x-shop::accordion>
+            </div>
+        </details>
     </script>
 
     <script
@@ -344,6 +319,8 @@
                 return {
                     isLoading: true,
 
+                    hasError: false,
+
                     filters: {
                         available: {},
 
@@ -358,9 +335,19 @@
                 this.setFilters();
             },
 
+            beforeUnmount() {
+                this.filterRequest?.abort();
+            },
+
             methods: {
                 getFilters() {
+                    this.isLoading = true;
+                    this.hasError = false;
+                    this.filterRequest?.abort();
+                    this.filterRequest = new AbortController();
                     this.$axios.get('{{ route("shop.api.categories.attributes") }}', {
+                            timeout: 8000,
+                            signal: this.filterRequest.signal,
                             params: {
                                 category_id: "{{ isset($category) ? $category->id : ''  }}",
                             }
@@ -371,7 +358,10 @@
                             this.filters.available = response.data.data;
                         })
                         .catch((error) => {
-                            console.log(error);
+                            if (error.code !== 'ERR_CANCELED') {
+                                this.isLoading = false;
+                                this.hasError = true;
+                            }
                         });
                 },
 
@@ -387,7 +377,7 @@
                         }
                     });
 
-                    this.$emit('filter-applied', this.filters.applied);
+                    this.submitFilters();
                 },
 
                 applyFilter(filter, values) {
@@ -396,8 +386,11 @@
                     } else {
                         delete this.filters.applied[filter.code];
                     }
+                },
 
-                    this.$emit('filter-applied', this.filters.applied);
+                submitFilters() {
+                    const applied = Object.fromEntries(Object.entries(this.filters.applied).map(([key, values]) => [key, Array.isArray(values) ? [...values] : values]));
+                    this.$emit('filter-applied', applied);
                 },
 
                 clear() {
@@ -409,7 +402,7 @@
                     /**
                      * Clearing child components. Improvisation needed here.
                      */
-                    this.$refs.filterItemComponent.forEach((filterItem) => {
+                    (this.$refs.filterItemComponent ?? []).forEach((filterItem) => {
                         if (filterItem.filter.code === 'price') {
                             filterItem.$data.appliedValues = null;
                         } else {
@@ -417,7 +410,7 @@
                         }
                     });
 
-                    this.$emit('filter-applied', this.filters.applied);
+                    this.submitFilters();
                 },
             },
         });
@@ -455,7 +448,11 @@
             },
 
             mounted() {
-                this.fetchFilterOptions();
+                if (this.filter.type !== 'price') this.fetchFilterOptions();
+            },
+
+            beforeUnmount() {
+                this.optionRequest?.abort();
             },
 
             watch: {
@@ -505,11 +502,15 @@
                 },
 
                 fetchFilterOptions(replace = true) {
+                    this.optionRequest?.abort();
+                    this.optionRequest = new AbortController();
                     this.isLoadingMore = true;
 
                     const url = `{{ route("shop.api.categories.attribute_options", 'attribute_id') }}`.replace('attribute_id', this.filter.id);
 
                     this.$axios.get(url, {
+                        timeout: 8000,
+                        signal: this.optionRequest.signal,
                         params: {
                             page: this.currentPage,
                             search: this.searchQuery,
@@ -525,7 +526,7 @@
                         this.meta = response.data.meta;
                     })
                     .catch(error => {
-                        this.isLoadingMore = false;
+                        if (error.code !== 'ERR_CANCELED') this.isLoadingMore = false;
                     });
                 },
             },

@@ -118,6 +118,22 @@ class OrderRepository extends Repository
         return $this->createOrderIfNotThenRetry($data);
     }
 
+    /** Confirm once, under a row lock, and notify only after the change is committed. */
+    public function confirm(int $id): bool
+    {
+        return DB::transaction(function () use ($id) {
+            $order = $this->model->newQuery()->lockForUpdate()->findOrFail($id);
+            if ($order->status !== Order::STATUS_PENDING) {
+                return false;
+            }
+            $order->status = Order::STATUS_PROCESSING;
+            $order->save();
+            DB::afterCommit(fn () => Event::dispatch('sales.order.confirm.after', $order));
+
+            return true;
+        });
+    }
+
     /**
      * Cancel order. This method should be independent as admin also can cancel the order.
      *

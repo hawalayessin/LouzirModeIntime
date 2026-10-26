@@ -18,7 +18,7 @@
     {!! view_render_event('bagisto.shop.checkout.cart.header.before') !!}
 
     <!-- Page Header -->
-    <div class="flex flex-wrap">
+    <div class="louzir-checkout-header flex flex-wrap">
         <div class="flex w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[60px] py-4 max-lg:px-8 max-md:px-4">
             <div class="flex items-center gap-x-14 max-[1180px]:gap-x-9">
                 {!! view_render_event('bagisto.shop.checkout.cart.logo.before') !!}
@@ -48,7 +48,7 @@
     {!! view_render_event('bagisto.shop.checkout.cart.header.after') !!}
 
     <div class="flex-auto">
-        <div class="container px-[60px] max-lg:px-8 max-md:px-4">
+        <div class="louzir-cart-page container px-[60px] max-lg:px-8 max-md:px-4">
 
             {!! view_render_event('bagisto.shop.checkout.cart.breadcrumbs.before') !!}
 
@@ -68,6 +68,11 @@
                     {{ $errors['message'] }}: {{ $errors['amount'] }}
                 </div>
             @endif
+
+            <section class="louzir-page-intro">
+                <h1>@lang('shop::app.checkout.cart.index.cart')</h1>
+                <p>@lang('shop::storefront.cart-intro')</p>
+            </section>
 
             <v-cart ref="vCart">
                 <!-- Cart Shimmer Effect -->
@@ -106,7 +111,7 @@
                         class="mt-8 flex flex-wrap gap-20 pb-8 max-1060:flex-col max-md:mt-0 max-md:gap-[30px] max-md:pb-0"
                         v-if="cart?.items?.length"
                     >
-                        <div class="flex flex-1 flex-col gap-6 max-md:gap-5">
+                        <div class="louzir-cart-items flex flex-1 flex-col gap-6 max-md:gap-5">
 
                             {!! view_render_event('bagisto.shop.checkout.cart.cart_mass_actions.before') !!}
 
@@ -174,7 +179,7 @@
                                 v-for="item in cart?.items"
                             >
                                 <div class="flex justify-between gap-x-2.5 border-b border-zinc-200 pb-5">
-                                    <div class="flex gap-x-5">
+                                    <div class="louzir-cart-item-content flex gap-x-5">
                                         <div class="mt-11 select-none max-md:mt-9 max-sm:mt-7">
                                             <input
                                                 type="checkbox"
@@ -211,7 +216,7 @@
                                         {!! view_render_event('bagisto.shop.checkout.cart.item_image.after') !!}
 
                                         <!-- Cart Item Options Container -->
-                                        <div class="grid place-content-start gap-y-2.5 max-md:gap-y-0">
+                                        <div class="louzir-cart-item-details grid place-content-start gap-y-2.5 max-md:gap-y-0">
                                             {!! view_render_event('bagisto.shop.checkout.cart.item_name.before') !!}
 
                                             <a :href="'{{ route('shop.product_or_category.index', ':slug') }}'.replace(':slug', item.product_url_key)">
@@ -428,7 +433,7 @@
 
                     <!-- Empty Cart Section -->
                     <div
-                        class="m-auto grid w-full place-content-center items-center justify-items-center py-32 text-center"
+                        class="louzir-cart-empty m-auto grid w-full place-content-center items-center justify-items-center py-32 text-center"
                         v-else
                     >
                         <img

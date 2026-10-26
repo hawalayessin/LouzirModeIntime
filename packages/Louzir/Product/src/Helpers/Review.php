@@ -28,6 +28,10 @@ class Review
      */
     public function getAverageRating($product)
     {
+        if (array_key_exists('approved_reviews_avg_rating', $product->getAttributes())) {
+            return number_format(round((float) $product->getAttributes()['approved_reviews_avg_rating'], 2), 1);
+        }
+
         return number_format(round($product->reviews->where('status', 'approved')->avg('rating'), 2), 1);
     }
 
@@ -39,6 +43,10 @@ class Review
      */
     public function getTotalReviews($product)
     {
+        if (array_key_exists('approved_reviews_count', $product->getAttributes())) {
+            return (int) $product->getAttributes()['approved_reviews_count'];
+        }
+
         return $product->reviews->where('status', 'approved')->count();
     }
 
@@ -50,6 +58,10 @@ class Review
      */
     public function getTotalRating($product)
     {
+        if (array_key_exists('approved_reviews_sum_rating', $product->getAttributes())) {
+            return (int) $product->getAttributes()['approved_reviews_sum_rating'];
+        }
+
         return $product->reviews->where('status', 'approved')->sum('rating');
     }
 

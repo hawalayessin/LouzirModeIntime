@@ -39,6 +39,7 @@
                 dots[i].setAttribute('aria-current', String(active));
             });
             counter.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+            carousel.dispatchEvent(new CustomEvent('louzir-slide-change', { bubbles: true, detail: { index } }));
             schedule();
         };
         carousel.querySelector('[data-carousel-prev]').addEventListener('click', () => show(index - 1));

@@ -1,5 +1,5 @@
 <style>
-    .louzir-home { --louzir-ink: #161616; --louzir-muted: #656565; --louzir-line: #e6e4e1; background: #fff; color: var(--louzir-ink); font: 15px/1.65 "Manrope", "Poppins", sans-serif; }
+    .louzir-home { --louzir-ink: #161616; --louzir-muted: #656565; --louzir-line: #e6e4e1; --louzir-motion-ease: cubic-bezier(.22, 1, .36, 1); --louzir-motion-duration: 700ms; --louzir-card-shadow: 0 16px 40px rgba(19,21,21,.12); background: #fff; color: var(--louzir-ink); font: 15px/1.65 "Manrope", "Poppins", sans-serif; }
     .louzir-home * { letter-spacing: 0; }
     .louzir-shell { width: min(100%, 1440px); margin-inline: auto; padding-inline: 48px; }
     .louzir-title, .louzir-card-content h3, .louzir-boutique-info h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 600; line-height: 1.2; text-wrap: balance; }
@@ -29,13 +29,12 @@
     .louzir-hero-tagline { margin-bottom: 20px; font-family: "Playfair Display", Georgia, serif; font-style: italic; font-size: 30px; line-height: 1.35; color: #e8d5ce; }
     .louzir-hero-description { max-width: 500px; font-size: 16px; line-height: 1.7; color: #f1f1f1; }
     .louzir-actions, .louzir-socials { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 28px; }
-    .louzir-button { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 46px; padding: 12px 22px; border: 1px solid transparent; border-radius: 2px; font-size: 12px; font-weight: 700; line-height: 1.5; text-align: center; text-transform: uppercase; transition: transform .2s ease, box-shadow .2s ease; }
+    .louzir-button { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 46px; padding: 12px 22px; border: 1px solid transparent; border-radius: 999px; font-size: 12px; font-weight: 700; line-height: 1.5; text-align: center; text-transform: uppercase; transition: transform .15s var(--louzir-motion-ease), box-shadow .25s var(--louzir-motion-ease), background-color .25s ease; }
     .louzir-button.primary { background: #181818; color: #fff; }
     .louzir-button.secondary { border-color: #d9d7d3; background: #fff; color: #181818; }
     .louzir-hero .primary { background: #fff; color: #181818; }
     .louzir-hero .secondary { border-color: #ffffff80; background: transparent; color: #fff; }
-    .louzir-button:hover { transform: translateY(-2px); box-shadow: 0 5px 14px #00000020; }
-    .louzir-button:active { transform: none; }
+    .louzir-button:active { transform: scale(.97); }
     .louzir-socials { gap: 18px; font-size: 12px; color: #ddd; }
     .louzir-socials > span { font-size: 11px; color: #ddd; }
     .louzir-chip { display: inline-flex; align-items: center; min-height: 32px; border-bottom: 1px solid #ffffff60; }
@@ -60,12 +59,11 @@
     .louzir-section-head h2, .louzir-signature-head h2 { font-size: 36px; }
     .louzir-section-head p { max-width: 390px; font-size: 14px; color: var(--louzir-muted); }
     .louzir-bento { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
-    .louzir-card { position: relative; min-width: 0; }
-    .louzir-card-media { position: relative; aspect-ratio: 1.6; overflow: hidden; background: #f4f3f1; }
-    .louzir-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
-    .louzir-card:hover img { transform: scale(1.035); }
+    .louzir-card { position: relative; min-width: 0; border-radius: 20px; transition: box-shadow .35s var(--louzir-motion-ease); }
+    .louzir-card-media { position: relative; aspect-ratio: 1.6; overflow: hidden; border-radius: 16px; background: #f4f3f1; }
+    .louzir-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--louzir-motion-duration) var(--louzir-motion-ease); }
     .louzir-media-badge { position: absolute; inset-inline-start: 16px; bottom: 16px; max-width: calc(100% - 32px); padding: 5px 10px; background: #ffffffed; color: #181818; font-size: 10px; text-transform: uppercase; font-weight: 700; }
-    .louzir-card-content { padding-top: 18px; }
+    .louzir-card-content { padding: 18px 16px 20px; }
     .louzir-card-content .louzir-kicker { color: #777; font-size: 10px; }
     .louzir-card-content h3 { margin-block: 5px; font-size: 23px; }
     .louzir-card-content p { font-size: 13px; color: var(--louzir-muted); }
@@ -91,7 +89,7 @@
     .louzir-signature-product .action-items [role="button"] { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 6px; }
 
     .louzir-boutique-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
-    .louzir-boutique-card { min-width: 0; padding: 28px; border: 1px solid #e9e6e2; background: #faf8f5; }
+    .louzir-boutique-card { min-width: 0; padding: 28px; border: 1px solid #e9e6e2; border-radius: 20px; background: #faf8f5; transition: box-shadow .35s var(--louzir-motion-ease); }
     .louzir-boutique-info h3 { font-size: 24px; }
     .louzir-boutique-info p { margin-block: 10px 20px; color: #666; font-size: 14px; }
     .louzir-map-preview { display: flex; flex-direction: column; width: 100%; min-width: 0; background: #fff; }
@@ -110,6 +108,13 @@
     .louzir-marquee button:focus-visible { outline-color: currentColor; }
     .louzir-hero a:focus-visible, .louzir-community a:focus-visible { outline-color: #fff; }
     .louzir-home :is(a,button) { touch-action: manipulation; }
+    @media (hover: hover) and (pointer: fine) {
+        .louzir-button:hover { box-shadow: 0 8px 24px rgba(19,21,21,.14); }
+        .louzir-card:hover, .louzir-boutique-card:hover { box-shadow: var(--louzir-card-shadow); }
+        .louzir-card:hover img { transform: scale(1.025); }
+    }
+    .louzir-home[data-motion-enabled="0"] :is(.louzir-button, .louzir-card, .louzir-card-media img, .louzir-boutique-card, .louzir-hero-photo) { animation: none !important; transition: none !important; }
+    .louzir-home[data-motion-enabled="0"] .louzir-card:hover img, .louzir-home[data-motion-enabled="0"] .louzir-button:active { transform: none; }
 
     @media (max-width: 900px) {
         .louzir-hero-photo { position: relative; display: block; height: auto; aspect-ratio: 1408 / 768; object-fit: contain; z-index: auto; }
@@ -175,8 +180,10 @@
     /* A shared grid row keeps every slide the same height, including long translations. */
     .louzir-carousel::before { display: none; }
     .louzir-slides { display: grid; }
-    .louzir-slide { grid-area: 1 / 1; position: relative; isolation: isolate; min-width: 0; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .8s ease, visibility .8s; }
+    .louzir-slide { grid-area: 1 / 1; position: relative; isolation: isolate; min-width: 0; opacity: 0; visibility: hidden; pointer-events: none; }
     .louzir-slide.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
+    .louzir-slide.is-active .louzir-hero-photo { animation: louzir-hero-reveal .35s ease-out; }
+    @keyframes louzir-hero-reveal { from { opacity: .85; } to { opacity: 1; } }
     .louzir-slide::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(0,0,0,var(--hero-overlay)) 0%, rgba(0,0,0,.32) 52%, rgba(0,0,0,.08) 100%); }
     .louzir-carousel .louzir-hero-photo { position: absolute; inset: 0; height: 100%; width: 100%; aspect-ratio: auto; object-fit: cover; object-position: var(--hero-x) var(--hero-y); z-index: -2; }
     .louzir-carousel .louzir-hero-grid { min-height: 640px; padding-block: 64px 104px; }
@@ -202,19 +209,35 @@
     .louzir-carousel:focus-visible { outline: 2px solid #e8d5ce; outline-offset: -3px; }
     @media (max-width: 900px) {
         .louzir-carousel .louzir-hero-photo { object-position: var(--hero-mobile-x) var(--hero-y); }
-        .louzir-carousel .louzir-hero-grid { min-height: 660px; }
+        .louzir-carousel .louzir-hero-grid { min-height: 560px; }
         .louzir-slide::before { background: linear-gradient(90deg, rgba(0,0,0,var(--hero-overlay)), rgba(0,0,0,.38)); }
     }
     @media (max-width: 640px) {
-        .louzir-carousel .louzir-hero-grid { min-height: 680px; padding-block: 48px 110px; }
-        .louzir-carousel .louzir-hero-copy { max-width: 100%; }
-        .louzir-carousel .louzir-hero-description { font-size: 15px; }
-        .louzir-carousel-controls { padding: 0 20px 20px; gap: 4px; }
-        .louzir-carousel [data-carousel-prev], .louzir-carousel [data-carousel-next] { width: 44px; height: 44px; background: #00000070; }
-        .louzir-carousel [data-carousel-prev] { left: 4px; }
-        .louzir-carousel [data-carousel-next] { right: 4px; }
-        .louzir-carousel .louzir-hero-copy { padding-inline: 30px; }
-        .louzir-carousel .louzir-hero-grid { min-height: 760px; }
+        .louzir-carousel { background: #f7f4f0; }
+        .louzir-slide { background: #f7f4f0; color: var(--louzir-ink); }
+        .louzir-slide::before { display: none; }
+        .louzir-carousel .louzir-hero-photo { position: relative; inset: auto; display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; z-index: auto; }
+        .louzir-carousel .louzir-hero-grid { min-height: 0; padding: 22px 20px 76px; align-items: flex-start; }
+        .louzir-carousel .louzir-hero-copy { width: 100%; max-width: 100%; padding: 0; }
+        .louzir-carousel .louzir-hero-kicker { padding: 4px 8px; border-color: #d6cec4; background: transparent; font-size: 9px; letter-spacing: .06em; }
+        .louzir-carousel :is(h1, h2) { margin-block: 12px 6px; font-size: clamp(26px, 7vw, 34px); }
+        .louzir-carousel .louzir-hero-tagline { margin-bottom: 12px; font-size: 20px; color: #69564a; }
+        .louzir-carousel .louzir-hero-description { font-size: 13px; line-height: 1.65; color: #555; }
+        .louzir-carousel .louzir-actions { gap: 8px; margin-top: 18px; }
+        .louzir-carousel .louzir-button { flex: 1 1 0; min-width: 0; padding: 10px 8px; font-size: 10px; }
+        .louzir-carousel .primary { background: #181818; color: #fff; }
+        .louzir-carousel .secondary { border-color: #c9c1b8; background: transparent; color: #181818; }
+        .louzir-carousel .louzir-socials { gap: 12px; margin-top: 16px; font-size: 11px; color: #555; }
+        .louzir-carousel .louzir-socials > span { color: #555; }
+        .louzir-carousel .louzir-chip { min-height: 28px; border-color: #bfb5a9; }
+        .louzir-carousel-controls { padding: 0 20px 16px; gap: 4px; color: #181818; }
+        .louzir-carousel button { color: #181818; border-color: #bfb5a9; background: transparent; }
+        .louzir-carousel button:focus-visible, .louzir-carousel a:focus-visible { outline-color: #181818; }
+        .louzir-carousel .louzir-carousel-dot span { background: #c7beb4; }
+        .louzir-carousel .louzir-carousel-dot[aria-current="true"] span { background: #69564a; }
+        .louzir-carousel [data-carousel-prev], .louzir-carousel [data-carousel-next] { top: 31.25vw; width: 44px; height: 44px; color: #fff; background: #00000070; border-color: #ffffff80; backdrop-filter: none; }
+        .louzir-carousel [data-carousel-prev] { left: 12px; }
+        .louzir-carousel [data-carousel-next] { right: 12px; }
         .louzir-carousel-counter { margin-inline-end: 0; font-size: 10px; }
         .louzir-carousel-pagination, .louzir-carousel-navigation { gap: 0; }
         .louzir-carousel .louzir-carousel-dot { min-width: 36px; width: 36px; }

@@ -16,11 +16,14 @@
             @php
                 $configuredAdminLogo = core()->getConfigData('general.design.admin_logo.logo_image');
                 $defaultAdminLogo = request()->cookie('dark_mode') ? asset('assets/louzir-logo.png') : asset('assets/logo2.png');
-                $adminLogoUrl = $configuredAdminLogo && Storage::exists($configuredAdminLogo) ? Storage::url($configuredAdminLogo) : $defaultAdminLogo;
+                $customAdminLogoUrl = $configuredAdminLogo && Storage::exists($configuredAdminLogo) ? Storage::url($configuredAdminLogo) : null;
+                $adminLogoUrl = $customAdminLogoUrl ?? $defaultAdminLogo;
             @endphp
 
             <img
-                class="h-7 w-auto object-contain sm:h-8"
+                class="louzir-admin-logo"
+                width="104"
+                height="32"
                 src="{{ $adminLogoUrl }}"
                 alt="{{ config('app.name') }}"
                 id="logo-image"
@@ -149,7 +152,9 @@
         <div class="flex items-center justify-between">
             <img
                 src="{{ $adminLogoUrl }}"
-                class="h-7 w-auto object-contain sm:h-8"
+                class="louzir-admin-logo"
+                width="104"
+                height="32"
                 alt="{{ config('app.name') }}"
                 id="logo-image-drawer"
                 data-admin-logo
@@ -733,9 +738,9 @@
                 return {
                     isDarkMode: {{ request()->cookie('dark_mode') ?? 0 }},
 
-                    logo: "{{ asset('assets/logo2.png') }}",
+                    logo: @json($customAdminLogoUrl ?? asset('assets/logo2.png')),
 
-                    dark_logo: "{{ asset('assets/louzir-logo.png') }}",
+                    dark_logo: @json($customAdminLogoUrl ?? asset('assets/louzir-logo.png')),
                 };
             },
 

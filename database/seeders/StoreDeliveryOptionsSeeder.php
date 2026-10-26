@@ -12,7 +12,7 @@ class StoreDeliveryOptionsSeeder extends Seeder
         DB::transaction(function () {
             foreach (DB::table('channels')->get() as $channel) {
                 foreach (['flatrate', 'express'] as $carrier) {
-                    foreach (['active' => '1', 'default_rate' => '8', 'type' => 'per_order'] as $field => $value) {
+                    foreach (['active' => '1', 'default_rate' => $carrier === 'express' ? '15' : '8', 'type' => 'per_order'] as $field => $value) {
                         $this->putIfMissing('sales.carriers.'.$carrier.'.'.$field, $value, $channel->code);
                     }
                     $titles = $carrier === 'express'

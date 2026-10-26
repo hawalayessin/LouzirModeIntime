@@ -4,6 +4,7 @@ namespace Webkul\Shop\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Webkul\Shop\Helpers\FilterLabels;
 
 class AttributeResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class AttributeResource extends JsonResource
             'id' => $this->id,
             'code' => $this->code,
             'type' => $this->type,
-            'name' => $this->name ?? $this->admin_name,
+            'name' => FilterLabels::attribute($this->resource),
         ];
     }
 }

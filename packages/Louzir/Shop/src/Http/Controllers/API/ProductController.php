@@ -7,6 +7,7 @@ use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Marketing\Jobs\UpdateCreateSearchTerm as UpdateCreateSearchTermJob;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Resources\ProductResource;
+use Webkul\Shop\Services\ProductRecommendations;
 
 class ProductController extends APIController
 {
@@ -99,13 +100,9 @@ class ProductController extends APIController
      */
     public function relatedProducts($id): JsonResource
     {
-        $product = $this->productRepository->findOrFail($id);
+        system_config()->memoizeForRequest();
 
-        $relatedProducts = $product->related_products()
-            ->take(core()->getConfigData('catalog.products.product_view_page.no_of_related_products'))
-            ->get();
-
-        return ProductResource::collection($relatedProducts);
+        return ProductResource::collection(app(ProductRecommendations::class)->related((int) $id));
     }
 
     /**
@@ -115,12 +112,8 @@ class ProductController extends APIController
      */
     public function upSellProducts($id): JsonResource
     {
-        $product = $this->productRepository->findOrFail($id);
+        system_config()->memoizeForRequest();
 
-        $upSellProducts = $product->up_sells()
-            ->take(core()->getConfigData('catalog.products.product_view_page.no_of_up_sells_products'))
-            ->get();
-
-        return ProductResource::collection($upSellProducts);
+        return ProductResource::collection(app(ProductRecommendations::class)->upSells((int) $id));
     }
 }

@@ -1,0 +1,63 @@
+const { chromium, expect } = require('@playwright/test');
+const assert = require('node:assert/strict');
+const base = process.env.RECOMMENDATIONS_TEST_URL || 'http://127.0.0.1:8000';
+(async () => {
+    const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL || 'msedge', headless: true });
+    let checks = 0;
+    const errors = [];
+    const check = (value, message) => { assert.ok(value, message); checks++; };
+    try {
+        for (const width of [1440, 390]) {
+            const context = await browser.newContext({ viewport: { width, height: 800 }, isMobile: width < 768, hasTouch: width < 768 });
+            context.setDefaultNavigationTimeout(60000);
+            const page = await context.newPage();
+            page.on('pageerror', e => errors.push(e.message));
+            let requests = 0;
+            page.on('request', r => { if (r.url().includes('/api/products/1129/related')) requests++; });
+            await page.goto(base + '/test-louzir-demo-001?locale=fr', { waitUntil: 'networkidle' });
+            check(requests === 0, 'Related products do not delay the initial page at ' + width);
+            const reject = page.getByRole('button', { name: 'Rejeter', exact: true });
+            if (await reject.isVisible()) await reject.click();
+            const anchor = page.locator('[data-product-recommendations]');
+            const response = page.waitForResponse(r => r.url().includes('/api/products/1129/related'));
+            await anchor.scrollIntoViewIfNeeded();
+            const result = await response;
+            check(result.status() === 200, 'Related API succeeds');
+            const data = (await result.json()).data;
+            check(data.length > 0 && data.length <= 6 && data.every(p => p.id !== 1129 && p.is_saleable), 'Bounded available recommendations exclude current product');
+            const cards = anchor.locator('.louzir-product-card');
+            await expect(cards).toHaveCount(data.length);
+            check(true, 'Cards display returned recommendations at ' + width);
+            check(await cards.evaluateAll(elements => elements.every(el => el.getBoundingClientRect().width >= 190)), 'Recommendation cards retain a usable width');
+            await expect(anchor.locator('.shimmer')).toHaveCount(0, { timeout: 15000 });
+            check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Recommendation strip does not overflow the page');
+            const scroller = cards.first().locator('..');
+            check(await scroller.evaluate(el => el.scrollWidth >= el.clientWidth), 'Horizontal recommendations remain scrollable');
+            await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+            await anchor.scrollIntoViewIfNeeded();
+            await page.waitForTimeout(400);
+            check(requests === 1, 'No repeated request on return scroll');
+            await page.screenshot({ path: 'storage/framework/testing/recommendations-' + width + '.png' });
+            const href = await cards.first().locator('.louzir-product-card-title').getAttribute('href');
+            await cards.first().locator('.louzir-product-card-title').click();
+            await page.waitForURL(href);
+            check(page.url() === href, 'Recommended card opens the correct product');
+            await context.close();
+        }
+        const context = await browser.newContext({ viewport: { width: 390, height: 800 } });
+        await context.route('**/api/products/1129/related**', route => route.fulfill({ status: 503, contentType: 'application/json', body: '{"message":"temporary test failure"}' }));
+        const page = await context.newPage();
+        page.on('pageerror', e => errors.push(e.message));
+        await page.goto(base + '/test-louzir-demo-001?locale=fr', { waitUntil: 'networkidle' });
+        const reject = page.getByRole('button', { name: 'Rejeter', exact: true });
+        if (await reject.isVisible()) await reject.click();
+        const anchor = page.locator('[data-product-recommendations]');
+        await anchor.scrollIntoViewIfNeeded();
+        await expect(anchor.locator('.shimmer')).toHaveCount(0, { timeout: 15000 });
+        check(true, 'API failure does not leave an infinite loading skeleton');
+        check(await page.locator('.louzir-product-purchase').count() === 1, 'Product purchase content survives recommendation failure');
+        await context.close();
+        check(errors.length === 0, 'No JavaScript errors: ' + errors.join(', '));
+        console.log('Recommendations storefront: ' + checks + ' browser checks passed.');
+    } finally { await browser.close(); }
+})().catch(e => { console.error(e); process.exitCode = 1; });

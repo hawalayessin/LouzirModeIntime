@@ -7,6 +7,7 @@ use Webkul\Core\Rules\Decimal;
 use Webkul\Core\Rules\PhoneNumber;
 use Webkul\Core\Rules\PostCode;
 use Webkul\Shop\Helpers\HomeContent;
+use Webkul\Shop\Services\RecommendationSettings;
 
 class ConfigurationForm extends FormRequest
 {
@@ -96,8 +97,32 @@ class ConfigurationForm extends FormRequest
             }
         }
 
+        foreach (RecommendationSettings::rules() as $field => $validation) {
+            $key = RecommendationSettings::PREFIX.$field;
+            if ($this->has($key)) {
+                $rules[$key] = $validation;
+            }
+        }
+
         if ($this->has('general.content.header_offer.background_color')) {
             $rules['general.content.header_offer.background_color'] = ['nullable', 'string', 'regex:/^#[0-9a-fA-F]{6}$/'];
+        }
+
+        foreach ([
+            'host' => ['required', 'string', 'max:255'],
+            'port' => ['required', 'integer', 'between:1,65535'],
+            'encryption' => ['required', 'in:tls,ssl,none'],
+            'username' => ['nullable', 'string', 'max:255'],
+            'password' => ['nullable', 'string', 'max:1024'],
+        ] as $name => $validation) {
+            if ($this->has('emails.configure.smtp.'.$name)) {
+                $rules['emails.configure.smtp.'.$name] = $validation;
+            }
+        }
+        foreach (['order_received_message', 'order_confirmed_message', 'newsletter_message'] as $name) {
+            if ($this->has('emails.configure.customer_messages.'.$name)) {
+                $rules['emails.configure.customer_messages.'.$name] = ['nullable', 'string', 'max:2000'];
+            }
         }
 
         return $rules;

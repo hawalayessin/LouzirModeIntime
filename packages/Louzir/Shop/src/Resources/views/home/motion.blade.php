@@ -3,7 +3,8 @@
         const initializeHomeMotion = () => {
             const home = document.querySelector('.louzir-home');
 
-            if (!home) return;
+            if (!home || home.dataset.motionInitialized) return;
+            home.dataset.motionInitialized = 'true';
 
             const marquee = home.querySelector('.louzir-marquee');
             const toggle = marquee?.querySelector('.louzir-marquee-toggle');
@@ -16,53 +17,80 @@
                 toggle.setAttribute('title', label);
             });
 
-            if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
+            if (home.dataset.motionEnabled === '0' || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
 
             const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const desktop = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
+            const duration = Math.max(250, Math.min(1000, Number(home.dataset.motionDuration) || 700));
+            const stagger = Math.max(0, Math.min(120, Number(home.dataset.motionStagger) || 0));
             const animations = new Map();
+            const revealed = new WeakSet();
             const targets = new Set(home.querySelectorAll(
                 '.louzir-feature, .louzir-section-head, .louzir-card, .louzir-signature-head, .louzir-signature-product, .louzir-boutique-card, .louzir-community-card'
             ));
 
-            // Keep the document visible by default, including without JavaScript.
+            const animateEntrance = (element, index, distance = 8) => {
+                if (preference.matches || element.contains(document.activeElement)) return;
+
+                animations.get(element)?.cancel();
+                const frames = desktop.matches
+                    ? [{ opacity: .65, transform: `translateY(${distance}px)` }, { opacity: 1, transform: 'translateY(0)' }]
+                    : [{ opacity: .7 }, { opacity: 1 }];
+                const animation = element.animate(frames, {
+                    duration: desktop.matches ? duration : Math.min(350, duration),
+                    delay: Math.min(index, 5) * (desktop.matches ? stagger : Math.min(stagger, 30)),
+                    easing: 'cubic-bezier(.22, 1, .36, 1)',
+                    fill: 'backwards',
+                });
+                animations.set(element, animation);
+                animation.onfinish = animation.oncancel = () => {
+                    if (animations.get(element) === animation) animations.delete(element);
+                };
+            };
+
+            // Keep painted content visible. Only sections entering later receive an entrance.
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (!entry.isIntersecting) return;
 
                     const element = entry.target;
                     observer.unobserve(element);
+                    revealed.add(element);
 
                     if (preference.matches || element.contains(document.activeElement)) return;
 
                     const siblings = Array.from(element.parentElement.children);
                     const index = siblings.indexOf(element);
-                    const isHeroContent = element.parentElement.classList.contains('louzir-hero-copy');
-                    const isHeroImage = element.classList.contains('louzir-hero-photo');
-                    // Keep the photo framing unchanged during its entrance.
-                    const frames = isHeroImage ? [{ opacity: 0 }, { opacity: 1 }] : [
-                        { opacity: isHeroContent ? 0 : .25, transform: 'translateY(28px)' },
-                        { opacity: 1, transform: 'translateY(0)' },
-                    ];
-                    const animation = element.animate(frames, {
-                        duration: isHeroImage ? 1200 : (isHeroContent ? 800 : 650),
-                        delay: isHeroImage ? 0 : (isHeroContent ? index * 100 : (window.innerWidth > 640 ? (index % 3) * 80 : 0)),
-                        easing: 'cubic-bezier(.22, 1, .36, 1)',
-                        fill: 'backwards',
-                    });
-
-                    animations.set(element, animation);
-                    animation.onfinish = animation.oncancel = () => animations.delete(element);
+                    animateEntrance(element, index % 3);
                 });
             }, { threshold: .12, rootMargin: '0px 0px -24px 0px' });
 
-            if (!preference.matches) targets.forEach(element => observer.observe(element));
+            const observeBelowFold = element => {
+                if (!revealed.has(element) && !preference.matches && element.getBoundingClientRect().top >= window.innerHeight) {
+                    observer.observe(element);
+                }
+            };
+            targets.forEach(observeBelowFold);
+
+            home.addEventListener('louzir-slide-change', event => {
+                home.querySelectorAll('.louzir-hero-copy > *').forEach(element => animations.get(element)?.cancel());
+                const carousel = event.target;
+                const rect = carousel.getBoundingClientRect();
+                if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+
+                carousel.querySelectorAll('.is-active .louzir-hero-copy > *').forEach((element, index) => {
+                    targets.add(element);
+                    revealed.add(element);
+                    animateEntrance(element, index, 6);
+                });
+            });
 
             home.addEventListener('louzir-products-ready', event => {
                 event.target.querySelectorAll('.louzir-signature-product').forEach(element => {
                     if (targets.has(element)) return;
 
                     targets.add(element);
-                    if (!preference.matches) observer.observe(element);
+                    observeBelowFold(element);
                 });
             });
 
@@ -71,6 +99,7 @@
                     if (!element.contains(event.target)) return;
 
                     observer.unobserve(element);
+                    revealed.add(element);
                     animations.get(element)?.cancel();
                 });
             });
@@ -83,9 +112,13 @@
 
             preference.addEventListener('change', event => {
                 if (event.matches) stopMotion();
+                else targets.forEach(observeBelowFold);
             });
 
-            window.addEventListener('pagehide', stopMotion, { once: true });
+            window.addEventListener('pagehide', stopMotion);
+            window.addEventListener('pageshow', event => {
+                if (event.persisted) targets.forEach(observeBelowFold);
+            });
         };
 
         // The storefront mounts Vue on load and replaces the original DOM.

@@ -61,7 +61,7 @@ class Campaign
     public function getEmailAddresses($campaign)
     {
         if ($campaign->customer_group->code === 'guest') {
-            $customerGroupEmails = SubscribersList::whereNull('customer_id');
+            $customerGroupEmails = SubscribersList::whereNull('customer_id')->where('is_subscribed', 1);
         } else {
             $customerGroupEmails = $campaign->customer_group->customers()->where('subscribed_to_news_letter', 1);
         }

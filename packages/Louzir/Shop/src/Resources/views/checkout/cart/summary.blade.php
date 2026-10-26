@@ -1,10 +1,10 @@
-<div class="w-[418px] max-w-full max-md:w-full">
+<div class="louzir-cart-summary w-[418px] max-w-full max-md:w-full">
     {!! view_render_event('bagisto.shop.checkout.cart.summary.title.before') !!}
 
     <p
         class="text-2xl font-medium max-md:text-base"
         role="heading"
-        aria-level="1"
+        aria-level="2"
     >
         @lang('shop::app.checkout.cart.summary.cart-summary')
     </p>

@@ -183,17 +183,11 @@ class OrderController extends Controller
      */
     public function confirm(int $id)
     {
-        $order = $this->orderRepository->findOrFail($id);
-
-        if ($order->status !== Order::STATUS_PENDING) {
+        if (! $this->orderRepository->confirm($id)) {
             session()->flash('error', trans('admin::app.sales.orders.view.confirm-error'));
 
             return redirect()->route('admin.sales.orders.view', $id);
         }
-
-        $this->orderRepository->update([
-            'status' => Order::STATUS_PROCESSING,
-        ], $id);
 
         session()->flash('success', trans('admin::app.sales.orders.view.confirm-success'));
 

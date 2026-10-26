@@ -36,6 +36,10 @@ class DynamicSmtpTransport extends AbstractTransport
             );
         }
 
+        if ($username && ! $password) {
+            throw new \RuntimeException('SMTP authentication requires a password configured in the administration.');
+        }
+
         $transport = new EsmtpTransport(
             host: $host,
             port: (int) $port,
@@ -45,6 +49,9 @@ class DynamicSmtpTransport extends AbstractTransport
         $transport->setUsername((string) $username);
 
         $transport->setPassword((string) $password);
+        $transport->setAutoTls(strtolower((string) $encryption) !== 'none');
+        $transport->setRequireTls(strtolower((string) $encryption) === 'tls');
+        $transport->getStream()->setTimeout(15);
 
         return $transport;
     }

@@ -1,6 +1,28 @@
 <?php
 
 return [
+    'storefront' => [
+        'design-category-hero' => ['type' => 'boolean', 'fallback' => '1'],
+        'design-category-image' => ['type' => 'image', 'fallback' => 'assets/home/hero-carousel/lingerie.webp'],
+        'design-background' => ['type' => 'color', 'fallback' => '#faf9f7'],
+        'design-surface' => ['type' => 'color', 'fallback' => '#ffffff'],
+        'design-panel' => ['type' => 'color', 'fallback' => '#efeeec'],
+        'design-button' => ['type' => 'color', 'fallback' => '#1a1c1b'],
+        'design-button-text' => ['type' => 'color', 'fallback' => '#ffffff'],
+        'design-muted' => ['type' => 'color', 'fallback' => '#45464c'],
+        'design-accent-strong' => ['type' => 'color', 'fallback' => '#575e70'],
+        'design-text' => ['type' => 'color', 'fallback' => '#1a1c1b'],
+        'design-accent' => ['type' => 'color', 'fallback' => '#c5a880'],
+        'design-border' => ['type' => 'color', 'fallback' => '#e3e2e0'],
+        'design-body-font' => ['type' => 'select', 'fallback' => 'manrope', 'options' => ['montserrat', 'manrope', 'inter'], 'option_prefix' => 'fonts'],
+        'design-heading-font' => ['type' => 'select', 'fallback' => 'playfair', 'options' => ['playfair', 'georgia'], 'option_prefix' => 'fonts'],
+        'design-width' => ['type' => 'number', 'fallback' => '1440', 'min' => 1200, 'max' => 1600],
+    ],
+    'motion' => [
+        'motion-enabled' => ['type' => 'boolean', 'fallback' => '1'],
+        'motion-duration' => ['type' => 'number', 'fallback' => '700', 'min' => 250, 'max' => 1000],
+        'motion-stagger' => ['type' => 'number', 'fallback' => '60', 'min' => 0, 'max' => 120],
+    ],
     'marquee' => [
         'marquee-enabled' => ['type' => 'boolean', 'fallback' => '1'],
         'marquee-background' => ['type' => 'color', 'fallback' => '#151515'],

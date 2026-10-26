@@ -21,10 +21,10 @@ it('exposes both delivery options and their prices in admin', function () {
         ->assertSee('sales[carriers][express][default_rate]', false)
         ->assertSee('sales[carriers][express][active]', false);
     expect((new FlatRate)->getRate()->base_price)->toEqual(8)
-        ->and((new Express)->getRate()->base_price)->toEqual(8);
+        ->and((new Express)->getRate()->base_price)->toEqual(15);
 });
 
-it('lets the customer select standard or express at eight dinars', function () {
+it('lets the customer select standard at eight dinars or express at fifteen dinars', function () {
     $cart = Cart::factory()->create();
     CartAddress::factory()->create(['cart_id' => $cart->id, 'address_type' => CartAddress::ADDRESS_TYPE_SHIPPING]);
     cart()->setCart($cart->fresh());
@@ -34,7 +34,7 @@ it('lets the customer select standard or express at eight dinars', function () {
         expect(cart()->saveShippingMethod($code))->toBeTrue()
             ->and($cart->fresh()->shipping_method)->toBe($code);
         $rate = $cart->fresh()->shipping_rates()->where('method', $code)->firstOrFail();
-        expect((float) $rate->base_price)->toBe(8.0);
+        expect((float) $rate->base_price)->toBe($code === 'express_express' ? 15.0 : 8.0);
     }
 });
 

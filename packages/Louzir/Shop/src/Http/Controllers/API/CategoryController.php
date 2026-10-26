@@ -8,6 +8,7 @@ use Webkul\Attribute\Enums\AttributeTypeEnum;
 use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Product\Repositories\ProductRepository;
+use Webkul\Shop\Helpers\FilterLabels;
 use Webkul\Shop\Http\Resources\AttributeOptionResource;
 use Webkul\Shop\Http\Resources\AttributeResource;
 use Webkul\Shop\Http\Resources\CategoryResource;
@@ -63,16 +64,16 @@ class CategoryController extends APIController
         if (! request('category_id')) {
             $filterableAttributes = $this->attributeRepository->getFilterableAttributes();
 
-            return AttributeResource::collection($filterableAttributes);
+            return AttributeResource::collection($filterableAttributes->loadMissing('translations'));
         }
 
         $category = $this->categoryRepository->findOrFail(request('category_id'));
 
-        if (empty($filterableAttributes = $category->filterableAttributes)) {
+        if (($filterableAttributes = $category->filterableAttributes)->isEmpty()) {
             $filterableAttributes = $this->attributeRepository->getFilterableAttributes();
         }
 
-        return AttributeResource::collection($filterableAttributes);
+        return AttributeResource::collection($filterableAttributes->loadMissing('translations'));
     }
 
     /**
@@ -88,21 +89,25 @@ class CategoryController extends APIController
             ]);
         }
 
-        $query = $attribute->options()
-            ->with([
-                'translation' => fn ($query) => $query->where('locale', core()->getCurrentLocale()->code),
-            ]);
+        $query = $attribute->options()->with('translations');
 
         if ($search = request('search')) {
-            $query->where(function ($query) use ($search) {
-                $query->whereHas('translation', fn ($query) => $query->where('label', 'like', "%{$search}%"))
+            $query->where(function ($query) use ($search, $attribute) {
+                $query->whereHas('translations', fn ($query) => $query->where('locale', app()->getLocale())->where('label', 'like', "%{$search}%"))
                     ->orWhere('admin_name', 'like', "%{$search}%");
+                if ($attribute->code === 'color') {
+                    $query->orWhere(fn ($query) => $query
+                        ->whereIn('admin_name', FilterLabels::colorSearchDefaults($search))
+                        ->whereDoesntHave('translations', fn ($query) => $query->where('locale', app()->getLocale())->where('label', '!=', '')));
+                }
             });
         }
 
         $query->orderBy('sort_order');
 
-        return AttributeOptionResource::collection($query->paginate());
+        return AttributeOptionResource::collection($query->paginate()->through(
+            fn ($option) => $option->setRelation('attribute', $attribute)
+        ));
     }
 
     /**

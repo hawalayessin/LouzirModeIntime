@@ -255,12 +255,26 @@ class SystemConfig
             $currentLocaleCode = core()->getRequestedLocaleCode();
         }
 
-        $coreConfig = $this->getCoreConfig($field, $currentChannelCode, $currentLocaleCode);
-
-        if (! $coreConfig) {
-            return $this->getDefaultConfig($field);
+        $memoize = request()->attributes->get('core.config.memoize', false);
+        $cacheKey = json_encode([$field, $currentChannelCode, $currentLocaleCode], JSON_THROW_ON_ERROR);
+        $values = $memoize ? request()->attributes->get('core.config.values', []) : [];
+        if (array_key_exists($cacheKey, $values)) {
+            return $values[$cacheKey];
         }
 
-        return $coreConfig->value;
+        $coreConfig = $this->getCoreConfig($field, $currentChannelCode, $currentLocaleCode);
+        $value = $coreConfig ? $coreConfig->value : $this->getDefaultConfig($field);
+        if ($memoize) {
+            $values[$cacheKey] = $value;
+            request()->attributes->set('core.config.values', $values);
+        }
+
+        return $value;
+    }
+
+    /** Opt in only for read-only endpoints. The request owns the snapshot, including under Octane. */
+    public function memoizeForRequest(): void
+    {
+        request()->attributes->set('core.config.memoize', true);
     }
 }

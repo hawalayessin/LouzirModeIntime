@@ -27,7 +27,7 @@
             @include('shop::search.images.results')
         @endif
 
-        <div class="mt-8 flex items-center justify-between max-md:mt-5">
+        <div class="louzir-search-heading mt-8 flex items-center justify-between max-md:mt-5">
             <h2 class="break-all text-2xl font-medium max-sm:text-base">
                 <span v-text="'{{ preg_replace('/[,\\"\\\']+/', '', $title) }}'" ></span>
             </h2>
@@ -81,7 +81,7 @@
             type="text/x-template"
             id="v-search-template"
         >
-            <div class="louzir-catalog-shell">
+            <div class="louzir-catalog-shell louzir-catalog-results">
                 <div class="louzir-catalog-layout md:mt-10">
                     <!-- Product Listing Filters -->
                     @include('shop::categories.filters')
@@ -138,7 +138,7 @@
                         <div v-else>
                             <!-- Product Card Shimmer Effect -->
                             <template v-if="isLoading">
-                                <div class="mt-8 grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:gap-x-4 max-sm:mt-5 max-sm:justify-items-center max-sm:gap-y-5">
+                                <div class="louzir-catalog-grid mt-8 grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:gap-x-4 max-sm:mt-5 max-sm:justify-items-center max-sm:gap-y-5">
                                     <x-shop::shimmer.products.cards.grid count="12" />
                                 </div>
                             </template>
@@ -146,7 +146,7 @@
                             <!-- Product Card Listing -->
                             <template v-else>
                                 <template v-if="products.length">
-                                    <div class="mt-8 grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:mt-5 max-md:justify-items-center max-md:gap-x-4 max-md:gap-y-5">
+                                    <div class="louzir-catalog-grid mt-8 grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:mt-5 max-md:justify-items-center max-md:gap-x-4 max-md:gap-y-5">
                                         <x-shop::products.card
                                             ::mode="'grid'"
                                             v-for="product in products"
@@ -193,6 +193,8 @@
         <script type="module">
             app.component('v-search', {
                 template: '#v-search-template',
+
+                @include('shop::categories.responsive')
 
                 data() {
                     return {

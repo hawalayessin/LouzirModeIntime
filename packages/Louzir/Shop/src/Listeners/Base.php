@@ -33,16 +33,11 @@ class Base
     {
         $customerLocale = $this->getLocale($entity);
 
-        $previousLocale = core()->getCurrentLocale()->code;
-
-        app()->setLocale($customerLocale);
-
         try {
-            Mail::queue($notification);
+            Mail::queue($notification->locale($customerLocale)->afterCommit());
         } catch (\Exception $e) {
             \Log::error('Error in Sending Email'.$e->getMessage());
         }
 
-        app()->setLocale($previousLocale);
     }
 }

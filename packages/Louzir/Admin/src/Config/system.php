@@ -876,12 +876,43 @@ return [
                 'name' => 'no_of_related_products',
                 'title' => 'admin::app.configuration.index.catalog.products.product-view-page.allow-no-of-related-products',
                 'type' => 'number',
-                'validation' => 'integer|min:0',
+                'validation' => 'integer|min:0|max:12',
+                'default' => '6',
+                'info' => 'admin::recommendations.limit-info',
             ], [
                 'name' => 'no_of_up_sells_products',
                 'title' => 'admin::app.configuration.index.catalog.products.product-view-page.allow-no-of-up-sells-products',
                 'type' => 'number',
-                'validation' => 'integer|min:0',
+                'validation' => 'integer|min:0|max:12',
+                'default' => '4',
+                'info' => 'admin::recommendations.limit-info',
+            ], [
+                'name' => 'related_mode',
+                'title' => 'admin::recommendations.mode',
+                'type' => 'select',
+                'default' => 'hybrid',
+                'validation' => 'in:hybrid,category,manual',
+                'channel_based' => true,
+                'options' => [
+                    ['title' => 'admin::recommendations.hybrid', 'value' => 'hybrid'],
+                    ['title' => 'admin::recommendations.category', 'value' => 'category'],
+                    ['title' => 'admin::recommendations.manual', 'value' => 'manual'],
+                ],
+            ], [
+                'name' => 'related_only_saleable',
+                'title' => 'admin::recommendations.saleable',
+                'type' => 'boolean',
+                'default' => '1',
+                'validation' => 'boolean',
+                'channel_based' => true,
+            ], [
+                'name' => 'related_cache_seconds',
+                'title' => 'admin::recommendations.cache',
+                'info' => 'admin::recommendations.cache-info',
+                'type' => 'number',
+                'default' => '300',
+                'validation' => 'integer|min:30|max:1800',
+                'channel_based' => true,
             ],
         ],
     ], [
@@ -1608,11 +1639,20 @@ return [
             ], [
                 'name' => 'password',
                 'title' => 'admin::app.configuration.index.email.smtp.password',
+                'info' => 'admin::mailing.password-info',
                 'type' => 'password',
                 'channel_based' => false,
-                'default' => config('mail.mailers.smtp.password'),
             ],
         ],
+    ], [
+        'key' => 'emails.configure.customer_messages',
+        'name' => 'admin::mailing.messages',
+        'info' => 'admin::mailing.messages-info',
+        'sort' => 3,
+        'fields' => array_map(fn ($name) => [
+            'name' => $name, 'title' => 'admin::mailing.'.$name, 'type' => 'textarea',
+            'validation' => 'max:2000', 'channel_based' => true, 'locale_based' => true,
+        ], ['order_received_message', 'order_confirmed_message', 'newsletter_message']),
     ], [
         'key' => 'emails.configure.email_settings',
         'name' => 'admin::app.configuration.index.email.email-settings.title',
@@ -1697,6 +1737,12 @@ return [
                 'name' => 'emails.general.notifications.new_order',
                 'title' => 'admin::app.configuration.index.email.notifications.new-order',
                 'type' => 'boolean',
+            ], [
+                'name' => 'emails.general.notifications.confirm_order',
+                'title' => 'admin::mailing.confirm-order', 'type' => 'boolean', 'default' => '1',
+            ], [
+                'name' => 'emails.general.notifications.newsletter_subscription',
+                'title' => 'admin::mailing.newsletter-subscription', 'type' => 'boolean', 'default' => '1',
             ], [
                 'name' => 'emails.general.notifications.new_order_mail_to_admin',
                 'title' => 'admin::app.configuration.index.email.notifications.new-order-mail-to-admin',

@@ -82,6 +82,13 @@
     @stack('styles')
 
     <style>
+        .louzir-admin-logo { display: block; width: 104px; height: 32px; max-width: 100%; object-fit: contain; }
+        @media (max-width: 524px) {
+            .louzir-admin-logo { width: 90px; height: 28px; }
+        }
+    </style>
+
+    <style>
         {!! core()->getConfigData('general.content.custom_scripts.custom_css') !!}
     </style>
 

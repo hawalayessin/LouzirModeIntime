@@ -22,7 +22,7 @@
                             class="cookie-title mb-1.5 block"
                             v-pre
                         >
-                            {{ core()->getConfigData('general.gdpr.cookie.static_block_identifier') }}
+                            {{ \Webkul\Shop\Helpers\StorefrontText::legacyDefault(core()->getConfigData('general.gdpr.cookie.static_block_identifier')) }}
                         </span>
                     </div>
 
@@ -31,7 +31,7 @@
                             class="cookie-description mt-2.5 block"
                             v-pre
                         >
-                            {{ core()->getConfigData('general.gdpr.cookie.description') }}
+                            {{ \Webkul\Shop\Helpers\StorefrontText::legacyDefault(core()->getConfigData('general.gdpr.cookie.description')) }}
 
                             <a
                                 href="{{ url('page/privacy-policy') }}"

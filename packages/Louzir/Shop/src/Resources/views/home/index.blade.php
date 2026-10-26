@@ -12,7 +12,6 @@
 @endpush
 
 @push('styles')
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
     @include('shop::home.styles')
 @endpush
 
@@ -30,7 +29,11 @@
 <x-shop::layouts :has-feature="false">
     <x-slot:title>{{ $channel->home_seo['meta_title'] ?? config('app.name') }}</x-slot>
 
-    <div class="louzir-home">
+    <div class="louzir-home"
+        data-motion-enabled="{{ $homeContent->value('motion-enabled') }}"
+        data-motion-duration="{{ $homeContent->value('motion-duration') }}"
+        data-motion-stagger="{{ $homeContent->value('motion-stagger') }}"
+        style="--louzir-motion-duration: {{ $homeContent->value('motion-duration') }}ms">
         @if ($homeContent->value('marquee-enabled') === '1' && $marqueeItems->isNotEmpty())
             <section
                 class="louzir-marquee"

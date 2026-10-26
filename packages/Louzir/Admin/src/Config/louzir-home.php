@@ -38,7 +38,7 @@ foreach (HomeContent::schema() as $group => $definitions) {
 
         if ($definition['type'] === 'select') {
             $fields[array_key_last($fields)]['options'] = array_map(fn ($value) => [
-                'title' => 'admin::louzir-home.sort.'.$value,
+                'title' => 'admin::louzir-home.'.($definition['option_prefix'] ?? 'sort').'.'.$value,
                 'value' => $value,
             ], $definition['options']);
         }

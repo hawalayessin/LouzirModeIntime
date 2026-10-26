@@ -56,7 +56,7 @@
         @foreach ($footerLinkSections as $footerLinkSection)
             <nav v-pre>
                 @foreach ($footerLinkSection as $link)
-                    <a href="{{ $link['url'] }}">{{ $link['title'] }}</a>
+                    <a href="{{ $link['url'] }}">{{ \Webkul\Shop\Helpers\StorefrontText::legacyDefault($link['title']) }}</a>
                 @endforeach
             </nav>
         @endforeach

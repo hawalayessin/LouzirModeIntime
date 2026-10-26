@@ -15,7 +15,7 @@
     </x-slot>
 
     <!-- Page Content -->
-    <div class="container mt-8 px-[60px] max-lg:px-8">
+    <div class="louzir-richtext container my-8 px-[60px] max-lg:px-8">
         {!! $page->html_content !!}
     </div>
 </x-shop::layouts>

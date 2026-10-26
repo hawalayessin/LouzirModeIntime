@@ -29,7 +29,7 @@ class CreatedNotification extends Mailable
                     $this->order->customer_full_name
                 ),
             ],
-            subject: trans('shop::app.emails.orders.created.subject'),
+            subject: trans('shop::order-mail.received-subject', ['number' => $this->order->increment_id]),
         );
     }
 
@@ -40,6 +40,7 @@ class CreatedNotification extends Mailable
     {
         return new Content(
             view: 'shop::emails.orders.created',
+            with: ['confirmed' => false],
         );
     }
 }

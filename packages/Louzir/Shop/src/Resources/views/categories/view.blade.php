@@ -23,34 +23,7 @@
         {{ trim($category->meta_title) != "" ? $category->meta_title : $category->name }}
     </x-slot>
 
-    {!! view_render_event('bagisto.shop.categories.view.banner_path.before') !!}
-
-    <!-- Hero Image -->
-    @if ($category->banner_path)
-        <div class="louzir-catalog-shell mt-8 max-md:mt-4">
-            <x-shop::media.images.lazy
-                class="louzir-category-banner"
-                src="{{ $category->banner_url }}"
-                alt="{{ $category->name }}"
-                width="1440"
-                height="480"
-            />
-        </div>
-    @endif
-
-    {!! view_render_event('bagisto.shop.categories.view.banner_path.after') !!}
-
-    {!! view_render_event('bagisto.shop.categories.view.description.before') !!}
-
-    @if (in_array($category->display_mode, [null, 'description_only', 'products_and_description']))
-        @if ($category->description)
-            <div class="louzir-catalog-shell mt-[34px] max-md:mt-4 max-md:text-sm max-sm:text-xs">
-                {!! $category->description !!}
-            </div>
-        @endif
-    @endif
-
-    {!! view_render_event('bagisto.shop.categories.view.description.after') !!}
+    @include('shop::categories.collection-heading')
 
     @if (in_array($category->display_mode, [null, 'products_only', 'products_and_description']))
         <!-- Category Vue Component -->
@@ -65,7 +38,7 @@
             type="text/x-template"
             id="v-category-template"
         >
-            <div class="louzir-catalog-shell">
+            <div class="louzir-catalog-shell louzir-catalog-results" id="catalogue">
                 <div class="louzir-catalog-layout md:mt-10">
                     <!-- Product Listing Filters -->
                     @include('shop::categories.filters')
@@ -126,7 +99,7 @@
                         <div v-else class="mt-8 max-md:mt-5">
                             <!-- Product Card Shimmer Effect -->
                             <template v-if="isLoading">
-                                <div class="grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+                                <div class="louzir-catalog-grid grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
                                     <x-shop::shimmer.products.cards.grid count="12" />
                                 </div>
                             </template>
@@ -136,7 +109,7 @@
                             <!-- Product Card Listing -->
                             <template v-else>
                                 <template v-if="products.length">
-                                    <div class="grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
+                                    <div class="louzir-catalog-grid grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:justify-items-center max-md:gap-x-4">
                                         <x-shop::products.card
                                             ::mode="'grid'"
                                             v-for="product in products"
@@ -200,6 +173,8 @@
         <script type="module">
             app.component('v-category', {
                 template: '#v-category-template',
+
+                @include('shop::categories.responsive')
 
                 data() {
                     return {

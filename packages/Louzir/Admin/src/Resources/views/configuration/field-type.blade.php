@@ -1,5 +1,7 @@
 @php
-    if (str_starts_with($field->getNameKey(), 'general.louzir_home.') && $field->type !== 'image') {
+    if ($field->getNameKey() === 'emails.configure.smtp.password') {
+        $value = '';
+    } elseif (str_starts_with($field->getNameKey(), 'general.louzir_home.') && $field->type !== 'image') {
         $homeValue = $homeContent->value($field->getName(), $currentChannel->code, $currentLocale->code);
         $submittedValue = old($field->getNameKey(), $homeValue);
         $value = is_scalar($submittedValue) ? $submittedValue : $homeValue;

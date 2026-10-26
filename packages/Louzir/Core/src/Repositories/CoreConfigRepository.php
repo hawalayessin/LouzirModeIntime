@@ -49,6 +49,10 @@ class CoreConfigRepository extends Repository
             ->groupBy('code');
 
         foreach ($configuration as $fieldName => $value) {
+            // Password inputs are never repopulated; an empty submission keeps the saved credential.
+            if ($fieldName === 'emails.configure.smtp.password' && blank($value)) {
+                continue;
+            }
             $field = core()->getConfigField($fieldName);
             $channelBased = ! empty($field['channel_based']);
             $localeBased = ! empty($field['locale_based']);
@@ -104,6 +108,7 @@ class CoreConfigRepository extends Repository
             }
         }
 
+        request()->attributes->remove('core.config.values');
         Event::dispatch('core.configuration.save.after');
     }
 

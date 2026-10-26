@@ -65,16 +65,6 @@
             crossorigin
         />
 
-        <link
-            rel="preload" as="style"
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap"
-        />
-
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap"
-        />
-
         @include('shop::components.layouts.header.topbar-styles')
 
         @if ($hasHeader)
@@ -91,6 +81,8 @@
             @include('shop::components.layouts.footer.styles')
         @endif
 
+        @include('shop::components.layouts.storefront-styles')
+
         <style>
             {!! core()->getConfigData('general.content.custom_scripts.custom_css') !!}
         </style>
@@ -105,14 +97,14 @@
 
     </head>
 
-    <body>
+    <body class="louzir-storefront">
         {!! view_render_event('bagisto.shop.layout.body.before') !!}
 
         <a
             href="#main"
             class="skip-to-main-content-link"
         >
-            Skip to main content
+            @lang('shop::storefront.skip-content')
         </a>
 
         <!-- LouzirModeIntime -->

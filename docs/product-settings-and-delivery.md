@@ -4,7 +4,9 @@ La fiche produit conserve le nom interne de chaque attribut quand sa traduction 
 
 Les modes **Livraison normale** et **Livraison express** sont disponibles dans **Configurer → Ventes → Modes de livraison** (`/admin/configuration/sales/carriers`). Chaque mode possède un titre, une description, un tarif, un mode de calcul et un interrupteur, avec les réglages par canal et les textes par langue. Le paiement lit ces réglages. Désactiver express le retire des nouveaux choix du client.
 
-Le tarif initial de chaque mode est **8 dinars par commande**, soit **8,000 TND** avec les trois décimales de la boutique. Saisir `8` dans le champ tarif, et non `8000`. Les deux tarifs peuvent ensuite évoluer séparément. Le code historique `flatrate_flatrate` reste utilisé pour la livraison normale. La livraison gratuite reste disponible dans l’administration mais est désactivée initialement.
+Les tarifs par commande sont **8 DT en livraison normale** et **15 DT en express**, soit **8,000 TND** et **15,000 TND** avec les trois décimales de la boutique. Saisir `15` dans le champ tarif, et non `15000`. Les deux tarifs restent modifiables séparément dans l’admin. Le code historique `flatrate_flatrate` reste utilisé pour la livraison normale. La livraison gratuite reste disponible dans l’administration mais est désactivée initialement.
+
+Au paiement, l’action **Passer la commande** occupe toute la largeur de sa colonne, avec une hauteur minimale de 52 px et un espacement de 20 px sous le récapitulatif sur ordinateur. Sur téléphone, elle suit le formulaire de paiement et conserve la marge de sécurité de l’écran. `tests/browser/checkout-submit.cjs` vérifie le parcours jusqu’à cette action, sans créer de commande, en 320, 390, 768 et 1440 px.
 
 `StoreDeliveryOptionsSeeder` initialise uniquement les valeurs manquantes. Le relancer ne remplace pas les tarifs, titres ou interrupteurs déjà enregistrés. `ProductAttributeLabelsSeeder` complète uniquement les traductions système manquantes. Une sauvegarde avant intervention est conservée dans `storage/framework/testing/before-product-shipping-fixes.sql`.
 
