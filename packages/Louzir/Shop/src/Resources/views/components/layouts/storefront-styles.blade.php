@@ -91,6 +91,11 @@
     .louzir-storefront .louzir-product-card { min-width: 0; display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--store-border); border-radius: 12px; background: var(--store-surface); box-shadow: 0 1px 3px #11182705; }
     .louzir-storefront .louzir-product-strip > .louzir-product-card { flex: 0 0 291px; width: 291px; }
     .louzir-storefront .louzir-product-card-media { max-width: none; max-height: none; width: 100%; aspect-ratio: 4 / 5; border-radius: 0; }
+    .louzir-product-media-actions { position: absolute; top: 12px; inset-inline-end: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .louzir-storefront .louzir-product-media-action { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; min-height: 44px; padding: 0; border: 1px solid var(--store-border); border-radius: 50%; background: var(--store-surface); color: var(--store-ink); font-size: 22px; line-height: 1; box-shadow: 0 2px 8px #13151512; }
+    .louzir-storefront .louzir-product-media-action:hover { background: var(--store-elevated, #f1f2f3); }
+    .louzir-storefront .louzir-product-media-action.icon-heart-fill { color: #dc2626; }
+    @media (min-width: 768px) { .louzir-product-media-actions { display: none; } }
     .louzir-product-card-media > a { display: block; width: 100%; height: 100%; }
     .louzir-storefront .louzir-product-card-media > a > :is(img, div) { width: 100%; height: 100%; object-fit: cover; }
     .louzir-product-card-media > a > div::after { display: none; }

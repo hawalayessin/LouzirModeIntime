@@ -64,7 +64,7 @@
 
                 {!! view_render_event('bagisto.shop.components.products.card.average_ratings.after') !!}
 
-                <div class="action-items bg-black">
+                <div class="louzir-product-media-badges">
                     <!-- Product Sale Badge -->
                     <p
                         class="absolute top-1.5 inline-block rounded-[44px] bg-red-600 px-2.5 text-sm text-white max-sm:rounded-l-none max-sm:rounded-r-xl max-sm:px-2 max-sm:py-0.5 max-sm:text-xs ltr:left-1.5 max-sm:ltr:left-0 rtl:right-5 max-sm:rtl:right-0"
@@ -81,20 +81,19 @@
                         @lang('shop::app.components.products.card.new')
                     </p>
 
-                    <div class="opacity-0 transition-all duration-300 group-hover:bottom-0 group-hover:opacity-100 max-lg:opacity-100 max-sm:opacity-100">
+                    <div class="louzir-product-media-actions">
 
                         {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.before') !!}
 
                         @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
-                            <span
-                                class="absolute top-2.5 flex h-6 w-6 items-center justify-center rounded-full border border-zinc-200 bg-white text-lg md:hidden ltr:right-1.5 rtl:left-1.5"
-                                role="button"
+                            <button
+                                class="louzir-product-media-action"
+                                type="button"
                                 aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
-                                tabindex="0"
                                 :class="product.is_wishlist ? 'icon-heart-fill text-red-500' : 'icon-heart'"
                                 @click="addToWishlist()"
                             >
-                            </span>
+                            </button>
                         @endif
 
                         {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.after') !!}
@@ -102,14 +101,13 @@
                         {!! view_render_event('bagisto.shop.components.products.card.compare_option.before') !!}
 
                         @if (core()->getConfigData('catalog.products.settings.compare_option'))
-                            <span
-                                class="icon-compare absolute top-10 flex h-6 w-6 items-center justify-center rounded-full border border-zinc-200 bg-white text-lg sm:hidden ltr:right-1.5 rtl:left-1.5"
-                                role="button"
+                            <button
+                                class="louzir-product-media-action icon-compare"
+                                type="button"
                                 aria-label="@lang('shop::app.components.products.card.add-to-compare')"
-                                tabindex="0"
                                 @click="addToCompare(product.id)"
                             >
-                            </span>
+                            </button>
                         @endif
 
                         {!! view_render_event('bagisto.shop.components.products.card.compare_option.after') !!}

@@ -292,6 +292,8 @@
             <div
                 class="louzir-category-item group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
                 v-for="category in categories"
+                @mouseenter="positionCategoryPanel($event)"
+                @focusin="positionCategoryPanel($event)"
             >
                 <span>
                     <a
@@ -303,7 +305,7 @@
                 </span>
 
                 <div
-                    class="louzir-category-panel pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
+                    class="louzir-category-panel"
                     v-if="category.children && category.children.length"
                 >
                     <div class="flex justify-between gap-x-[70px]">
@@ -361,6 +363,8 @@
                 <div
                     class="louzir-category-item group relative flex h-[77px] items-center border-b-4 border-transparent hover:border-b-4 hover:border-navyBlue"
                     v-for="category in categories.slice(0, 4)"
+                    @mouseenter="positionCategoryPanel($event)"
+                    @focusin="positionCategoryPanel($event)"
                 >
                     <span>
                         <a
@@ -373,7 +377,7 @@
 
                     <!-- Dropdown for each category -->
                     <div
-                        class="louzir-category-panel pointer-events-none absolute top-[78px] z-[1] max-h-[580px] w-max max-w-[1260px] translate-y-1 overflow-auto overflow-x-auto border border-b-0 border-l-0 border-r-0 border-t border-[#F3F3F3] bg-white p-9 opacity-0 shadow-[0_6px_6px_1px_rgba(0,0,0,.3)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-200 group-hover:ease-in ltr:-left-9 rtl:-right-9"
+                        class="louzir-category-panel"
                         v-if="category.children && category.children.length"
                     >
                         <div class="flex justify-between gap-x-[70px]">
@@ -474,6 +478,25 @@
 
                             this.isLoading = false;
                         });
+                },
+
+                positionCategoryPanel(event) {
+                    const item = event.currentTarget;
+                    const panel = item.querySelector('.louzir-category-panel');
+
+                    if (! panel) return;
+
+                    panel.style.setProperty('--category-panel-offset', '0px');
+
+                    const bounds = panel.getBoundingClientRect();
+                    const gutter = 16;
+                    const viewportWidth = document.documentElement.clientWidth;
+                    const shift = bounds.right > viewportWidth - gutter
+                        ? viewportWidth - gutter - bounds.right
+                        : Math.max(0, gutter - bounds.left);
+                    const direction = getComputedStyle(item).direction === 'rtl' ? -1 : 1;
+
+                    panel.style.setProperty('--category-panel-offset', (shift * direction) + 'px');
                 },
 
                 pairCategoryChildren(category) {

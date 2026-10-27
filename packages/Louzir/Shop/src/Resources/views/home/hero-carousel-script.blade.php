@@ -33,6 +33,8 @@
             slides.forEach((slide, i) => {
                 const active = i === index;
                 slide.classList.toggle('is-active', active);
+                slide.classList.toggle('is-previous', slides.length > 2 && i === (index - 1 + slides.length) % slides.length);
+                slide.classList.toggle('is-next', i === (index + 1) % slides.length);
                 slide.setAttribute('aria-hidden', String(!active));
                 slide.inert = !active;
                 if (active) slide.querySelector('img').loading = 'eager';
@@ -80,7 +82,8 @@
                 const dx = event.changedTouches[0].clientX - touch.x;
                 const dy = event.changedTouches[0].clientY - touch.y;
                 if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
-                    show(index + (dx < 0 ? 1 : -1));
+                    const rtl = getComputedStyle(carousel).direction === 'rtl';
+                    show(index + ((dx < 0) !== rtl ? 1 : -1));
                 }
             }
             touch = null; schedule();
@@ -93,7 +96,7 @@
         });
         window.addEventListener('pagehide', stop);
         window.addEventListener('pageshow', schedule);
-        syncToggle(); schedule();
+        syncToggle(); show(index);
     };
     // Vue mounts the storefront on load; bind to the resulting DOM.
     const afterMount = () => requestAnimationFrame(initialize);

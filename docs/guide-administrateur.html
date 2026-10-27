@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Guide administrateur — Louzir Mode Intime</title><style>
+            *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:#faf9f7;color:#1a1c1b;font:16px/1.7 Arial,sans-serif}
+            header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px max(24px,calc((100vw - 980px)/2));background:#fff;border-bottom:1px solid #e3e2e0}
+            header a{font:600 17px Georgia,serif;text-decoration:none;color:inherit}button{border:0;border-radius:8px;background:#1a1c1b;color:#fff;padding:12px 16px;font-size:13px;cursor:pointer}
+            main{max-width:1028px;margin:auto;padding:40px 24px 72px}h1,h2,h3{line-height:1.25;overflow-wrap:anywhere}h1{font:400 40px/1.2 Georgia,serif;max-width:880px;margin:0 0 24px}h2{font:400 29px/1.3 Georgia,serif;border-top:1px solid #e3e2e0;padding-top:28px;margin-top:44px}h3{font-size:19px;margin-top:28px}
+            p,li{max-width:86ch}li+li{margin-top:7px}a{color:#38465c;text-underline-offset:3px;overflow-wrap:anywhere}strong{font-weight:700}code{font:0.9em Consolas,monospace;background:#efeeec;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}
+            #sommaire+ol{columns:2;column-gap:36px;background:#efeeec;border-radius:12px;padding:24px 24px 24px 48px}#sommaire+ol li{break-inside:avoid}
+            .table-scroll{overflow:auto;border:1px solid #e3e2e0;border-radius:10px;margin:20px 0;background:#fff}table{width:100%;min-width:540px;border-collapse:collapse;font-size:14px}th,td{text-align:left;vertical-align:top;padding:13px 16px;border-bottom:1px solid #e3e2e0}th{background:#efeeec;font-weight:600}tr:last-child td{border-bottom:0}td:first-child{width:38%}
+            .diagram{margin:28px 0;border:1px solid #e3e2e0;border-radius:12px;background:#fff;padding:20px}.diagram-scroll{overflow:auto}.diagram svg{display:block;width:100%;height:auto;min-width:560px;margin:auto}figcaption{font-size:12px;color:#45464c;margin-top:16px}hr{border:0;border-top:1px solid #e3e2e0;margin-top:40px}:focus-visible{outline:2px solid #575e70;outline-offset:3px}
+            @media(max-width:640px){header{padding:12px 16px}header a{font-size:15px}button{font-size:12px;padding:10px}main{padding:28px 16px 48px}h1{font-size:30px}h2{font-size:25px}#sommaire+ol{columns:1}.diagram{padding:12px}.table-scroll{margin-inline:0}}
+            @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+            @media print{body{background:#fff;font-size:11pt}header{display:none}main{max-width:none;padding:0}h1{font-size:26pt}h2{font-size:20pt}h2,h3{break-after:avoid}tr,figure{break-inside:avoid}table{min-width:0;font-size:10pt}.table-scroll,.diagram-scroll{overflow:visible}.diagram svg{min-width:0;max-height:650px}a{color:inherit}figcaption{font-size:9pt}}
+        </style></head><body><header><a href="#top">Louzir Mode Intime · Guide admin</a><button type="button" onclick="window.print()">Imprimer / PDF</button></header><main id="top"><h1 id="guide-simple-de-ladministration-louzir-mode-intime">Guide simple de l’administration — Louzir Mode Intime</h1><p><strong>À quoi sert ce guide ?</strong> À gérer les produits, l’apparence de la boutique, les commandes et les communications, sans modifier le code.</p>
+<p>Ce guide décrit les menus et réglages du projet au <strong>26 octobre 2026</strong>. Certains écrans dépendent des droits de votre compte et des modules utilisés par la boutique.</p>
+<h2 id="sommaire">Sommaire</h2><ol>
+<li><a href="#1-bien-commencer">Bien commencer</a></li>
+<li><a href="#2-o%C3%B9-modifier-quoi">Où modifier quoi ?</a></li>
+<li><a href="#3-produits-cat%C3%A9gories-et-filtres">Produits, catégories et filtres</a></li>
+<li><a href="#4-accueil-et-apparence">Accueil et apparence</a></li>
+<li><a href="#5-articles-similaires">Articles similaires</a></li>
+<li><a href="#6-commandes-et-livraison">Commandes et livraison</a></li>
+<li><a href="#7-e-mails-et-newsletter">E-mails et newsletter</a></li>
+<li><a href="#8-clients-promotions-et-pages">Clients, promotions et pages</a></li>
+<li><a href="#9-param%C3%A8tres-et-acc%C3%A8s">Paramètres et accès</a></li>
+<li><a href="#10-probl%C3%A8mes-courants-et-routine-quotidienne">Problèmes courants et routine quotidienne</a></li>
+</ol>
+<h2 id="1-bien-commencer">1. Bien commencer</h2><ul>
+<li><strong>Admin local</strong> : <a href="http://127.0.0.1:8000/admin">http://127.0.0.1:8000/admin</a>.</li>
+<li><strong>Admin du site publié</strong> : <a href="https://louzirmodeintime-production.up.railway.app/admin">https://louzirmodeintime-production.up.railway.app/admin</a>.</li>
+<li>Connectez-vous avec votre compte administrateur.</li>
+</ul>
+<p><strong>Local et site publié sont deux environnements différents.</strong> Modifier un produit, un tarif ou le SMTP en local ne modifie pas automatiquement le site publié. Un déploiement du code ne copie pas les réglages enregistrés dans la base locale.</p>
+<p>Sur les écrans qui le proposent :</p>
+<ol>
+<li>Choisissez le <strong>canal</strong> : la boutique concernée par le réglage.</li>
+<li>Choisissez la <strong>langue</strong> : français, anglais ou arabe.</li>
+<li>Modifiez le champ souhaité.</li>
+<li>Cliquez sur <strong>Enregistrer</strong> ou <strong>Enregistrer la configuration</strong>.</li>
+<li>Ouvrez la boutique et vérifiez le résultat, sur téléphone aussi si vous changez une image ou un texte important.</li>
+</ol>
+<p><strong>Paramètres</strong> sert notamment aux comptes, langues et canaux. <strong>Configurer</strong> contient les réglages de fonctionnement et de présentation.</p>
+<h2 id="2-où-modifier-quoi">2. Où modifier quoi ?</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Je souhaite…</th>
+<th>Menu à ouvrir</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ajouter un article, changer son prix ou ses photos</td>
+<td><strong>Catalogue → Produits</strong></td>
+</tr>
+<tr>
+<td>Créer une rubrique ou une sous-rubrique</td>
+<td><strong>Catalogue → Catégories</strong></td>
+</tr>
+<tr>
+<td>Modifier Couleur, Taille, Marque ou leurs options</td>
+<td><strong>Catalogue → Attributs</strong></td>
+</tr>
+<tr>
+<td>Modifier le carrousel et les textes d’accueil</td>
+<td><strong>Configurer → Général → Accueil Louzir</strong></td>
+</tr>
+<tr>
+<td>Changer les couleurs et polices du site</td>
+<td><strong>Accueil Louzir → Style de toute la boutique</strong></td>
+</tr>
+<tr>
+<td>Choisir les articles similaires</td>
+<td><strong>Configurer → Catalogue → Produits → Page de visualisation du produit</strong></td>
+</tr>
+<tr>
+<td>Consulter ou confirmer une commande</td>
+<td><strong>Ventes → Commandes</strong></td>
+</tr>
+<tr>
+<td>Modifier les tarifs de livraison</td>
+<td><strong>Configurer → Ventes → Modes de livraison</strong></td>
+</tr>
+<tr>
+<td>Configurer l’expéditeur et le SMTP</td>
+<td><strong>Configurer → E-mails → Configurer</strong></td>
+</tr>
+<tr>
+<td>Activer les notifications de commande</td>
+<td><strong>Configurer → E-mails → Notifications</strong></td>
+</tr>
+<tr>
+<td>Gérer les abonnés ou une campagne newsletter</td>
+<td><strong>Marketing → Communications</strong></td>
+</tr>
+<tr>
+<td>Créer un code promotionnel</td>
+<td><strong>Marketing → Promotions → Règles du panier</strong></td>
+</tr>
+<tr>
+<td>Rédiger une page d’information</td>
+<td><strong>CMS</strong></td>
+</tr>
+<tr>
+<td>Changer le logo de la boutique</td>
+<td><strong>Paramètres → Canaux → Modifier le canal</strong></td>
+</tr>
+<tr>
+<td>Changer le logo de l’administration</td>
+<td><strong>Configurer → Général → Design</strong></td>
+</tr>
+<tr>
+<td>Créer un compte pour un collaborateur</td>
+<td><strong>Paramètres → Utilisateurs</strong>, puis <strong>Rôles</strong></td>
+</tr>
+<tr>
+<td>Consulter les statistiques</td>
+<td><strong>Tableau de bord</strong> ou <strong>Rapport</strong></td>
+</tr>
+</tbody></table>
+</div><figure class="diagram"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Les grandes rubriques de l’administration"><svg id="admin-guide-0" width="100%" xmlns="http://www.w3.org/2000/svg" class="flowchart" style="max-width: 467.046875px;" viewBox="0 0 467.046875 586" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#admin-guide-0{font-family:Arial,sans-serif;font-size:15px;fill:#1a1c1b;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#admin-guide-0 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#admin-guide-0 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#admin-guide-0 .error-icon{fill:#ffffff;}#admin-guide-0 .error-text{fill:#000000;stroke:#000000;}#admin-guide-0 .edge-thickness-normal{stroke-width:1px;}#admin-guide-0 .edge-thickness-thick{stroke-width:3.5px;}#admin-guide-0 .edge-pattern-solid{stroke-dasharray:0;}#admin-guide-0 .edge-thickness-invisible{stroke-width:0;fill:none;}#admin-guide-0 .edge-pattern-dashed{stroke-dasharray:3;}#admin-guide-0 .edge-pattern-dotted{stroke-dasharray:2;}#admin-guide-0 .marker{fill:#575e70;stroke:#575e70;}#admin-guide-0 .marker.cross{stroke:#575e70;}#admin-guide-0 svg{font-family:Arial,sans-serif;font-size:15px;}#admin-guide-0 p{margin:0;}#admin-guide-0 .label{font-family:Arial,sans-serif;color:#1a1c1b;}#admin-guide-0 .cluster-label text{fill:#000000;}#admin-guide-0 .cluster-label span{color:#000000;}#admin-guide-0 .cluster-label span p{background-color:transparent;}#admin-guide-0 .label text,#admin-guide-0 span{fill:#1a1c1b;color:#1a1c1b;}#admin-guide-0 .node rect,#admin-guide-0 .node circle,#admin-guide-0 .node ellipse,#admin-guide-0 .node polygon,#admin-guide-0 .node path{fill:#efeeec;stroke:#c6c6cd;stroke-width:1px;}#admin-guide-0 .rough-node .label text,#admin-guide-0 .node .label text,#admin-guide-0 .image-shape .label,#admin-guide-0 .icon-shape .label{text-anchor:middle;}#admin-guide-0 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#admin-guide-0 .rough-node .label,#admin-guide-0 .node .label,#admin-guide-0 .image-shape .label,#admin-guide-0 .icon-shape .label{text-align:center;}#admin-guide-0 .node.clickable{cursor:pointer;}#admin-guide-0 .root .anchor path{fill:#575e70!important;stroke-width:0;stroke:#575e70;}#admin-guide-0 .arrowheadPath{fill:#0b0b0b;}#admin-guide-0 .edgePath .path{stroke:#575e70;stroke-width:2.0px;}#admin-guide-0 .flowchart-link{stroke:#575e70;fill:none;}#admin-guide-0 .edgeLabel{background-color:#faf9f7;text-align:center;}#admin-guide-0 .edgeLabel p{background-color:#faf9f7;}#admin-guide-0 .edgeLabel rect{opacity:0.5;background-color:#faf9f7;fill:#faf9f7;}#admin-guide-0 .labelBkg{background-color:rgba(250, 249, 247, 0.5);}#admin-guide-0 .cluster rect{fill:#ffffff;stroke:hsl(0, 0%, 90%);stroke-width:1px;}#admin-guide-0 .cluster text{fill:#000000;}#admin-guide-0 .cluster span{color:#000000;}#admin-guide-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Arial,sans-serif;font-size:12px;background:#ffffff;border:1px solid hsl(0, 0%, 90%);border-radius:2px;pointer-events:none;z-index:100;}#admin-guide-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#1a1c1b;}#admin-guide-0 rect.text{fill:none;stroke-width:0;}#admin-guide-0 .icon-shape,#admin-guide-0 .image-shape{background-color:#faf9f7;text-align:center;}#admin-guide-0 .icon-shape p,#admin-guide-0 .image-shape p{background-color:#faf9f7;padding:2px;}#admin-guide-0 .icon-shape rect,#admin-guide-0 .image-shape rect{opacity:0.5;background-color:#faf9f7;fill:#faf9f7;}#admin-guide-0 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#admin-guide-0 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#admin-guide-0 :root{--mermaid-font-family:Arial,sans-serif;}</style><g><marker id="admin-guide-0_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-0_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-0_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="admin-guide-0_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="admin-guide-0_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-0_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M95.655,266.75L181.047,45.5L195.047,45.5" id="L_A_B_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_A_B_0" data-points="W3sieCI6OTUuNjU0NzExMTc0MjQyNDIsInkiOjI2Ni43NX0seyJ4IjoxODEuMDQ2ODc1LCJ5Ijo0NS41fSx7IngiOjE5OS4wNDY4NzUsInkiOjQ1LjV9XQ==" marker-end="url(#admin-guide-0_flowchart-v2-pointEnd)"></path><path d="M102.409,266.75L181.047,144.5L195.047,144.5" id="L_A_C_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_A_C_0" data-points="W3sieCI6MTAyLjQwODg5MzYyMzczNzM3LCJ5IjoyNjYuNzV9LHsieCI6MTgxLjA0Njg3NSwieSI6MTQ0LjV9LHsieCI6MTk5LjA0Njg3NSwieSI6MTQ0LjV9XQ==" marker-end="url(#admin-guide-0_flowchart-v2-pointEnd)"></path><path d="M136.18,266.75L181.047,243.5L195.047,243.5" id="L_A_D_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_A_D_0" data-points="W3sieCI6MTM2LjE3OTgwNTg3MTIxMjEyLCJ5IjoyNjYuNzV9LHsieCI6MTgxLjA0Njg3NSwieSI6MjQzLjV9LHsieCI6MTk5LjA0Njg3NSwieSI6MjQzLjV9XQ==" marker-end="url(#admin-guide-0_flowchart-v2-pointEnd)"></path><path d="M136.18,319.25L181.047,342.5L195.047,342.5" id="L_A_E_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_A_E_0" data-points="W3sieCI6MTM2LjE3OTgwNTg3MTIxMjEyLCJ5IjozMTkuMjV9LHsieCI6MTgxLjA0Njg3NSwieSI6MzQyLjV9LHsieCI6MTk5LjA0Njg3NSwieSI6MzQyLjV9XQ==" marker-end="url(#admin-guide-0_flowchart-v2-pointEnd)"></path><path d="M102.409,319.25L181.047,441.5L195.047,441.5" id="L_A_F_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_A_F_0" data-points="W3sieCI6MTAyLjQwODg5MzYyMzczNzM3LCJ5IjozMTkuMjV9LHsieCI6MTgxLjA0Njg3NSwieSI6NDQxLjV9LHsieCI6MTk5LjA0Njg3NSwieSI6NDQxLjV9XQ==" marker-end="url(#admin-guide-0_flowchart-v2-pointEnd)"></path><path d="M95.655,319.25L181.047,540.5L195.047,540.5" id="L_A_G_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_A_G_0" data-points="W3sieCI6OTUuNjU0NzExMTc0MjQyNDIsInkiOjMxOS4yNX0seyJ4IjoxODEuMDQ2ODc1LCJ5Ijo1NDAuNX0seyJ4IjoxOTkuMDQ2ODc1LCJ5Ijo1NDAuNX1d" marker-end="url(#admin-guide-0_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="L_A_B_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_A_C_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_A_D_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_A_E_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_A_F_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_A_G_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="flowchart-A-0" transform="translate(85.5234375, 293)"><rect class="basic label-container" style="" x="-77.5234375" y="-26.25" width="155.046875" height="52.5"></rect><g class="label" style="" transform="translate(-47.5234375, -11.25)"><rect></rect><foreignObject width="95.046875" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Administration</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-B-1" transform="translate(329.046875, 45.5)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Catalogue : articles, catégories, filtres</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-C-3" transform="translate(329.046875, 144.5)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Accueil et style : images, textes, couleurs</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-D-5" transform="translate(329.046875, 243.5)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Ventes : commandes, factures, expéditions</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-E-7" transform="translate(329.046875, 342.5)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Marketing : promotions et newsletter</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-F-9" transform="translate(329.046875, 441.5)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Paramètres : langues, canaux, accès</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-G-11" transform="translate(329.046875, 540.5)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Configurer : livraison, paiement, e-mails</p></span></div></foreignObject></g></g></g></g></g></svg></div><figcaption>Diagramme 1 — Les grandes rubriques de l’administration. Sur petit écran, faites glisser le diagramme si nécessaire.</figcaption></figure><h2 id="3-produits-catégories-et-filtres">3. Produits, catégories et filtres</h2><h3 id="ajouter-ou-modifier-un-produit">Ajouter ou modifier un produit</h3><p><strong>Chemin : Catalogue → Produits.</strong></p>
+<ol>
+<li>Cliquez sur <strong>Créer un produit</strong>, ou ouvrez un produit existant.</li>
+<li>Renseignez le nom, la référence de l’article — appelée <strong>SKU</strong> — et son prix.</li>
+<li>Ajoutez des photos et une description claire : matière, coupe, entretien et informations utiles.</li>
+<li>Choisissez les catégories auxquelles il appartient.</li>
+<li>Vérifiez les quantités en stock et la source de stock concernée.</li>
+<li>Complétez les options proposées : taille, couleur ou autres caractéristiques.</li>
+<li>Activez le produit et sa visibilité individuelle si vous souhaitez qu’il apparaisse comme un article autonome.</li>
+<li>Enregistrez, puis ouvrez sa fiche dans la boutique.</li>
+</ol>
+<p>Les champs <strong>Nouveau</strong> et <strong>En vedette</strong>, lorsqu’ils sont disponibles, permettent de mettre l’article en avant. Une remise peut aussi être gérée avec les champs de prix promotionnel ou avec les règles de promotion.</p>
+<p>Pour un article vendu en plusieurs tailles ou couleurs, utilisez le type de produit adapté aux variantes. Vérifiez le prix et le stock de chaque variante, pas seulement ceux de la fiche principale.</p>
+<h3 id="organiser-les-catégories">Organiser les catégories</h3><p><strong>Chemin : Catalogue → Catégories.</strong></p>
+<p>Vous pouvez gérer le nom, la description, l’image de bannière, l’état actif et la position d’une catégorie.</p>
+<p>Pour créer une sous-catégorie, choisissez une catégorie existante comme <strong>parent</strong>. Exemple : <strong>Lingerie → Soutiens-gorge</strong>.</p>
+<p>Le menu de la boutique reprend cette organisation. Le nom ouvre la catégorie ; la flèche permet d’afficher ses sous-catégories.</p>
+<p>Une bannière propre à une catégorie est prioritaire sur l’image commune réglée dans <strong>Accueil Louzir</strong>. Le mode d’affichage peut présenter les produits, la description, ou les deux. Une catégorie configurée uniquement pour son contenu ne présente pas de liste de produits à filtrer.</p>
+<h3 id="gérer-les-filtres">Gérer les filtres</h3><p><strong>Chemin : Catalogue → Attributs</strong>, puis les attributs filtrables associés à la catégorie.</p>
+<ul>
+<li>Un <strong>attribut</strong> est une caractéristique : Couleur, Taille, Marque…</li>
+<li>Ses <strong>options</strong> sont les valeurs proposées : Noir, Blanc, S, M, L…</li>
+<li>Renseignez les libellés dans les langues concernées. Les textes personnalisés de l’admin restent prioritaires.</li>
+<li>Les attributs associés à une catégorie déterminent ses filtres. Sans association particulière, la boutique utilise les attributs généraux marqués comme filtrables.</li>
+</ul>
+<p>Les intitulés standards et les couleurs standards disposent d’une traduction de secours en français, anglais et arabe. Les noms particuliers de vos matières, marques ou collections doivent être renseignés dans l’admin.</p>
+<p>Côté client, les tailles sont proposées en cases et les couleurs peuvent avoir une pastille. Le client choisit ses options puis clique sur <strong>Appliquer les filtres</strong>. Sur téléphone, le bouton <strong>Filtre</strong> ouvre le volet.</p>
+<figure class="diagram"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Le parcours de publication d’un produit"><svg id="admin-guide-1" width="100%" xmlns="http://www.w3.org/2000/svg" class="flowchart" style="max-width: 276px;" viewBox="0 0 276 556" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#admin-guide-1{font-family:Arial,sans-serif;font-size:15px;fill:#1a1c1b;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#admin-guide-1 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#admin-guide-1 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#admin-guide-1 .error-icon{fill:#ffffff;}#admin-guide-1 .error-text{fill:#000000;stroke:#000000;}#admin-guide-1 .edge-thickness-normal{stroke-width:1px;}#admin-guide-1 .edge-thickness-thick{stroke-width:3.5px;}#admin-guide-1 .edge-pattern-solid{stroke-dasharray:0;}#admin-guide-1 .edge-thickness-invisible{stroke-width:0;fill:none;}#admin-guide-1 .edge-pattern-dashed{stroke-dasharray:3;}#admin-guide-1 .edge-pattern-dotted{stroke-dasharray:2;}#admin-guide-1 .marker{fill:#575e70;stroke:#575e70;}#admin-guide-1 .marker.cross{stroke:#575e70;}#admin-guide-1 svg{font-family:Arial,sans-serif;font-size:15px;}#admin-guide-1 p{margin:0;}#admin-guide-1 .label{font-family:Arial,sans-serif;color:#1a1c1b;}#admin-guide-1 .cluster-label text{fill:#000000;}#admin-guide-1 .cluster-label span{color:#000000;}#admin-guide-1 .cluster-label span p{background-color:transparent;}#admin-guide-1 .label text,#admin-guide-1 span{fill:#1a1c1b;color:#1a1c1b;}#admin-guide-1 .node rect,#admin-guide-1 .node circle,#admin-guide-1 .node ellipse,#admin-guide-1 .node polygon,#admin-guide-1 .node path{fill:#efeeec;stroke:#c6c6cd;stroke-width:1px;}#admin-guide-1 .rough-node .label text,#admin-guide-1 .node .label text,#admin-guide-1 .image-shape .label,#admin-guide-1 .icon-shape .label{text-anchor:middle;}#admin-guide-1 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#admin-guide-1 .rough-node .label,#admin-guide-1 .node .label,#admin-guide-1 .image-shape .label,#admin-guide-1 .icon-shape .label{text-align:center;}#admin-guide-1 .node.clickable{cursor:pointer;}#admin-guide-1 .root .anchor path{fill:#575e70!important;stroke-width:0;stroke:#575e70;}#admin-guide-1 .arrowheadPath{fill:#0b0b0b;}#admin-guide-1 .edgePath .path{stroke:#575e70;stroke-width:2.0px;}#admin-guide-1 .flowchart-link{stroke:#575e70;fill:none;}#admin-guide-1 .edgeLabel{background-color:#faf9f7;text-align:center;}#admin-guide-1 .edgeLabel p{background-color:#faf9f7;}#admin-guide-1 .edgeLabel rect{opacity:0.5;background-color:#faf9f7;fill:#faf9f7;}#admin-guide-1 .labelBkg{background-color:rgba(250, 249, 247, 0.5);}#admin-guide-1 .cluster rect{fill:#ffffff;stroke:hsl(0, 0%, 90%);stroke-width:1px;}#admin-guide-1 .cluster text{fill:#000000;}#admin-guide-1 .cluster span{color:#000000;}#admin-guide-1 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Arial,sans-serif;font-size:12px;background:#ffffff;border:1px solid hsl(0, 0%, 90%);border-radius:2px;pointer-events:none;z-index:100;}#admin-guide-1 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#1a1c1b;}#admin-guide-1 rect.text{fill:none;stroke-width:0;}#admin-guide-1 .icon-shape,#admin-guide-1 .image-shape{background-color:#faf9f7;text-align:center;}#admin-guide-1 .icon-shape p,#admin-guide-1 .image-shape p{background-color:#faf9f7;padding:2px;}#admin-guide-1 .icon-shape rect,#admin-guide-1 .image-shape rect{opacity:0.5;background-color:#faf9f7;fill:#faf9f7;}#admin-guide-1 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#admin-guide-1 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#admin-guide-1 :root{--mermaid-font-family:Arial,sans-serif;}</style><g><marker id="admin-guide-1_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-1_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-1_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="admin-guide-1_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="admin-guide-1_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-1_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M138,60.5L138,78.5L138,92.5" id="L_A_B_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_A_B_0" data-points="W3sieCI6MTM4LCJ5Ijo2MC41fSx7IngiOjEzOCwieSI6NzguNX0seyJ4IjoxMzgsInkiOjk2LjV9XQ==" marker-end="url(#admin-guide-1_flowchart-v2-pointEnd)"></path><path d="M138,149L138,167L138,181" id="L_B_C_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_B_C_0" data-points="W3sieCI6MTM4LCJ5IjoxNDl9LHsieCI6MTM4LCJ5IjoxNjd9LHsieCI6MTM4LCJ5IjoxODV9XQ==" marker-end="url(#admin-guide-1_flowchart-v2-pointEnd)"></path><path d="M138,260L138,278L138,292" id="L_C_D_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_C_D_0" data-points="W3sieCI6MTM4LCJ5IjoyNjB9LHsieCI6MTM4LCJ5IjoyNzh9LHsieCI6MTM4LCJ5IjoyOTZ9XQ==" marker-end="url(#admin-guide-1_flowchart-v2-pointEnd)"></path><path d="M138,348.5L138,366.5L138,380.5" id="L_D_E_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_D_E_0" data-points="W3sieCI6MTM4LCJ5IjozNDguNX0seyJ4IjoxMzgsInkiOjM2Ni41fSx7IngiOjEzOCwieSI6Mzg0LjV9XQ==" marker-end="url(#admin-guide-1_flowchart-v2-pointEnd)"></path><path d="M138,437L138,455L138,469" id="L_E_F_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_E_F_0" data-points="W3sieCI6MTM4LCJ5Ijo0Mzd9LHsieCI6MTM4LCJ5Ijo0NTV9LHsieCI6MTM4LCJ5Ijo0NzN9XQ==" marker-end="url(#admin-guide-1_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="L_A_B_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_B_C_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_C_D_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_D_E_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_E_F_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="flowchart-A-0" transform="translate(138, 34.25)"><rect class="basic label-container" style="" x="-89.6171875" y="-26.25" width="179.234375" height="52.5"></rect><g class="label" style="" transform="translate(-59.6171875, -11.25)"><rect></rect><foreignObject width="119.234375" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Créer la catégorie</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-B-1" transform="translate(138, 122.75)"><rect class="basic label-container" style="" x="-95.453125" y="-26.25" width="190.90625" height="52.5"></rect><g class="label" style="" transform="translate(-65.453125, -11.25)"><rect></rect><foreignObject width="130.90625" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Rattacher le produit</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-C-3" transform="translate(138, 222.5)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Compléter photos, prix, options et stock</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-D-5" transform="translate(138, 322.25)"><rect class="basic label-container" style="" x="-85.859375" y="-26.25" width="171.71875" height="52.5"></rect><g class="label" style="" transform="translate(-55.859375, -11.25)"><rect></rect><foreignObject width="111.71875" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Activer le produit</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-E-7" transform="translate(138, 410.75)"><rect class="basic label-container" style="" x="-66.6796875" y="-26.25" width="133.359375" height="52.5"></rect><g class="label" style="" transform="translate(-36.6796875, -11.25)"><rect></rect><foreignObject width="73.359375" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Enregistrer</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-F-9" transform="translate(138, 510.5)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Vérifier la fiche et les filtres dans la boutique</p></span></div></foreignObject></g></g></g></g></g></svg></div><figcaption>Diagramme 2 — Le parcours de publication d’un produit. Sur petit écran, faites glisser le diagramme si nécessaire.</figcaption></figure><h2 id="4-accueil-et-apparence">4. Accueil et apparence</h2><p><strong>Chemin principal : Configurer → Général → Accueil Louzir.</strong></p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Ce que vous pouvez modifier</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Style de toute la boutique</strong></td>
+<td>Fonds, encadrés et dégradés, couleurs du texte, boutons et bordures, polices, largeur du contenu et image commune des collections.</td>
+</tr>
+<tr>
+<td><strong>Carrousel</strong></td>
+<td>Affichage du carrousel, activation des trois diapositives, images, titres, descriptions, boutons et liens.</td>
+</tr>
+<tr>
+<td><strong>Réglages du carrousel</strong></td>
+<td>Défilement automatique, durée par image, cadrage ordinateur/mobile et voile sombre pour lire le texte.</td>
+</tr>
+<tr>
+<td><strong>Bandeau défilant</strong></td>
+<td>Affichage, messages, couleur de fond, texte, étoiles et vitesse.</td>
+</tr>
+<tr>
+<td><strong>Points forts</strong></td>
+<td>Affichage et textes de présentation des services de la boutique.</td>
+</tr>
+<tr>
+<td><strong>Collections</strong></td>
+<td>Affichage, titres, descriptions, images et liens des cartes de collections.</td>
+</tr>
+<tr>
+<td><strong>Pièces Signature</strong></td>
+<td>Affichage, titre, description, nombre d’articles, catégorie utilisée et ordre de tri des produits.</td>
+</tr>
+<tr>
+<td><strong>Nos boutiques</strong></td>
+<td>Affichage, images, noms, adresses, cartes, itinéraires et lien téléphonique de la section d’accueil.</td>
+</tr>
+<tr>
+<td><strong>Communauté</strong></td>
+<td>Affichage et textes de cette section.</td>
+</tr>
+<tr>
+<td><strong>Animations de l’accueil</strong></td>
+<td>Activation, durée et décalage des animations.</td>
+</tr>
+</tbody></table>
+</div><h3 id="remplacer-une-image-du-carrousel">Remplacer une image du carrousel</h3><ol>
+<li>Ouvrez la section de la diapositive souhaitée.</li>
+<li>Choisissez une image <strong>JPEG, PNG ou WebP</strong>, de <strong>5 Mo maximum</strong>.</li>
+<li>Utilisez une image de préférence en paysage, proche de <strong>16:9</strong>, avec au moins <strong>1 600 pixels de large</strong> pour un affichage net.</li>
+<li>Ajustez le cadrage ordinateur et mobile. Vérifiez que le produit ou le mannequin reste bien visible.</li>
+<li>Enregistrez et contrôlez les deux tailles d’écran.</li>
+</ol>
+<p>Pour le cadrage, <strong>0 %</strong> correspond au bord gauche ou haut, <strong>50 %</strong> au centre et <strong>100 %</strong> au bord droit ou bas. Augmentez le voile sombre si le texte se lit mal sur la photo.</p>
+<p>Les textes d’accueil sont gérés par langue. Les images, liens et réglages communs de cette page sont partagés entre les langues du canal.</p>
+<h3 id="autres-éléments-visuels">Autres éléments visuels</h3><ul>
+<li><strong>Bandeau promotionnel du haut</strong> : <strong>Configurer → Général → Contenu</strong>. Il est distinct du bandeau défilant d’Accueil Louzir.</li>
+<li><strong>Logo et icône du site</strong> : <strong>Paramètres → Canaux → Modifier</strong>.</li>
+<li><strong>Logo et icône de l’admin</strong> : <strong>Configurer → Général → Design</strong>.</li>
+<li><strong>Liens du pied de page</strong> : les personnalisations de type liens de pied de page se trouvent dans <strong>Paramètres → Thèmes</strong>.</li>
+</ul>
+<p><strong>Limite à connaître :</strong> certains éléments du modèle restent fixes, notamment des coordonnées et liens sociaux du pied de page. Les réglages « Nos boutiques » concernent la section d’accueil : ils ne garantissent pas la modification de toutes les coordonnées répétées ailleurs. Un changement de structure, de position des boutons ou de mise en page nécessite une modification du thème par le développeur.</p>
+<h2 id="5-articles-similaires">5. Articles similaires</h2><p><strong>Chemin : Configurer → Catalogue → Produits → Page de visualisation du produit.</strong></p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Résultat</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Choix manuels en priorité, puis catégories</strong></td>
+<td>Affiche d’abord votre sélection, puis complète avec des articles proches.</td>
+</tr>
+<tr>
+<td><strong>Catégories communes et prix proche</strong></td>
+<td>Laisse le site choisir à partir des catégories et des prix.</td>
+</tr>
+<tr>
+<td><strong>Associations manuelles uniquement</strong></td>
+<td>Affiche seulement les articles que vous avez associés au produit.</td>
+</tr>
+</tbody></table>
+</div><p>Pour choisir les associations, ouvrez <strong>Catalogue → Produits → Modifier → Produits associés</strong>.</p>
+<p>Le nombre d’articles affichés est réglable, jusqu’à <strong>12</strong>. Saisir <strong>0</strong> masque le bloc concerné. Le réglage « articles achetables uniquement » tient compte des règles de stock de la boutique. Les ventes incitatives — articles proposés pour encourager un autre achat — se choisissent manuellement.</p>
+<p><strong>Conseil :</strong> commencez par le mode mixte, puis associez manuellement les compléments importants : par exemple, un bas assorti à un soutien-gorge.</p>
+<h2 id="6-commandes-et-livraison">6. Commandes et livraison</h2><h3 id="traiter-une-commande">Traiter une commande</h3><p><strong>Chemin : Ventes → Commandes.</strong></p>
+<ol>
+<li>Ouvrez la commande et vérifiez le client, les articles, les quantités et le total.</li>
+<li>Vérifiez l’adresse, le téléphone, la livraison et le paiement choisis.</li>
+<li>Lorsque vous validez la commande, cliquez sur <strong>Confirmer la commande</strong> si ce bouton est proposé.</li>
+<li>Poursuivez la préparation, puis enregistrez la facture et l’expédition lorsque ces actions sont disponibles.</li>
+<li>En cas de problème, utilisez les actions d’annulation, de commentaire ou de remboursement adaptées à l’état de la commande.</li>
+</ol>
+<p>Le bouton de confirmation concerne les commandes en attente. Il les fait passer à l’état de traitement et déclenche la notification de confirmation si celle-ci est activée et si l’envoi e-mail fonctionne.</p>
+<p><strong>Confirmer une commande ne signifie pas encaisser un paiement.</strong> Avec le paiement à la livraison, l’encaissement suit le processus de livraison.</p>
+<figure class="diagram"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Le traitement d’une commande et ses notifications"><svg id="admin-guide-2" width="100%" xmlns="http://www.w3.org/2000/svg" class="flowchart" style="max-width: 671.2265625px;" viewBox="0 0 671.2265625 601" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#admin-guide-2{font-family:Arial,sans-serif;font-size:15px;fill:#1a1c1b;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#admin-guide-2 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#admin-guide-2 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#admin-guide-2 .error-icon{fill:#ffffff;}#admin-guide-2 .error-text{fill:#000000;stroke:#000000;}#admin-guide-2 .edge-thickness-normal{stroke-width:1px;}#admin-guide-2 .edge-thickness-thick{stroke-width:3.5px;}#admin-guide-2 .edge-pattern-solid{stroke-dasharray:0;}#admin-guide-2 .edge-thickness-invisible{stroke-width:0;fill:none;}#admin-guide-2 .edge-pattern-dashed{stroke-dasharray:3;}#admin-guide-2 .edge-pattern-dotted{stroke-dasharray:2;}#admin-guide-2 .marker{fill:#575e70;stroke:#575e70;}#admin-guide-2 .marker.cross{stroke:#575e70;}#admin-guide-2 svg{font-family:Arial,sans-serif;font-size:15px;}#admin-guide-2 p{margin:0;}#admin-guide-2 .label{font-family:Arial,sans-serif;color:#1a1c1b;}#admin-guide-2 .cluster-label text{fill:#000000;}#admin-guide-2 .cluster-label span{color:#000000;}#admin-guide-2 .cluster-label span p{background-color:transparent;}#admin-guide-2 .label text,#admin-guide-2 span{fill:#1a1c1b;color:#1a1c1b;}#admin-guide-2 .node rect,#admin-guide-2 .node circle,#admin-guide-2 .node ellipse,#admin-guide-2 .node polygon,#admin-guide-2 .node path{fill:#efeeec;stroke:#c6c6cd;stroke-width:1px;}#admin-guide-2 .rough-node .label text,#admin-guide-2 .node .label text,#admin-guide-2 .image-shape .label,#admin-guide-2 .icon-shape .label{text-anchor:middle;}#admin-guide-2 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#admin-guide-2 .rough-node .label,#admin-guide-2 .node .label,#admin-guide-2 .image-shape .label,#admin-guide-2 .icon-shape .label{text-align:center;}#admin-guide-2 .node.clickable{cursor:pointer;}#admin-guide-2 .root .anchor path{fill:#575e70!important;stroke-width:0;stroke:#575e70;}#admin-guide-2 .arrowheadPath{fill:#0b0b0b;}#admin-guide-2 .edgePath .path{stroke:#575e70;stroke-width:2.0px;}#admin-guide-2 .flowchart-link{stroke:#575e70;fill:none;}#admin-guide-2 .edgeLabel{background-color:#faf9f7;text-align:center;}#admin-guide-2 .edgeLabel p{background-color:#faf9f7;}#admin-guide-2 .edgeLabel rect{opacity:0.5;background-color:#faf9f7;fill:#faf9f7;}#admin-guide-2 .labelBkg{background-color:rgba(250, 249, 247, 0.5);}#admin-guide-2 .cluster rect{fill:#ffffff;stroke:hsl(0, 0%, 90%);stroke-width:1px;}#admin-guide-2 .cluster text{fill:#000000;}#admin-guide-2 .cluster span{color:#000000;}#admin-guide-2 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Arial,sans-serif;font-size:12px;background:#ffffff;border:1px solid hsl(0, 0%, 90%);border-radius:2px;pointer-events:none;z-index:100;}#admin-guide-2 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#1a1c1b;}#admin-guide-2 rect.text{fill:none;stroke-width:0;}#admin-guide-2 .icon-shape,#admin-guide-2 .image-shape{background-color:#faf9f7;text-align:center;}#admin-guide-2 .icon-shape p,#admin-guide-2 .image-shape p{background-color:#faf9f7;padding:2px;}#admin-guide-2 .icon-shape rect,#admin-guide-2 .image-shape rect{opacity:0.5;background-color:#faf9f7;fill:#faf9f7;}#admin-guide-2 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#admin-guide-2 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#admin-guide-2 :root{--mermaid-font-family:Arial,sans-serif;}</style><g><marker id="admin-guide-2_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-2_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-2_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="admin-guide-2_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="admin-guide-2_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-2_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M273.563,60.5L273.563,78.5L273.563,92.5" id="L_A_B_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_A_B_0" data-points="W3sieCI6MjczLjU2MjUsInkiOjYwLjV9LHsieCI6MjczLjU2MjUsInkiOjc4LjV9LHsieCI6MjczLjU2MjUsInkiOjk2LjV9XQ==" marker-end="url(#admin-guide-2_flowchart-v2-pointEnd)"></path><path d="M181.966,171.5L138,189.5L138,203.5" id="L_B_C_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_B_C_0" data-points="W3sieCI6MTgxLjk2NjIxNjIxNjIxNjIsInkiOjE3MS41fSx7IngiOjEzOCwieSI6MTg5LjV9LHsieCI6MTM4LCJ5IjoyMDcuNX1d" marker-end="url(#admin-guide-2_flowchart-v2-pointEnd)"></path><path d="M365.159,171.5L409.125,189.5L409.125,214.75" id="L_B_D_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_B_D_0" data-points="W3sieCI6MzY1LjE1ODc4Mzc4Mzc4MzgsInkiOjE3MS41fSx7IngiOjQwOS4xMjUsInkiOjE4OS41fSx7IngiOjQwOS4xMjUsInkiOjIxOC43NX1d" marker-end="url(#admin-guide-2_flowchart-v2-pointEnd)"></path><path d="M409.125,271.25L409.125,300.5L409.125,314.5" id="L_D_E_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_D_E_0" data-points="W3sieCI6NDA5LjEyNSwieSI6MjcxLjI1fSx7IngiOjQwOS4xMjUsInkiOjMwMC41fSx7IngiOjQwOS4xMjUsInkiOjMxOC41fV0=" marker-end="url(#admin-guide-2_flowchart-v2-pointEnd)"></path><path d="M335.505,371L285.023,389L285.023,403" id="L_E_F_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_E_F_0" data-points="W3sieCI6MzM1LjUwNTQyOTAyNTQyMzcsInkiOjM3MX0seyJ4IjoyODUuMDIzNDM3NSwieSI6Mzg5fSx7IngiOjI4NS4wMjM0Mzc1LCJ5Ijo0MDd9XQ==" marker-end="url(#admin-guide-2_flowchart-v2-pointEnd)"></path><path d="M482.745,371L533.227,389L533.227,414.25" id="L_E_G_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_E_G_0" data-points="W3sieCI6NDgyLjc0NDU3MDk3NDU3NjMsInkiOjM3MX0seyJ4Ijo1MzMuMjI2NTYyNSwieSI6Mzg5fSx7IngiOjUzMy4yMjY1NjI1LCJ5Ijo0MTguMjV9XQ==" marker-end="url(#admin-guide-2_flowchart-v2-pointEnd)"></path><path d="M533.227,470.75L533.227,500L533.227,514" id="L_G_H_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_G_H_0" data-points="W3sieCI6NTMzLjIyNjU2MjUsInkiOjQ3MC43NX0seyJ4Ijo1MzMuMjI2NTYyNSwieSI6NTAwfSx7IngiOjUzMy4yMjY1NjI1LCJ5Ijo1MTh9XQ==" marker-end="url(#admin-guide-2_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="L_A_B_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_B_C_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_B_D_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_D_E_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_E_F_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_E_G_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_G_H_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="flowchart-A-0" transform="translate(273.5625, 34.25)"><rect class="basic label-container" style="" x="-119.21875" y="-26.25" width="238.4375" height="52.5"></rect><g class="label" style="" transform="translate(-89.21875, -11.25)"><rect></rect><foreignObject width="178.4375" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Le client passe commande</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-B-1" transform="translate(273.5625, 134)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Commande enregistrée en attente</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-C-3" transform="translate(138, 245)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Accusé de réception e-mail, si activé</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-D-5" transform="translate(409.125, 245)"><rect class="basic label-container" style="" x="-117.125" y="-26.25" width="234.25" height="52.5"></rect><g class="label" style="" transform="translate(-87.125, -11.25)"><rect></rect><foreignObject width="174.25" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>L’admin vérifie et confirme</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-E-7" transform="translate(409.125, 344.75)"><rect class="basic label-container" style="" x="-114.625" y="-26.25" width="229.25" height="52.5"></rect><g class="label" style="" transform="translate(-84.625, -11.25)"><rect></rect><foreignObject width="169.25" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Commande en traitement</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-F-9" transform="translate(285.0234375, 444.5)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>E-mail de confirmation, si activé</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-G-11" transform="translate(533.2265625, 444.5)"><rect class="basic label-container" style="" x="-94.203125" y="-26.25" width="188.40625" height="52.5"></rect><g class="label" style="" transform="translate(-64.203125, -11.25)"><rect></rect><foreignObject width="128.40625" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Préparation et suivi</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-H-13" transform="translate(533.2265625, 555.5)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Facture et expédition selon les actions disponibles</p></span></div></foreignObject></g></g></g></g></g></svg></div><figcaption>Diagramme 3 — Le traitement d’une commande et ses notifications. Sur petit écran, faites glisser le diagramme si nécessaire.</figcaption></figure><p>Les branches e-mail du diagramme supposent une configuration d’envoi opérationnelle. Un changement de statut ne prouve pas à lui seul la réception du message.</p>
+<h3 id="modifier-les-modes-de-livraison">Modifier les modes de livraison</h3><p><strong>Chemin : Configurer → Ventes → Modes de livraison.</strong></p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Tarif fixé lors du dernier réglage du projet</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Livraison normale</td>
+<td><strong>8 DT par commande</strong></td>
+</tr>
+<tr>
+<td>Livraison express</td>
+<td><strong>15 DT par commande</strong></td>
+</tr>
+</tbody></table>
+</div><p>Ces montants restent modifiables dans l’admin. Pour quinze dinars, saisissez <strong>15</strong>, pas <strong>15000</strong>. La boutique peut afficher <strong>15,000 TND</strong> : il s’agit de trois décimales, pas de quinze mille dinars.</p>
+<p>Pour chaque mode, vous pouvez modifier son titre, sa description, son tarif et son activation. Le calcul peut être <strong>par commande</strong> ou <strong>par article</strong> : vérifiez ce choix avant de sauvegarder. Désactiver un mode le retire des nouveaux choix proposés au client.</p>
+<p>Les moyens de paiement s’activent et se règlent dans <strong>Configurer → Ventes → Modes de paiement</strong>. Activez seulement ceux que la boutique peut réellement utiliser.</p>
+<h2 id="7-e-mails-et-newsletter">7. E-mails et newsletter</h2><h3 id="régler-les-e-mails">Régler les e-mails</h3><p><strong>Chemin : Configurer → E-mails → Configurer.</strong></p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Réglage</th>
+<th>À quoi sert-il ?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hôte, port et chiffrement SMTP</td>
+<td>Indiquent le serveur qui transmet les messages.</td>
+</tr>
+<tr>
+<td>Identifiant et mot de passe SMTP</td>
+<td>Autorisent la boutique à utiliser ce serveur.</td>
+</tr>
+<tr>
+<td>Nom et adresse de l’expéditeur</td>
+<td>Définissent l’identité affichée dans les mails.</td>
+</tr>
+<tr>
+<td>Adresse de contact</td>
+<td>Indique au client où vous joindre.</td>
+</tr>
+<tr>
+<td>Adresse administrateur</td>
+<td>Reçoit les notifications destinées à l’équipe, si activées.</td>
+</tr>
+<tr>
+<td>Messages clients personnalisés</td>
+<td>Modifient le texte de bienvenue, de commande reçue et de commande confirmée, par langue.</td>
+</tr>
+</tbody></table>
+</div><p>Pour personnaliser un message, vous pouvez utiliser :</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Remplacée par</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:customer</code></td>
+<td>Le nom du client, lorsqu’il est disponible.</td>
+</tr>
+<tr>
+<td><code>:order</code></td>
+<td>Le numéro de commande, dans les messages de commande.</td>
+</tr>
+<tr>
+<td><code>:store</code></td>
+<td>Le nom de l’expéditeur configuré pour la boutique.</td>
+</tr>
+</tbody></table>
+</div><p>Exemple : <strong>« Bonjour :customer, votre commande n° :order a été confirmée par notre équipe. »</strong></p>
+<p>Les messages de commande reprennent automatiquement les données enregistrées : articles, variantes, quantités, montants, adresse, livraison et paiement. Leur structure est définie dans le thème ; le texte d’introduction est personnalisable dans l’admin. Un texte personnalisé vide utilise le message traduit par défaut.</p>
+<p><strong>Configurer → E-mails → Notifications</strong> permet d’activer ou désactiver les notifications proposées, notamment la nouvelle commande, sa confirmation et la bienvenue newsletter.</p>
+<h3 id="comprendre-la-newsletter">Comprendre la newsletter</h3><p><strong>Chemin : Marketing → Communications.</strong></p>
+<ul>
+<li><strong>Abonnements à la newsletter</strong> : consulter et gérer les inscriptions.</li>
+<li><strong>Modèles d’email</strong> : préparer le contenu des campagnes.</li>
+<li><strong>Événements</strong> : définir les événements utilisés par les campagnes.</li>
+<li><strong>Campagnes</strong> : associer le sujet, le modèle et les paramètres d’envoi proposés.</li>
+</ul>
+<p>Le <strong>mail de bienvenue</strong> suit une nouvelle inscription. Une <strong>campagne</strong> est un message marketing distinct, préparé depuis l’admin. Une réinscription avec une adresse déjà abonnée ne renvoie pas automatiquement un nouveau mail de bienvenue.</p>
+<figure class="diagram"><div class="diagram-scroll" tabindex="0" role="region" aria-label="L’inscription à la newsletter et son envoi"><svg id="admin-guide-3" width="100%" xmlns="http://www.w3.org/2000/svg" class="flowchart" style="max-width: 810.10546875px;" viewBox="0 0 810.10546875 1365.75" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#admin-guide-3{font-family:Arial,sans-serif;font-size:15px;fill:#1a1c1b;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#admin-guide-3 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#admin-guide-3 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#admin-guide-3 .error-icon{fill:#ffffff;}#admin-guide-3 .error-text{fill:#000000;stroke:#000000;}#admin-guide-3 .edge-thickness-normal{stroke-width:1px;}#admin-guide-3 .edge-thickness-thick{stroke-width:3.5px;}#admin-guide-3 .edge-pattern-solid{stroke-dasharray:0;}#admin-guide-3 .edge-thickness-invisible{stroke-width:0;fill:none;}#admin-guide-3 .edge-pattern-dashed{stroke-dasharray:3;}#admin-guide-3 .edge-pattern-dotted{stroke-dasharray:2;}#admin-guide-3 .marker{fill:#575e70;stroke:#575e70;}#admin-guide-3 .marker.cross{stroke:#575e70;}#admin-guide-3 svg{font-family:Arial,sans-serif;font-size:15px;}#admin-guide-3 p{margin:0;}#admin-guide-3 .label{font-family:Arial,sans-serif;color:#1a1c1b;}#admin-guide-3 .cluster-label text{fill:#000000;}#admin-guide-3 .cluster-label span{color:#000000;}#admin-guide-3 .cluster-label span p{background-color:transparent;}#admin-guide-3 .label text,#admin-guide-3 span{fill:#1a1c1b;color:#1a1c1b;}#admin-guide-3 .node rect,#admin-guide-3 .node circle,#admin-guide-3 .node ellipse,#admin-guide-3 .node polygon,#admin-guide-3 .node path{fill:#efeeec;stroke:#c6c6cd;stroke-width:1px;}#admin-guide-3 .rough-node .label text,#admin-guide-3 .node .label text,#admin-guide-3 .image-shape .label,#admin-guide-3 .icon-shape .label{text-anchor:middle;}#admin-guide-3 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#admin-guide-3 .rough-node .label,#admin-guide-3 .node .label,#admin-guide-3 .image-shape .label,#admin-guide-3 .icon-shape .label{text-align:center;}#admin-guide-3 .node.clickable{cursor:pointer;}#admin-guide-3 .root .anchor path{fill:#575e70!important;stroke-width:0;stroke:#575e70;}#admin-guide-3 .arrowheadPath{fill:#0b0b0b;}#admin-guide-3 .edgePath .path{stroke:#575e70;stroke-width:2.0px;}#admin-guide-3 .flowchart-link{stroke:#575e70;fill:none;}#admin-guide-3 .edgeLabel{background-color:#faf9f7;text-align:center;}#admin-guide-3 .edgeLabel p{background-color:#faf9f7;}#admin-guide-3 .edgeLabel rect{opacity:0.5;background-color:#faf9f7;fill:#faf9f7;}#admin-guide-3 .labelBkg{background-color:rgba(250, 249, 247, 0.5);}#admin-guide-3 .cluster rect{fill:#ffffff;stroke:hsl(0, 0%, 90%);stroke-width:1px;}#admin-guide-3 .cluster text{fill:#000000;}#admin-guide-3 .cluster span{color:#000000;}#admin-guide-3 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Arial,sans-serif;font-size:12px;background:#ffffff;border:1px solid hsl(0, 0%, 90%);border-radius:2px;pointer-events:none;z-index:100;}#admin-guide-3 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#1a1c1b;}#admin-guide-3 rect.text{fill:none;stroke-width:0;}#admin-guide-3 .icon-shape,#admin-guide-3 .image-shape{background-color:#faf9f7;text-align:center;}#admin-guide-3 .icon-shape p,#admin-guide-3 .image-shape p{background-color:#faf9f7;padding:2px;}#admin-guide-3 .icon-shape rect,#admin-guide-3 .image-shape rect{opacity:0.5;background-color:#faf9f7;fill:#faf9f7;}#admin-guide-3 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#admin-guide-3 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#admin-guide-3 :root{--mermaid-font-family:Arial,sans-serif;}</style><g><marker id="admin-guide-3_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-3_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-3_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="admin-guide-3_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="admin-guide-3_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="admin-guide-3_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M266.895,60.5L266.895,78.5L266.895,92.5" id="L_A_B_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_A_B_0" data-points="W3sieCI6MjY2Ljg5NDUzMTI1LCJ5Ijo2MC41fSx7IngiOjI2Ni44OTQ1MzEyNSwieSI6NzguNX0seyJ4IjoyNjYuODk0NTMxMjUsInkiOjk2LjV9XQ==" marker-end="url(#admin-guide-3_flowchart-v2-pointEnd)"></path><path d="M214.714,259.46L138,340.891L138,366.141" id="L_B_C_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_B_C_0" data-points="W3sieCI6MjE0LjcxMzY4NjUxMjc0MjAyLCJ5IjoyNTkuNDU5NzgwMjYyNzQyfSx7IngiOjEzOCwieSI6MzQwLjg5MDYyNX0seyJ4IjoxMzgsInkiOjM3MC4xNDA2MjV9XQ==" marker-end="url(#admin-guide-3_flowchart-v2-pointEnd)"></path><path d="M319.075,259.46L395.789,340.891L395.789,377.391" id="L_B_D_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_B_D_0" data-points="W3sieCI6MzE5LjA3NTM3NTk4NzI1OCwieSI6MjU5LjQ1OTc4MDI2Mjc0Mn0seyJ4IjozOTUuNzg5MDYyNSwieSI6MzQwLjg5MDYyNX0seyJ4IjozOTUuNzg5MDYyNSwieSI6MzgxLjM5MDYyNX1d" marker-end="url(#admin-guide-3_flowchart-v2-pointEnd)"></path><path d="M395.789,433.891L395.789,463.141L395.789,477.141" id="L_D_E_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_D_E_0" data-points="W3sieCI6Mzk1Ljc4OTA2MjUsInkiOjQzMy44OTA2MjV9LHsieCI6Mzk1Ljc4OTA2MjUsInkiOjQ2My4xNDA2MjV9LHsieCI6Mzk1Ljc4OTA2MjUsInkiOjQ4MS4xNDA2MjV9XQ==" marker-end="url(#admin-guide-3_flowchart-v2-pointEnd)"></path><path d="M346.834,619.795L261.473,698L261.473,723.25" id="L_E_F_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_E_F_0" data-points="W3sieCI6MzQ2LjgzNDQyNTMyMjkwMTMsInkiOjYxOS43OTUzNjI4MjI5MDEzfSx7IngiOjI2MS40NzI2NTYyNSwieSI6Njk4fSx7IngiOjI2MS40NzI2NTYyNSwieSI6NzI3LjI1fV0=" marker-end="url(#admin-guide-3_flowchart-v2-pointEnd)"></path><path d="M444.744,619.795L530.105,698L530.105,734.5" id="L_E_G_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_E_G_0" data-points="W3sieCI6NDQ0Ljc0MzY5OTY3NzA5ODcsInkiOjYxOS43OTUzNjI4MjI5MDEzfSx7IngiOjUzMC4xMDU0Njg3NSwieSI6Njk4fSx7IngiOjUzMC4xMDU0Njg3NSwieSI6NzM4LjV9XQ==" marker-end="url(#admin-guide-3_flowchart-v2-pointEnd)"></path><path d="M530.105,791L530.105,820.25L530.105,834.25" id="L_G_H_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_G_H_0" data-points="W3sieCI6NTMwLjEwNTQ2ODc1LCJ5Ijo3OTF9LHsieCI6NTMwLjEwNTQ2ODc1LCJ5Ijo4MjAuMjV9LHsieCI6NTMwLjEwNTQ2ODc1LCJ5Ijo4MzguMjV9XQ==" marker-end="url(#admin-guide-3_flowchart-v2-pointEnd)"></path><path d="M466.867,1050.011L388.105,1142.5L388.105,1167.75" id="L_H_I_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_H_I_0" data-points="W3sieCI6NDY2Ljg2NjYwMjM1MzIzODksInkiOjEwNTAuMDExMTMzNjAzMjM5fSx7IngiOjM4OC4xMDU0Njg3NSwieSI6MTE0Mi41fSx7IngiOjM4OC4xMDU0Njg3NSwieSI6MTE3MS43NX1d" marker-end="url(#admin-guide-3_flowchart-v2-pointEnd)"></path><path d="M593.344,1050.011L672.105,1142.5L672.105,1167.75" id="L_H_J_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_H_J_0" data-points="W3sieCI6NTkzLjM0NDMzNTE0Njc2MTIsInkiOjEwNTAuMDExMTMzNjAzMjM5fSx7IngiOjY3Mi4xMDU0Njg3NSwieSI6MTE0Mi41fSx7IngiOjY3Mi4xMDU0Njg3NSwieSI6MTE3MS43NX1d" marker-end="url(#admin-guide-3_flowchart-v2-pointEnd)"></path><path d="M388.105,1246.75L388.105,1264.75L388.105,1278.75" id="L_I_K_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_I_K_0" data-points="W3sieCI6Mzg4LjEwNTQ2ODc1LCJ5IjoxMjQ2Ljc1fSx7IngiOjM4OC4xMDU0Njg3NSwieSI6MTI2NC43NX0seyJ4IjozODguMTA1NDY4NzUsInkiOjEyODIuNzV9XQ==" marker-end="url(#admin-guide-3_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="L_A_B_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(138, 340.890625)"><g class="label" data-id="L_B_C_0" transform="translate(-11.671875, -11.25)"><foreignObject width="23.34375" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Oui</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(395.7890625, 340.890625)"><g class="label" data-id="L_B_D_0" transform="translate(-13.765625, -11.25)"><foreignObject width="27.53125" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Non</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_D_E_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(261.47265625, 698)"><g class="label" data-id="L_E_F_0" transform="translate(-13.765625, -11.25)"><foreignObject width="27.53125" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Non</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(530.10546875, 698)"><g class="label" data-id="L_E_G_0" transform="translate(-11.671875, -11.25)"><foreignObject width="23.34375" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Oui</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_G_H_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(388.10546875, 1142.5)"><g class="label" data-id="L_H_I_0" transform="translate(-11.671875, -11.25)"><foreignObject width="23.34375" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Oui</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(672.10546875, 1142.5)"><g class="label" data-id="L_H_J_0" transform="translate(-13.765625, -11.25)"><foreignObject width="27.53125" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>Non</p></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_I_K_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="flowchart-A-0" transform="translate(266.89453125, 34.25)"><rect class="basic label-container" style="" x="-126.296875" y="-26.25" width="252.59375" height="52.5"></rect><g class="label" style="" transform="translate(-96.296875, -11.25)"><rect></rect><foreignObject width="192.59375" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Le visiteur saisit son adresse</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-B-1" transform="translate(266.89453125, 204.0703125)"><polygon points="107.5703125,0 215.140625,-107.5703125 107.5703125,-215.140625 0,-107.5703125" class="label-container" transform="translate(-107.0703125, 107.5703125)"></polygon><g class="label" style="" transform="translate(-81.3203125, -11.25)"><rect></rect><foreignObject width="162.640625" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Adresse déjà abonnée ?</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-C-3" transform="translate(138, 407.640625)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Message : déjà abonné, sans nouveau mail</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-D-5" transform="translate(395.7890625, 407.640625)"><rect class="basic label-container" style="" x="-103.7890625" y="-26.25" width="207.578125" height="52.5"></rect><g class="label" style="" transform="translate(-73.7890625, -11.25)"><rect></rect><foreignObject width="147.578125" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Inscription enregistrée</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-E-7" transform="translate(395.7890625, 574.9453125)"><polygon points="93.8046875,0 187.609375,-93.8046875 93.8046875,-187.609375 0,-93.8046875" class="label-container" transform="translate(-93.3046875, 93.8046875)"></polygon><g class="label" style="" transform="translate(-67.5546875, -11.25)"><rect></rect><foreignObject width="135.109375" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Bienvenue activée ?</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-F-9" transform="translate(261.47265625, 764.75)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Inscription conservée sans mail de bienvenue</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-G-11" transform="translate(530.10546875, 764.75)"><rect class="basic label-container" style="" x="-114.6328125" y="-26.25" width="229.265625" height="52.5"></rect><g class="label" style="" transform="translate(-84.6328125, -11.25)"><rect></rect><foreignObject width="169.265625" height="22.5"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Demande d’envoi du mail</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-H-13" transform="translate(530.10546875, 975.75)"><polygon points="137.5,0 275,-137.5 137.5,-275 0,-137.5" class="label-container" transform="translate(-137, 137.5)"></polygon><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Service e-mail et traitement opérationnels ?</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-I-15" transform="translate(388.10546875, 1209.25)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Message transmis au fournisseur e-mail</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-J-17" transform="translate(672.10546875, 1209.25)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Attente ou erreur : vérifier la configuration</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-K-19" transform="translate(388.10546875, 1320.25)"><rect class="basic label-container" style="" x="-130" y="-37.5" width="260" height="75"></rect><g class="label" style="" transform="translate(-100, -22.5)"><rect></rect><foreignObject width="200" height="45"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="nodeLabel"><p>Le destinataire vérifie sa boîte et les indésirables</p></span></div></foreignObject></g></g></g></g></g></svg></div><figcaption>Diagramme 4 — L’inscription à la newsletter et son envoi. Sur petit écran, faites glisser le diagramme si nécessaire.</figcaption></figure><h3 id="si-un-mail-narrive-pas">Si un mail n’arrive pas</h3><p>Vérifiez dans cet ordre :</p>
+<ol>
+<li><strong>Le bon environnement</strong> : admin local ou admin du site publié ?</li>
+<li><strong>L’adresse et le compte SMTP</strong> : correspondent-ils au compte utilisé pour envoyer ?</li>
+<li><strong>L’activation de la notification</strong> dans l’admin.</li>
+<li><strong>Le mot de passe adapté au service</strong>. Pour Gmail, utilisez un mot de passe d’application Google du même compte, avec la validation en deux étapes activée. Le mot de passe habituel du compte ne convient pas à cette configuration.</li>
+<li><strong>Les indésirables</strong> dans la boîte du destinataire.</li>
+<li><strong>Le traitement technique</strong> : si les messages sont mis en attente dans une file, un processus d’envoi doit la traiter. Le développeur vérifie ce point et les erreurs éventuelles.</li>
+</ol>
+<p>Le champ mot de passe reste vide après sauvegarde pour protéger le secret. Cela ne signifie pas qu’il a été effacé : laisser ce champ vide conserve le mot de passe déjà enregistré.</p>
+<p>Pour les campagnes programmées, le planificateur de l’hébergement doit aussi fonctionner. Sur Railway, l’accès SMTP dépend du forfait ; les forfaits sans SMTP nécessitent un service d’envoi par API HTTPS. Ces points d’hébergement ne s’activent pas simplement avec un bouton de l’admin.</p>
+<p>Pour ces prérequis, consulter les instructions de <a href="https://support.google.com/accounts/answer/185833?hl=fr">Google sur les mots de passe d’application</a> et de <a href="https://docs.railway.com/networking/outbound-networking">Railway sur l’envoi d’e-mails</a>.</p>
+<h2 id="8-clients-promotions-et-pages">8. Clients, promotions et pages</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Menu</th>
+<th>Utilisation simple</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Clients → Clients</strong></td>
+<td>Consulter les fiches et adresses clients, ainsi que les informations accessibles depuis leur fiche.</td>
+</tr>
+<tr>
+<td><strong>Clients → Groupes</strong></td>
+<td>Classer les clients en groupes utilisés par certains prix ou règles commerciales.</td>
+</tr>
+<tr>
+<td><strong>Clients → Avis</strong></td>
+<td>Examiner les avis et gérer leur publication.</td>
+</tr>
+<tr>
+<td><strong>Marketing → Promotions → Règles du catalogue</strong></td>
+<td>Préparer des réductions applicables au catalogue selon les conditions proposées.</td>
+</tr>
+<tr>
+<td><strong>Marketing → Promotions → Règles du panier</strong></td>
+<td>Préparer des remises au panier et des codes promotionnels. Vérifier les dates, conditions et limites d’utilisation.</td>
+</tr>
+<tr>
+<td><strong>CMS</strong></td>
+<td>Créer et traduire les pages d’information : titre, contenu et adresse de la page. Créer une page ne l’ajoute pas automatiquement à tous les menus : prévoir son lien.</td>
+</tr>
+<tr>
+<td><strong>Marketing → Recherche et référencement</strong></td>
+<td>Gérer les réécritures d’URL, termes et synonymes de recherche, ainsi que les plans du site.</td>
+</tr>
+<tr>
+<td><strong>Rapport → Ventes / Clients / Produits</strong></td>
+<td>Consulter les résultats et indicateurs des rubriques proposées.</td>
+</tr>
+</tbody></table>
+</div><p>Le <strong>Tableau de bord</strong> donne une vue d’ensemble de l’activité. Les rapports permettent d’examiner les données selon les filtres et périodes disponibles.</p>
+<h2 id="9-paramètres-et-accès">9. Paramètres et accès</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Menu</th>
+<th>Ce qui se gère ici</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Paramètres → Canaux</strong></td>
+<td>Identité du canal, logo, icône, langues, devise et catégorie racine de la boutique.</td>
+</tr>
+<tr>
+<td><strong>Paramètres → Paramètres régionaux</strong></td>
+<td>Langues proposées par l’application. Les langues disponibles pour une boutique se choisissent aussi dans son canal.</td>
+</tr>
+<tr>
+<td><strong>Paramètres → Devises / Taux de change</strong></td>
+<td>Devises et conversions utilisées par les canaux concernés.</td>
+</tr>
+<tr>
+<td><strong>Paramètres → Sources de l’inventaire</strong></td>
+<td>Lieux ou sources de stock utilisés par les produits.</td>
+</tr>
+<tr>
+<td><strong>Paramètres → Utilisateurs</strong></td>
+<td>Comptes des personnes qui accèdent à l’administration.</td>
+</tr>
+<tr>
+<td><strong>Paramètres → Rôles</strong></td>
+<td>Menus et actions autorisés pour chaque profil d’utilisateur.</td>
+</tr>
+<tr>
+<td><strong>Paramètres → Taxes</strong></td>
+<td>Catégories et taux de taxes utilisés par le catalogue et les ventes.</td>
+</tr>
+<tr>
+<td><strong>Paramètres → Transfert de données → Importations</strong></td>
+<td>Imports de données selon les types et formats proposés par l’outil.</td>
+</tr>
+<tr>
+<td><strong>Catalogue → Familles d’attributs</strong></td>
+<td>Organisation des caractéristiques et champs disponibles sur les fiches produit.</td>
+</tr>
+</tbody></table>
+</div><p>Les menus <strong>RMA</strong>, <strong>Réservations</strong>, <strong>Transactions</strong> et <strong>Demandes de données GDPR</strong> existent également. Ils concernent respectivement les retours, les produits réservables, les opérations de paiement et les demandes relatives aux données clients. Leur utilisation dépend des produits, modules, droits et processus effectivement utilisés par la boutique ; leur présence dans le menu ne signifie pas qu’un service externe est connecté.</p>
+<p>Les contenus commerciaux traduisibles — produits, catégories, attributs et textes d’accueil — se gèrent depuis leurs écrans. Les libellés standards des boutons et de l’interface viennent des traductions de l’application ; leur modification générale peut nécessiter le développeur.</p>
+<h2 id="10-problèmes-courants-et-routine-quotidienne">10. Problèmes courants et routine quotidienne</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Problème observé</th>
+<th>Premier contrôle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Un produit n’apparaît pas</td>
+<td>État actif, visibilité, catégorie, canal et disponibilité.</td>
+</tr>
+<tr>
+<td>Une catégorie est absente du menu</td>
+<td>État actif, catégorie parente et arbre de catégories du canal.</td>
+</tr>
+<tr>
+<td>Les filtres ne s’affichent pas</td>
+<td>Attributs filtrables, associations de la catégorie et mode d’affichage de celle-ci. Sur mobile, ouvrir le bouton Filtre.</td>
+</tr>
+<tr>
+<td>Un titre apparaît dans la mauvaise langue</td>
+<td>Langue sélectionnée lors de la modification et traduction réellement enregistrée.</td>
+</tr>
+<tr>
+<td>Une photo est mal cadrée sur téléphone</td>
+<td>Cadrage mobile de la diapositive et position du sujet dans la photo.</td>
+</tr>
+<tr>
+<td>Le bloc d’articles similaires est vide</td>
+<td>Nombre supérieur à zéro, mode choisi, associations, catégories et articles disponibles.</td>
+</tr>
+<tr>
+<td>Le tarif n’a pas changé</td>
+<td>Bon environnement, bon canal, enregistrement du tarif et nouvelle sélection du mode au paiement.</td>
+</tr>
+<tr>
+<td>Un mail de bienvenue n’est pas renvoyé</td>
+<td>Adresse déjà abonnée, puis paramètres e-mail et activation de la notification.</td>
+</tr>
+<tr>
+<td>Un collaborateur ne voit pas un menu</td>
+<td>Rôle et autorisations de son compte.</td>
+</tr>
+<tr>
+<td>Une modification locale n’apparaît pas sur le site publié</td>
+<td>Réglage à effectuer dans l’admin publié : les bases sont distinctes.</td>
+</tr>
+</tbody></table>
+</div><h3 id="routine-conseillée">Routine conseillée</h3><p><strong>Chaque jour :</strong> consulter les commandes en attente, vérifier les coordonnées, confirmer les commandes valides, suivre les expéditions et examiner les ruptures de stock.</p>
+<p><strong>À chaque nouveau produit :</strong> vérifier le prix, les photos, les options, le stock, les catégories et les traductions utiles.</p>
+<p><strong>Avant une promotion :</strong> vérifier le code, les conditions, les dates et le résultat dans un panier de contrôle.</p>
+<p><strong>Après un changement visuel :</strong> ouvrir la page concernée sur ordinateur et téléphone, puis contrôler les liens et la lisibilité.</p>
+<h3 id="fiche-mémo">Fiche mémo</h3><p><strong>Choisir le bon environnement → choisir le canal et la langue → modifier → enregistrer → vérifier côté client.</strong></p>
+<hr>
+<h3 id="pour-approfondir">Pour approfondir</h3><ul>
+<li><a href="hero-carousel.md">Accueil et carrousel</a></li>
+<li><a href="marquee-admin.md">Bandeau défilant</a></li>
+<li><a href="storefront-stitch-theme.md">Thème et personnalisation de la boutique</a></li>
+<li><a href="product-recommendations.md">Articles similaires</a></li>
+<li><a href="product-settings-and-delivery.md">Produits et livraison</a></li>
+<li><a href="customer-email.md">E-mails clients et SMTP</a></li>
+</ul>
+<p>Ce guide a été relu à partir des menus, formulaires et fonctionnalités du projet. Il ne contient aucun mot de passe ni donnée client. Il décrit les possibilités de l’administration ; il ne certifie pas que tous les services externes ou traitements d’hébergement sont déjà opérationnels.</p>
+</main></body></html>

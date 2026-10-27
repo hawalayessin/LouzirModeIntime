@@ -4,6 +4,8 @@ Boutique de lingerie, vêtements de nuit, homewear et accessoires, personnalisé
 
 [Ouvrir la boutique de démonstration](https://louzirmodeintime-production.up.railway.app/)
 
+[Guide simple de l’administration, avec diagrammes Mermaid](docs/guide-administrateur.md)
+
 ## Fonctionnalités
 
 - Boutique et administration en français par défaut.

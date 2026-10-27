@@ -72,19 +72,6 @@
             };
             targets.forEach(observeBelowFold);
 
-            home.addEventListener('louzir-slide-change', event => {
-                home.querySelectorAll('.louzir-hero-copy > *').forEach(element => animations.get(element)?.cancel());
-                const carousel = event.target;
-                const rect = carousel.getBoundingClientRect();
-                if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
-
-                carousel.querySelectorAll('.is-active .louzir-hero-copy > *').forEach((element, index) => {
-                    targets.add(element);
-                    revealed.add(element);
-                    animateEntrance(element, index, 6);
-                });
-            });
-
             home.addEventListener('louzir-products-ready', event => {
                 event.target.querySelectorAll('.louzir-signature-product').forEach(element => {
                     if (targets.has(element)) return;

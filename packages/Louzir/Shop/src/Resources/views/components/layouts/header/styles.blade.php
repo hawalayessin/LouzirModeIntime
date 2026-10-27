@@ -8,12 +8,14 @@
     .louzir-desktop-logo img { width: 148px; height: 60px; object-fit: contain; }
     .louzir-desktop-brand > :last-child { min-width: 0; }
     .louzir-category-nav { position: relative; flex-wrap: wrap; gap: 0 4px; }
-    .louzir-category-item { position: static; height: 80px; max-width: 220px; border-bottom-width: 2px; font-size: 13px; line-height: 1.5; }
+    .louzir-category-item { position: relative; height: 80px; max-width: 220px; border-bottom-width: 2px; font-size: 13px; line-height: 1.5; }
     .louzir-category-item:hover { border-color: #181818; border-bottom-width: 2px; }
     .louzir-category-link, .louzir-all-categories > span { padding-inline: 12px; text-transform: none; overflow-wrap: anywhere; }
     .louzir-all-categories > span { gap: 8px; }
-    .louzir-category-panel { top: 100%; inset-inline-start: 0; inset-inline-end: auto; max-width: min(850px, calc(100vw - 240px)); border-color: #ededed; border-radius: 0 0 4px 4px; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
-    .louzir-category-item:focus-within > .louzir-category-panel { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .louzir-category-panel { position: absolute; top: 100%; inset-inline-start: var(--category-panel-offset, 0px); inset-inline-end: auto; z-index: 40; width: max-content; min-width: 200px; max-width: min(850px, calc(100vw - 32px)); max-height: min(580px, 70vh); overflow: auto; padding: 24px; background: #fff; border: 1px solid #ededed; border-radius: 0 0 8px 8px; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .15s ease, visibility .15s ease; }
+    .louzir-category-panel a { display: block; border-radius: 4px; padding: 4px 6px; }
+    .louzir-category-panel a:hover { background: #f4f4f4; color: #181818; }
+    .louzir-category-item:is(:hover, :focus-within) > .louzir-category-panel { opacity: 1; visibility: visible; pointer-events: auto; }
     .louzir-desktop-tools { display: flex; align-items: center; flex: 0 0 auto; gap: 20px; margin-inline-start: auto; }
     .louzir-desktop-search { width: 300px; min-width: 0; }
     .louzir-header-search input { height: 44px; padding-inline: 42px; border: 1px solid #e5e5e5; border-radius: 4px; background: #f8f8f8; font-size: 13px; font-weight: 400; text-overflow: ellipsis; transition: border-color .15s ease, background-color .15s ease; }
@@ -67,7 +69,7 @@
         .louzir-mobile-actions .icon-users, .louzir-mobile-actions .icon-cart, .louzir-mobile-actions > a,
         .louzir-mobile-brand .icon-hamburger, .louzir-mobile-compare, .louzir-locale button { width: 32px; }
     }
-    @media (prefers-reduced-motion: reduce) { .louzir-header-search input { transition: none; } }
+    @media (prefers-reduced-motion: reduce) { .louzir-header-search input, .louzir-category-panel { transition: none; } }
 
     .louzir-category-tree, .louzir-category-children { list-style: none; margin: 0; padding: 0; }
     .louzir-category-row { display: flex; align-items: center; min-height: 44px; padding-inline-end: 12px; border-bottom: 1px solid #f1f1f1; }
