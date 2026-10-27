@@ -89,7 +89,7 @@
     .louzir-signature-product > div:nth-child(2) { min-width: 0; max-width: none; margin-top: 0; transform: none; gap: 10px; padding: 16px; }
     .louzir-signature-product > div:nth-child(2) > p { font: 600 16px/1.4 "Playfair Display", Georgia, serif; overflow-wrap: anywhere; word-break: normal; max-width: none; }
     .louzir-signature-product .action-items { display: flex; opacity: 1; flex-wrap: wrap; gap: 8px; }
-    .louzir-signature-product .action-items button { flex: 1 1 100%; min-height: 40px; padding: 10px; border: 1px solid #181818; border-radius: 2px; background: #181818; color: #fff; font-size: 12px; }
+    .louzir-signature-product .action-items button { flex: 1 1 100%; min-height: 48px; padding: 10px 12px; border: 1px solid #181818; border-radius: var(--ui-button-radius); background: #181818; color: #fff; font-size: 13px; }
     .louzir-signature-product .action-items button:disabled { opacity: .5; cursor: not-allowed; }
     .louzir-signature-product .action-items [role="button"] { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 6px; }
 

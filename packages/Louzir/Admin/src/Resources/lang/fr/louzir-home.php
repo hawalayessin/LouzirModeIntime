@@ -16,7 +16,7 @@ return [
         'boutiques' => 'Nos boutiques',
         'community' => 'Communauté',
     ],
-    'fonts' => ['montserrat' => 'Montserrat', 'manrope' => 'Manrope', 'inter' => 'Inter', 'playfair' => 'Playfair Display', 'georgia' => 'Georgia'],
+    'fonts' => ['body' => 'Identique au texte (police unique)', 'montserrat' => 'Montserrat', 'manrope' => 'Manrope', 'inter' => 'Inter', 'playfair' => 'Playfair Display', 'georgia' => 'Georgia'],
     'sort' => [
         'created_at-desc' => 'Plus récents',
         'name-asc' => 'Nom',
@@ -117,6 +117,9 @@ return [
         'image-1' => 'Image principale',
         'hero-discover-url' => 'Bouton collections - Lien',
         'hero-stores-url' => 'Bouton boutiques - Lien',
+        'contact-email' => 'E-mail de contact (pied de page)',
+        'tiktok-url' => 'TikTok - Lien',
+        'instagram-url' => 'Instagram - Lien',
         'facebook-url' => 'Facebook - Lien',
         'linktree-url' => 'Linktree - Lien',
         'feature-fabrics-title' => 'Matières - Titre',

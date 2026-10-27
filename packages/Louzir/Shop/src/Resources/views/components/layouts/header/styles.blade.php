@@ -8,17 +8,18 @@
     .louzir-desktop-logo img { width: 148px; height: 60px; object-fit: contain; }
     .louzir-desktop-brand > :last-child { min-width: 0; }
     .louzir-category-nav { position: relative; flex-wrap: wrap; gap: 0 4px; }
-    .louzir-category-item { position: relative; height: 80px; max-width: 220px; border-bottom-width: 2px; font-size: 13px; line-height: 1.5; }
+    .louzir-category-item { position: relative; height: 80px; max-width: 220px; border-bottom-width: 2px; font-size: 14px; font-weight: 500; line-height: 1.45; letter-spacing: -.01em; }
+    [dir="rtl"] .louzir-category-item { letter-spacing: 0; }
     .louzir-category-item:hover { border-color: #181818; border-bottom-width: 2px; }
     .louzir-category-link, .louzir-all-categories > span { padding-inline: 12px; text-transform: none; overflow-wrap: anywhere; }
     .louzir-all-categories > span { gap: 8px; }
-    .louzir-category-panel { position: absolute; top: 100%; inset-inline-start: var(--category-panel-offset, 0px); inset-inline-end: auto; z-index: 40; width: max-content; min-width: 200px; max-width: min(850px, calc(100vw - 32px)); max-height: min(580px, 70vh); overflow: auto; padding: 24px; background: #fff; border: 1px solid #ededed; border-radius: 0 0 8px 8px; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .15s ease, visibility .15s ease; }
-    .louzir-category-panel a { display: block; border-radius: 4px; padding: 4px 6px; }
+    .louzir-category-panel { display: none; position: absolute; top: 100%; inset-inline-start: var(--category-panel-offset, 0px); inset-inline-end: auto; z-index: 40; width: max-content; min-width: 200px; max-width: min(850px, calc(100vw - 32px)); max-height: min(580px, 70vh); overflow: auto; padding: 24px; background: #fff; border: 1px solid #ededed; border-radius: 0 0 8px 8px; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .15s ease, visibility .15s ease; }
+    .louzir-category-panel a { display: block; border-radius: 4px; padding: 6px 8px; font-size: 13px; font-weight: 500; line-height: 1.6; letter-spacing: 0; }
     .louzir-category-panel a:hover { background: #f4f4f4; color: #181818; }
-    .louzir-category-item:is(:hover, :focus-within) > .louzir-category-panel { opacity: 1; visibility: visible; pointer-events: auto; }
+    .louzir-category-item:is(:hover, :focus-within) > .louzir-category-panel { display: block; opacity: 1; visibility: visible; pointer-events: auto; }
     .louzir-desktop-tools { display: flex; align-items: center; flex: 0 0 auto; gap: 20px; margin-inline-start: auto; }
     .louzir-desktop-search { width: 300px; min-width: 0; }
-    .louzir-header-search input { height: 44px; padding-inline: 42px; border: 1px solid #e5e5e5; border-radius: 4px; background: #f8f8f8; font-size: 13px; font-weight: 400; text-overflow: ellipsis; transition: border-color .15s ease, background-color .15s ease; }
+    .louzir-header-search input { height: 44px; padding-inline: 42px; border: 1px solid #e5e5e5; border-radius: 4px; background: #f8f8f8; font-size: 14px; font-weight: 400; text-overflow: ellipsis; transition: border-color .15s ease, background-color .15s ease; }
     .louzir-header-search input:hover { border-color: #bcbcbc; }
     .louzir-header-search input:focus { background: #fff; border-color: #181818; }
     .louzir-header-search .icon-search { top: 50%; transform: translateY(-50%); font-size: 20px; line-height: 1; }
@@ -51,6 +52,7 @@
         .louzir-desktop-logo img { width: 136px; }
         .louzir-desktop-tools { gap: 12px; }
         .louzir-desktop-search { width: 220px; }
+        .louzir-category-item { font-size: 13px; }
         .louzir-category-link, .louzir-all-categories > span { padding-inline: 8px; }
     }
     @media (max-width: 480px) {
@@ -74,8 +76,8 @@
     .louzir-category-tree, .louzir-category-children { list-style: none; margin: 0; padding: 0; }
     .louzir-category-row { display: flex; align-items: center; min-height: 44px; padding-inline-end: 12px; border-bottom: 1px solid #f1f1f1; }
     .louzir-category-row:hover { background: #f8f7f5; }
-    .louzir-category-row a { flex: 1; min-width: 0; padding-block: 10px; font-size: 13px; line-height: 1.5; color: #222; overflow-wrap: anywhere; }
-    .louzir-category-root > .louzir-category-row a { font-size: 14px; font-weight: 500; }
+    .louzir-category-row a { flex: 1; min-width: 0; font-weight: 400; padding-block: 10px; font-size: 13px; line-height: 1.5; color: #222; overflow-wrap: anywhere; }
+    .louzir-category-root > .louzir-category-row a { font-size: 14px; font-weight: 600; }
     .louzir-category-branch-toggle { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; padding: 0; color: #555; border-radius: 4px; }
     .louzir-category-branch-toggle:hover { background: #eeece8; }
     .louzir-category-branch-toggle svg { width: 18px; height: 18px; transition: transform .2s; }

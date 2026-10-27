@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'opens-new-tab' => 'Opens in a new tab',
     'category-search' => 'Search categories',
     'category-search-clear' => 'Clear search',
     'category-search-empty' => 'No categories found.',

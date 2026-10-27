@@ -112,3 +112,20 @@ it('prevents visitors from changing the site logo', function () {
 
     $this->assertDatabaseMissing('core_config', ['code' => 'general.design.admin_logo.logo_image']);
 });
+
+
+it('uses the merchant logo instead of written branding in the footer', function () {
+    $this->loginAsAdmin();
+    $this->post($this->url, array_merge($this->payload, [
+        'general' => ['design' => ['admin_logo' => [
+            'logo_image' => UploadedFile::fake()->image('footer-brand.png', 320, 128),
+        ]]],
+    ]))->assertSessionHasNoErrors();
+
+    $record = CoreConfig::where('code', 'general.design.admin_logo.logo_image')->firstOrFail();
+    $response = $this->get('/?locale=fr')->assertOk();
+    $html = $response->getContent();
+    $footer = substr($html, strpos($html, '<footer'));
+    expect($footer)->toContain('class="louzir-footer-logo"', 'src="'.Storage::url($record->value).'"')
+        ->not->toContain('<h2>LOUZIR</h2>', '<p>Mode Intime</p>');
+});

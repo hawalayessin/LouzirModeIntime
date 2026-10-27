@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'opens-new-tab' => 'S’ouvre dans un nouvel onglet',
     'category-search' => 'Rechercher une catégorie',
     'category-search-clear' => 'Effacer la recherche',
     'category-search-empty' => 'Aucune catégorie trouvée.',

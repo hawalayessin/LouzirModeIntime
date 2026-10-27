@@ -1,7 +1,17 @@
 {!! view_render_event('bagisto.shop.layout.footer.before') !!}
+@inject('footerContent', 'Webkul\Shop\Helpers\HomeContent')
 @inject('themeCustomizationRepository', 'Webkul\Theme\Repositories\ThemeCustomizationRepository')
 
 @php
+    $contactEmail = $footerContent->value('contact-email');
+    $footerSocialLinks = [
+        ['name' => 'Instagram', 'icon' => 'instagram', 'url' => $footerContent->value('instagram-url')],
+        ['name' => 'Facebook', 'icon' => 'facebook', 'url' => $footerContent->value('facebook-url')],
+        ['name' => 'TikTok', 'icon' => 'tiktok', 'url' => $footerContent->value('tiktok-url')],
+        ['name' => trans('shop::app.components.layouts.footer.email').' — '.$contactEmail, 'icon' => 'mail', 'url' => 'mailto:'.$contactEmail, 'email' => true],
+
+    ];
+
     $channel = core()->getCurrentChannel();
     $customization = $themeCustomizationRepository->findOneWhere([
         'type' => 'footer_links',
@@ -27,20 +37,27 @@
 
 <footer class="louzir-footer">
     <div class="louzir-footer-inner">
-        <div>
-            <h2>LOUZIR</h2>
-            <p>Mode Intime</p>
+        <div class="louzir-footer-brand">
+            <a class="louzir-footer-logo" href="{{ route('shop.home.index') }}" aria-label="{{ $channel->name }}">
+                <img src="{{ $channel->logo_url }}" alt="{{ $channel->name }}" width="160" height="64" loading="lazy" decoding="async">
+            </a>
             <p><em>@lang('shop::app.home.storefront.footer-slogan')</em></p>
             <div class="louzir-footer-contact">
-                <a href="mailto:louzirmodeintime@gmail.com">louzirmodeintime@gmail.com</a>
                 <a href="tel:+21625293194">+216 25 293 194</a>
             </div>
-            <div class="louzir-footer-social">
-                <a href="https://www.instagram.com/louzir.modeintime" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a href="https://linktr.ee/louzirmodeintime" target="_blank" rel="noopener noreferrer">@lang('shop::app.home.storefront.footer-socials')</a>
-            </div>
+            <nav class="louzir-footer-social" aria-label="@lang('shop::app.home.storefront.footer-socials')">
+                @foreach ($footerSocialLinks as $social)
+                    <a href="{{ $social['url'] }}"
+                        @if (empty($social['email'])) target="_blank" rel="noopener noreferrer" @endif
+                        aria-label="{{ $social['name'] }}@if (empty($social['email'])) — @lang('shop::home.opens-new-tab')@endif"
+                        title="{{ $social['name'] }}@if (empty($social['email'])) — @lang('shop::home.opens-new-tab')@endif"
+                        data-social="{{ $social['icon'] }}">
+                        @include('shop::components.icons.social', ['icon' => $social['icon']])
+                    </a>
+                @endforeach
+            </nav>
         </div>
-        <div>
+        <div class="louzir-footer-boutiques">
             <h3>@lang('shop::app.home.storefront.footer-stores')</h3>
             <div class="louzir-footer-store">
                 <strong>@lang('shop::app.home.storefront.footer-sahloul-store')</strong>
@@ -54,7 +71,7 @@
             </div>
         </div>
         @foreach ($footerLinkSections as $footerLinkSection)
-            <nav v-pre>
+            <nav class="louzir-footer-links" v-pre>
                 @foreach ($footerLinkSection as $link)
                     <a href="{{ $link['url'] }}">{{ \Webkul\Shop\Helpers\StorefrontText::legacyDefault($link['title']) }}</a>
                 @endforeach

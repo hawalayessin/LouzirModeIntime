@@ -48,6 +48,10 @@ class HomeContent
 
             $value = $value === null || $value === '' ? $fallback : $value;
 
+            if ($field['type'] === 'email') {
+                return filter_var($value, FILTER_VALIDATE_EMAIL) ? $value : $fallback;
+            }
+
             if ($field['type'] === 'boolean') {
                 return in_array((string) $value, ['0', '1'], true) ? (string) $value : $fallback;
             }

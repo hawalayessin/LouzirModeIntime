@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'opens-new-tab' => 'يفتح في علامة تبويب جديدة',
     'category-search' => 'ابحث عن فئة',
     'category-search-clear' => 'مسح البحث',
     'category-search-empty' => 'لم يتم العثور على فئات.',

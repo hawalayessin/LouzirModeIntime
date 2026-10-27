@@ -15,7 +15,7 @@ return [
         'design-accent' => ['type' => 'color', 'fallback' => '#c5a880'],
         'design-border' => ['type' => 'color', 'fallback' => '#e3e2e0'],
         'design-body-font' => ['type' => 'select', 'fallback' => 'manrope', 'options' => ['montserrat', 'manrope', 'inter'], 'option_prefix' => 'fonts'],
-        'design-heading-font' => ['type' => 'select', 'fallback' => 'playfair', 'options' => ['playfair', 'georgia'], 'option_prefix' => 'fonts'],
+        'design-heading-font' => ['type' => 'select', 'fallback' => 'body', 'options' => ['body', 'playfair', 'georgia'], 'option_prefix' => 'fonts'],
         'design-width' => ['type' => 'number', 'fallback' => '1440', 'min' => 1200, 'max' => 1600],
     ],
     'motion' => [
@@ -58,6 +58,9 @@ return [
         'image-1' => ['type' => 'image', 'fallback' => 'assets/home/hero-carousel/lingerie.webp'],
         'hero-discover-url' => ['type' => 'link', 'fallback' => '#collections'],
         'hero-stores-url' => ['type' => 'link', 'fallback' => '#boutiques'],
+        'contact-email' => ['type' => 'email', 'fallback' => 'louzirmodeintime@gmail.com'],
+        'tiktok-url' => ['type' => 'link', 'fallback' => 'https://www.tiktok.com/@louzir.mode.intime'],
+        'instagram-url' => ['type' => 'link', 'fallback' => 'https://www.instagram.com/louzir.modeintime'],
         'facebook-url' => ['type' => 'link', 'fallback' => 'https://www.facebook.com/profile.php?id=61569721747533&locale=fr_FR'],
         'linktree-url' => ['type' => 'link', 'fallback' => 'https://linktr.ee/louzirmodeintime'],
     ],

@@ -156,7 +156,9 @@ Les textes d’accueil sont gérés par langue. Les images, liens et réglages c
 - **Logo et icône de l’admin** : **Configurer → Général → Design**.
 - **Liens du pied de page** : les personnalisations de type liens de pied de page se trouvent dans **Paramètres → Thèmes**.
 
-**Limite à connaître :** certains éléments du modèle restent fixes, notamment des coordonnées et liens sociaux du pied de page. Les réglages « Nos boutiques » concernent la section d’accueil : ils ne garantissent pas la modification de toutes les coordonnées répétées ailleurs. Un changement de structure, de position des boutons ou de mise en page nécessite une modification du thème par le développeur.
+**Réseaux sociaux du pied de page :** les liens Instagram, Facebook et TikTok, ainsi que l’adresse e-mail de contact, sont modifiables dans **Configurer → Général → Accueil Louzir**, dans les réglages des liens de la bannière principale. Les icônes des réseaux ouvrent leurs pages dans un nouvel onglet ; l’enveloppe ouvre la messagerie. Le footer reprend automatiquement le logo configuré pour le site. L’adresse e-mail est affichée uniquement par l’icône enveloppe ; Linktree reste utilisé dans les autres sections de l’accueil.
+
+**Limite à connaître :** certains éléments du modèle restent fixes, notamment certaines coordonnées du pied de page. Les réglages « Nos boutiques » concernent la section d’accueil : ils ne garantissent pas la modification de toutes les coordonnées répétées ailleurs. Un changement de structure, de position des boutons ou de mise en page nécessite une modification du thème par le développeur.
 
 ## 5. Articles similaires
 

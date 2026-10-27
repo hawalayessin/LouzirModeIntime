@@ -372,7 +372,8 @@ img.lazy {
     }
 
     * {
-        @apply box-border font-poppins;
+        @apply box-border;
+        font-family: inherit;
     }
 
     .scrollbar-hide::-webkit-scrollbar {

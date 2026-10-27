@@ -16,7 +16,7 @@ return [
         'boutiques' => 'Our stores',
         'community' => 'Community',
     ],
-    'fonts' => ['montserrat' => 'Montserrat', 'manrope' => 'Manrope', 'inter' => 'Inter', 'playfair' => 'Playfair Display', 'georgia' => 'Georgia'],
+    'fonts' => ['body' => 'Same as body (one font)', 'montserrat' => 'Montserrat', 'manrope' => 'Manrope', 'inter' => 'Inter', 'playfair' => 'Playfair Display', 'georgia' => 'Georgia'],
     'sort' => [
         'created_at-desc' => 'Newest',
         'name-asc' => 'Name',
@@ -117,6 +117,9 @@ return [
         'image-1' => 'Image 1',
         'hero-discover-url' => 'Hero discover url',
         'hero-stores-url' => 'Hero stores url',
+        'contact-email' => 'Contact email (footer)',
+        'tiktok-url' => 'TikTok URL',
+        'instagram-url' => 'Instagram URL',
         'facebook-url' => 'Facebook url',
         'linktree-url' => 'Linktree url',
         'feature-fabrics-title' => 'Feature fabrics title',

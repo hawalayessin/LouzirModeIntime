@@ -160,3 +160,52 @@ it('does not allow an unauthenticated visitor to edit the home page', function (
     ]))->assertRedirect();
     $this->assertDatabaseMissing('core_config', ['value' => 'Unauthorized change']);
 });
+
+
+it('uses the social URLs saved in admin on every storefront footer', function () {
+    $this->loginAsAdmin();
+    $links = [
+        'instagram-url' => 'https://www.instagram.com/merchant-example',
+        'facebook-url' => 'https://www.facebook.com/merchant-example',
+    ];
+
+    $this->post($this->url, array_merge($this->payload, [
+        'general' => ['louzir_home' => ['hero' => $links]],
+    ]))->assertSessionHasNoErrors();
+
+    foreach (['/?locale=fr', '/search?query=test', '/compare'] as $path) {
+        $response = $this->get($path)->assertOk();
+        $footer = substr($response->getContent(), strpos($response->getContent(), '<footer'));
+
+        foreach ($links as $url) {
+            expect($footer)->toContain('href="'.$url.'"');
+        }
+        expect($footer)->toContain('data-social="instagram"', 'data-social="facebook"')
+            ->not->toContain('data-social="linktree"');
+    }
+});
+
+
+it('publishes the configured TikTok and contact email in footer icons', function () {
+    $this->loginAsAdmin();
+    $this->post($this->url, array_merge($this->payload, [
+        'general' => ['louzir_home' => ['hero' => [
+            'tiktok-url' => 'https://www.tiktok.com/@merchant.example',
+            'contact-email' => 'contact@example.com',
+        ]]],
+    ]))->assertSessionHasNoErrors();
+
+    $response = $this->get('/?locale=fr')->assertOk()
+        ->assertSee('href="https://www.tiktok.com/@merchant.example"', false)
+        ->assertSee('href="mailto:contact@example.com"', false)
+        ->assertSee('data-social="mail"', false)
+        ->assertSee('data-social="tiktok"', false);
+
+    $html = $response->getContent();
+    $footer = substr($html, strpos($html, '<footer'));
+    expect(substr_count($footer, 'href="mailto:contact@example.com"'))->toBe(1);
+
+    $this->post($this->url, array_merge($this->payload, [
+        'general' => ['louzir_home' => ['hero' => ['contact-email' => 'not-an-email']]],
+    ]))->assertSessionHasErrors('general.louzir_home.hero.contact-email');
+});

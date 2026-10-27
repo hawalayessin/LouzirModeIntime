@@ -16,7 +16,7 @@ return [
         'boutiques' => 'متاجرنا',
         'community' => 'مجتمعنا',
     ],
-    'fonts' => ['montserrat' => 'مونتسيرات · Montserrat', 'manrope' => 'مانروب · Manrope', 'inter' => 'إنتر · Inter', 'playfair' => 'بلايفير · Playfair Display', 'georgia' => 'جورجيا · Georgia'],
+    'fonts' => ['body' => 'نفس خط النص (خط موحد)', 'montserrat' => 'مونتسيرات · Montserrat', 'manrope' => 'مانروب · Manrope', 'inter' => 'إنتر · Inter', 'playfair' => 'بلايفير · Playfair Display', 'georgia' => 'جورجيا · Georgia'],
     'sort' => [
         'created_at-desc' => 'الأحدث',
         'name-asc' => 'الاسم',
@@ -117,6 +117,9 @@ return [
         'image-1' => 'الصورة الرئيسية',
         'hero-discover-url' => 'زر المجموعات - الرابط',
         'hero-stores-url' => 'زر المتاجر - الرابط',
+        'contact-email' => 'البريد الإلكتروني للتواصل (التذييل)',
+        'tiktok-url' => 'رابط تيك توك',
+        'instagram-url' => 'رابط إنستغرام',
         'facebook-url' => 'رابط فيسبوك',
         'linktree-url' => 'رابط لينكتري',
         'feature-fabrics-title' => 'الأقمشة - العنوان',

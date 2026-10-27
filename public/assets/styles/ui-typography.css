@@ -1,0 +1,21 @@
+/* Shared typography and button geometry. Palette belongs to the existing theme. */
+:root { --ui-font: 'Manrope', 'Noto Sans Arabic', system-ui, sans-serif; --ui-button-radius: 12px; }
+body { font-family: var(--ui-font); font-size: 14px; line-height: 1.5; }
+/* Inherit through nested containers; the legacy bundle sets Poppins on every element. */
+body :where(*) { font-family: inherit; }
+body :where([class^="icon-"], [class*=" icon-"]) :where(*) { font-family: var(--ui-font); }
+body :is(button, input, select, textarea, .font-poppins, .font-inter, .font-dmserif) { font-family: var(--ui-font); }
+body :is(h1, h2, h3, h4, h5, h6) { font-family: var(--ui-font); font-weight: 600; line-height: 1.25; }
+body :is(h1, h2) { letter-spacing: -.025em; }
+:lang(ar) :is(h1, h2) { letter-spacing: 0; }
+body :is(.primary-button, .secondary-button, .louzir-button, .louzir-newsletter-submit, .louzir-place-order) { min-height: 48px; border-radius: var(--ui-button-radius); font-size: 14px; font-weight: 600; line-height: 1.4; letter-spacing: 0; text-transform: none; transition: transform .16s ease, box-shadow .2s ease, opacity .16s ease; }
+body :is(.primary-button, .secondary-button, .louzir-button, .louzir-newsletter-submit, .louzir-place-order):active:not(:disabled, [aria-disabled='true']) { transform: scale(.98); }
+body :is(.primary-button, .secondary-button, .louzir-button, .louzir-newsletter-submit, .louzir-place-order):disabled { opacity: .55; cursor: not-allowed; }
+body :is(.primary-button, .secondary-button, .louzir-button, .louzir-newsletter-submit, .louzir-place-order):focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+    body :is(.primary-button, .secondary-button, .louzir-button, .louzir-newsletter-submit, .louzir-place-order):hover:not(:disabled, [aria-disabled='true']) { box-shadow: 0 4px 12px #13151512; }
+}
+@media (prefers-reduced-motion: reduce) {
+    body :is(.primary-button, .secondary-button, .louzir-button, .louzir-newsletter-submit, .louzir-place-order) { transition: none; }
+    body :is(.primary-button, .secondary-button, .louzir-button, .louzir-newsletter-submit, .louzir-place-order):active { transform: none; }
+}

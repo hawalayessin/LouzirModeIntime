@@ -39,6 +39,25 @@ it('publishes admin design tokens and fonts on all storefront layouts', function
     }
 });
 
+it('lets administrators unify headings with the selected body font', function () {
+    ($this->saveDesign)(['design-body-font' => 'manrope', 'design-heading-font' => 'body'])
+        ->assertSessionHasNoErrors()->assertSessionHas('success');
+
+    $this->get('/?locale=fr')->assertOk()
+        ->assertSee("--store-body-font: 'Manrope'", false)
+        ->assertSee("--store-heading-font: 'Manrope'", false)
+        ->assertSee('assets/styles/ui-fonts.css', false)
+        ->assertDontSee('fonts.googleapis.com/css2?', false);
+
+    ($this->saveDesign)(['design-body-font' => 'inter', 'design-heading-font' => 'body'])
+        ->assertSessionHasNoErrors();
+
+    ThemeFacade::clearResolvedInstance(Themes::class);
+    $this->get('/customer/login')->assertOk()
+        ->assertSee("--store-body-font: 'Inter'", false)
+        ->assertSee("--store-heading-font: 'Inter'", false);
+});
+
 it('renders one rich description and native product panels using merchant content', function () {
     $product = (new ProductFaker)->getSimpleProductFactory()->create();
     $description = '<h3>Merchant composition</h3><ul><li>Merchant cotton</li></ul><p>{{ literal text }}</p>';

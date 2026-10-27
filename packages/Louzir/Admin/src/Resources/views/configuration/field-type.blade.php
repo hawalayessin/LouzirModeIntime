@@ -79,6 +79,20 @@
                 />
             </template>
         
+            <!-- Email input -->
+            <template v-if="field.type == 'email' && field.is_visible">
+                <x-admin::form.control-group.control
+                    type="email"
+                    autocomplete="email"
+                    ::id="name"
+                    ::name="name"
+                    ::value="value"
+                    ::rules="validations"
+                    ::label="label"
+                    ::placeholder="placeholder"
+                />
+            </template>
+
             <!-- Password input -->
             <template v-if="field.type == 'password' && field.is_visible">
                 <x-admin::form.control-group.control

@@ -42,16 +42,6 @@
 
     @bagistoVite(['src/Resources/assets/css/app.css', 'src/Resources/assets/js/app.js'])
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    />
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
-        rel="stylesheet"
-    />
-
     @php
         $configuredAdminLogo = core()->getConfigData('general.design.admin_logo.logo_image');
         $preloadAdminLogo = $configuredAdminLogo && Storage::exists($configuredAdminLogo) ? Storage::url($configuredAdminLogo) : asset('assets/logo2.png');
@@ -80,6 +70,8 @@
     @endif
 
     @stack('styles')
+
+    @include('core::components.ui-typography')
 
     <style>
         .louzir-admin-logo { display: block; width: 104px; height: 32px; max-width: 100%; object-fit: contain; }

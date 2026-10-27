@@ -1,9 +1,24 @@
 @inject('storefrontContent', 'Webkul\Shop\Helpers\HomeContent')
 @php
     $bodyFont = ['montserrat' => 'Montserrat', 'manrope' => 'Manrope', 'inter' => 'Inter'][$storefrontContent->value('design-body-font')];
-    $headingFont = $storefrontContent->value('design-heading-font') === 'georgia' ? 'Georgia' : 'Playfair Display';
+    $headingChoice = $storefrontContent->value('design-heading-font');
+    $headingFont = match ($headingChoice) {
+        'georgia' => 'Georgia',
+        'playfair' => 'Playfair Display',
+        default => $bodyFont,
+    };
+    $remoteFonts = [];
+    if ($bodyFont !== 'Manrope') {
+        $remoteFonts[] = 'family='.urlencode($bodyFont).':wght@400;500;600;700';
+    }
+    if ($headingFont === 'Playfair Display') {
+        $remoteFonts[] = 'family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500';
+    }
 @endphp
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap">
+@include('core::components.ui-typography')
+@if ($remoteFonts)
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?{{ implode('&', $remoteFonts) }}&amp;display=swap">
+@endif
 <style>
     :root {
         --store-background: {{ $storefrontContent->value('design-background') }};
@@ -16,13 +31,13 @@
         --store-accent: {{ $storefrontContent->value('design-accent') }};
         --store-border: {{ $storefrontContent->value('design-border') }};
         --store-width: {{ $storefrontContent->value('design-width') }}px;
-        --store-body-font: '{{ $bodyFont }}', system-ui, sans-serif;
-        --store-heading-font: '{{ $headingFont }}', Georgia, serif;
+        --store-body-font: '{{ $bodyFont }}', 'Noto Sans Arabic', system-ui, sans-serif;
+        --store-heading-font: '{{ $headingFont }}', 'Noto Sans Arabic', system-ui, sans-serif;
         --store-muted: {{ $storefrontContent->value('design-muted') }};
         --store-gradient: linear-gradient(135deg, var(--store-surface), var(--store-background) 48%, var(--store-panel));
         --store-card-shadow: 0 12px 36px -4px rgba(26, 28, 27, .08), 0 4px 12px -2px rgba(26, 28, 27, .03);
     }
-    .louzir-storefront { background: var(--store-background); color: var(--store-ink); font: 14px/1.65 var(--store-body-font); }
+    .louzir-storefront { --ui-font: var(--store-body-font); background: var(--store-background); color: var(--store-ink); font: 14px/1.65 var(--store-body-font); }
     .louzir-storefront :is(button, input, select, textarea) { font-family: inherit; }
     .louzir-storefront :is(#main, #app) { background-color: var(--store-background); }
     .louzir-storefront :is(.louzir-home, .louzir-auth-page, .louzir-footer, .louzir-header) { font-family: var(--store-body-font); }
@@ -30,7 +45,7 @@
     .louzir-storefront :is(.louzir-hero-tagline, .louzir-signature-product > div:nth-child(2) > p) { font-family: var(--store-heading-font); }
     .louzir-storefront :is(.louzir-card-content h3, .louzir-boutique-info h3) { font-family: var(--store-heading-font); }
     .louzir-storefront :is(h1, h2, h3) { color: inherit; overflow-wrap: anywhere; }
-    .louzir-storefront :is(.primary-button, .secondary-button, .louzir-button, .louzir-newsletter-submit) { border-radius: 6px; font-family: var(--store-body-font); font-size: 12px; line-height: 1.5; min-height: 44px; }
+    .louzir-storefront :is(.primary-button, .secondary-button, .louzir-button, .louzir-newsletter-submit) { border-radius: var(--ui-button-radius); font-family: var(--store-body-font); font-size: 14px; font-weight: 600; line-height: 1.4; min-height: 48px; text-transform: none; }
     .louzir-storefront .primary-button { background: var(--store-button); border-color: var(--store-button); color: var(--store-button-text); }
     .louzir-storefront .secondary-button { border-color: var(--store-border); color: var(--store-ink); background: var(--store-surface); }
     .louzir-storefront #main :is(input[type="text"], input[type="email"], input[type="password"], input[type="tel"], input[type="number"], select, textarea) { max-width: 100%; border-color: var(--store-border); border-radius: 6px; }
@@ -103,12 +118,12 @@
     .louzir-storefront .louzir-product-card-title { font-family: var(--store-body-font); font-size: 13px; font-weight: 500; line-height: 1.55; overflow-wrap: anywhere; word-break: normal; max-width: none; }
     .louzir-storefront .louzir-product-card-price { padding-top: 8px; border-top: 1px solid var(--store-border); font-size: 15px; color: var(--store-ink); }
     .louzir-storefront .louzir-product-card-info > .action-items { opacity: 1; display: flex; gap: 4px; margin-top: auto; }
-    .louzir-storefront .louzir-product-card-info .action-items button { min-width: 0; font-size: 11px; background: var(--store-button); color: var(--store-button-text); }
+    .louzir-storefront .louzir-product-card-info .action-items button { min-width: 0; font-size: 13px; background: var(--store-button); color: var(--store-button-text); }
     .louzir-product-card--list { padding: 16px; background: var(--store-surface); border: 1px solid var(--store-border); border-radius: 12px; max-width: 100%; }
     .louzir-product-page { padding-block: 24px 64px; }
     .louzir-product-layout { align-items: flex-start; }
     .louzir-product-purchase { min-width: 0; flex: 1; padding: 28px; border: 1px solid var(--store-border); border-radius: 16px; background: var(--store-surface); }
-    .louzir-product-purchase h1 { font-family: var(--store-heading-font); font-size: clamp(27px, 3vw, 40px); line-height: 1.2; }
+    .louzir-product-purchase h1 { font-family: var(--store-heading-font); font-size: clamp(26px, 3vw, 34px); line-height: 1.2; }
     .louzir-storefront .louzir-product-purchase .secondary-button { background: var(--store-button); color: var(--store-button-text); border-color: var(--store-button); }
     .louzir-product-purchase .louzir-richtext { margin-top: 16px; }
     .louzir-product-editorial { width: 100%; max-width: var(--store-width); margin: 56px auto 0; padding-inline: 32px; }
@@ -231,4 +246,12 @@
         .louzir-storefront .louzir-carousel .louzir-button.primary { background: var(--store-button); color: var(--store-button-text); }
     }
     @media (max-width: 359px) { .louzir-storefront .louzir-catalog-grid { grid-template-columns: minmax(0, 1fr); } }
+    .louzir-storefront :is(h1, h2, h3, h4, .louzir-title) { font-weight: 600; }
+    .louzir-storefront .louzir-hero-tagline { font-style: normal; font-weight: 400; font-size: clamp(20px, 2vw, 26px); }
+    .louzir-storefront .louzir-carousel :is(h1, h2) { font-size: clamp(28px, 3.5vw, 48px); line-height: 1.15; }
+    .louzir-storefront .louzir-place-order { border-radius: var(--ui-button-radius); }
+    @media (max-width: 640px) {
+        .louzir-storefront .louzir-carousel :is(h1, h2) { font-size: clamp(26px, 7vw, 32px); }
+        .louzir-storefront .louzir-carousel .louzir-button { font-size: 12px; }
+    }
 </style>

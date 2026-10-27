@@ -62,7 +62,9 @@ class ConfigurationForm extends FormRequest
 
                 $rules[$key] = ['nullable', 'string', 'max:2000'];
 
-                if ($field['type'] === 'color') {
+                if ($field['type'] === 'email') {
+                    $rules[$key] = ['nullable', 'string', 'email', 'max:254'];
+                } elseif ($field['type'] === 'color') {
                     $rules[$key] = ['nullable', 'string', 'regex:/^#[0-9a-fA-F]{6}$/'];
                 } elseif ($field['type'] === 'boolean') {
                     $rules[$key] = ['required', 'boolean'];
