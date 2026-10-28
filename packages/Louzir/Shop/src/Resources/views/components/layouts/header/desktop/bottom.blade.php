@@ -298,6 +298,7 @@
                 <span>
                     <a
                         :href="category.url"
+                        :title="category.name"
                         class="louzir-category-link inline-block px-5 uppercase"
                     >
                         @{{ category.name }}
@@ -369,6 +370,7 @@
                     <span>
                         <a
                             :href="category.url"
+                            :title="category.name"
                             class="louzir-category-link inline-block px-5 uppercase"
                         >
                             @{{ category.name }}

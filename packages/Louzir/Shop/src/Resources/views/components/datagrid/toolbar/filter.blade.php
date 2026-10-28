@@ -166,7 +166,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="mt-4 grid grid-cols-2 gap-1.5 max-sm:my-2">
+                                        <div class="louzir-datagrid-date-range mt-4 grid grid-cols-2 gap-1.5 max-sm:my-2">
                                             <p
                                                 class="cursor-pointer rounded-md border border-gray-300 px-2 py-1.5 text-center font-medium leading-6 text-gray-600 max-md:text-sm max-sm:font-normal"
                                                 v-for="option in column.filterable_options"
@@ -305,7 +305,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="my-4 grid grid-cols-2 gap-1.5">
+                                        <div class="louzir-datagrid-date-range my-4 grid grid-cols-2 gap-1.5">
                                             <p
                                                 class="cursor-pointer rounded-md border border-gray-300 px-2 py-1.5 text-center font-medium leading-6 text-gray-600 max-md:text-sm max-sm:font-normal"
                                                 v-for="option in column.filterable_options"

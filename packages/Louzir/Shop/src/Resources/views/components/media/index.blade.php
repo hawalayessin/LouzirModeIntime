@@ -30,7 +30,7 @@
                         @mouseleave="uploadedFiles.showDeleteButton = false"
                     >
                         <img
-                            class="rounded-xl object-cover max-md:rounded-full"
+                            class="h-full w-full rounded-xl object-cover max-md:rounded-full"
                             :src="uploadedFiles.url"
                             :class="{ 'opacity-25' : uploadedFiles.showDeleteButton }"
                             alt="Uploaded Image"

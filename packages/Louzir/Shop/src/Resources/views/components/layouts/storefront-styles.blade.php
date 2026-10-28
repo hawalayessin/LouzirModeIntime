@@ -254,4 +254,13 @@
         .louzir-storefront .louzir-carousel :is(h1, h2) { font-size: clamp(26px, 7vw, 32px); }
         .louzir-storefront .louzir-carousel .louzir-button { font-size: 12px; }
     }
+    .louzir-method-content { height: 100%; padding-inline-end: 56px; }
+    .louzir-method-content > :is(img, .icon-flate-rate) { flex-shrink: 0; object-fit: contain; }
+    .louzir-method-details { min-width: 0; overflow-wrap: anywhere; }
+    .louzir-method-card > input:focus-visible ~ .louzir-method-content { outline: 2px solid var(--store-ink); outline-offset: 3px; }
+    .louzir-date-field { display: block; min-width: 0; max-width: 100%; }
+    .louzir-date-field > input { min-width: 0; max-width: 100%; padding-inline-end: 40px; overflow: hidden; text-overflow: ellipsis; }
+    @media (max-width: 480px) {
+        .louzir-datagrid-date-range > .louzir-date-field { grid-column: 1 / -1; }
+    }
 </style>

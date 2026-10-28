@@ -40,7 +40,7 @@
                     <x-slot:content class="mt-8 !p-0 max-md:mt-0 max-md:rounded-t-none max-md:border max-md:border-t-0 max-md:!p-4">
                         <div class="flex flex-wrap gap-7 max-md:gap-4 max-sm:gap-2.5">
                             <div 
-                                class="relative cursor-pointer max-md:max-w-full max-md:flex-auto"
+                                class="louzir-method-card relative cursor-pointer max-md:max-w-full max-md:flex-auto"
                                 v-for="(payment, index) in methods"
                             >
                                 {!! view_render_event('bagisto.shop.checkout.payment-method.before') !!}
@@ -50,7 +50,7 @@
                                     name="payment[method]" 
                                     :value="payment.payment"
                                     :id="payment.method"
-                                    class="peer hidden"
+                                    class="peer sr-only"
                                     @change="store(payment)"
                                 >
     
@@ -62,7 +62,7 @@
 
                                 <label 
                                     :for="payment.method" 
-                                    class="block w-[190px] cursor-pointer rounded-xl border border-zinc-200 p-5 max-md:flex max-md:w-full max-md:gap-5 max-md:rounded-lg max-sm:gap-4 max-sm:px-4 max-sm:py-2.5"
+                                    class="louzir-method-content block w-[190px] cursor-pointer rounded-xl border border-zinc-200 p-5 max-md:flex max-md:w-full max-md:gap-5 max-md:rounded-lg max-sm:gap-4 max-sm:px-4 max-sm:py-2.5"
                                 >
                                     {!! view_render_event('bagisto.shop.checkout.onepage.payment-method.image.before') !!}
 
@@ -77,7 +77,7 @@
 
                                     {!! view_render_event('bagisto.shop.checkout.onepage.payment-method.image.after') !!}
 
-                                    <div>
+                                    <div class="louzir-method-details">
                                         {!! view_render_event('bagisto.shop.checkout.onepage.payment-method.title.before') !!}
 
                                         <p class="mt-1.5 text-sm font-semibold max-md:mt-1 max-sm:mt-0">

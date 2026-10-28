@@ -7,7 +7,7 @@
         type="text/x-template"
         id="v-datetime-picker-template"
     >
-        <span class="relative">
+        <span class="louzir-date-field relative">
             <slot></slot>
 
             <i class="icon-calendar pointer-events-none absolute top-1/2 -translate-y-1/2 text-2xl text-gray-400 ltr:right-2 rtl:left-2"></i>

@@ -2,13 +2,16 @@
     .louzir-header { border-bottom: 1px solid #e9e9e9; box-shadow: 0 2px 8px rgba(0, 0, 0, .025); }
     .louzir-header :is(a, button, input, [tabindex]):focus-visible { outline: 2px solid #181818; outline-offset: 3px; }
     .louzir-header :is(a, button) { touch-action: manipulation; }
-    .louzir-desktop-bar { align-items: center; gap: 28px; min-height: 80px; padding: 0 32px; border: 0; }
-    .louzir-desktop-brand { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; gap: 28px; }
+    .louzir-desktop-bar { align-items: center; gap: clamp(12px, 1.5vw, 28px); min-height: 80px; padding: 0 clamp(16px, 2vw, 32px); border: 0; }
+    .louzir-desktop-brand { display: flex; align-items: center; flex: 1 1 0; min-width: 0; gap: clamp(12px, 1.5vw, 28px); }
     .louzir-desktop-logo { display: flex; align-items: center; justify-content: center; flex: 0 0 148px; height: 72px; }
     .louzir-desktop-logo img { width: 148px; height: 60px; object-fit: contain; }
     .louzir-desktop-brand > :last-child { min-width: 0; }
-    .louzir-category-nav { position: relative; flex-wrap: wrap; gap: 0 4px; }
-    .louzir-category-item { position: relative; height: 80px; max-width: 220px; border-bottom-width: 2px; font-size: 14px; font-weight: 500; line-height: 1.45; letter-spacing: -.01em; }
+    .louzir-category-nav { position: relative; display: flex; flex-wrap: nowrap; min-width: 0; gap: 0 4px; }
+    .louzir-category-item { position: relative; flex: 0 1 auto; min-width: 0; height: 80px; max-width: 220px; border-bottom-width: 2px; font-size: 14px; font-weight: 500; line-height: 1.45; letter-spacing: -.01em; }
+    .louzir-category-item > span { min-width: 0; }
+    .louzir-all-categories { flex-shrink: 0; }
+    .louzir-category-link { display: block; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     [dir="rtl"] .louzir-category-item { letter-spacing: 0; }
     .louzir-category-item:hover { border-color: #181818; border-bottom-width: 2px; }
     .louzir-category-link, .louzir-all-categories > span { padding-inline: 12px; text-transform: none; overflow-wrap: anywhere; }
@@ -17,8 +20,8 @@
     .louzir-category-panel a { display: block; border-radius: 4px; padding: 6px 8px; font-size: 13px; font-weight: 500; line-height: 1.6; letter-spacing: 0; }
     .louzir-category-panel a:hover { background: #f4f4f4; color: #181818; }
     .louzir-category-item:is(:hover, :focus-within) > .louzir-category-panel { display: block; opacity: 1; visibility: visible; pointer-events: auto; }
-    .louzir-desktop-tools { display: flex; align-items: center; flex: 0 0 auto; gap: 20px; margin-inline-start: auto; }
-    .louzir-desktop-search { width: 300px; min-width: 0; }
+    .louzir-desktop-tools { display: flex; align-items: center; flex: 0 0 auto; gap: clamp(8px, 1vw, 20px); margin-inline-start: auto; }
+    .louzir-desktop-search { width: clamp(180px, 18vw, 300px); min-width: 0; }
     .louzir-header-search input { height: 44px; padding-inline: 42px; border: 1px solid #e5e5e5; border-radius: 4px; background: #f8f8f8; font-size: 14px; font-weight: 400; text-overflow: ellipsis; transition: border-color .15s ease, background-color .15s ease; }
     .louzir-header-search input:hover { border-color: #bcbcbc; }
     .louzir-header-search input:focus { background: #fff; border-color: #181818; }
