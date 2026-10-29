@@ -6,7 +6,8 @@
     .louzir-kicker { display: block; font-size: 11px; line-height: 1.5; text-transform: uppercase; font-weight: 600; }
 
     .louzir-marquee { --marquee-height: 48px; display: flex; align-items: center; min-height: var(--marquee-height); background: var(--marquee-background, #151515); color: var(--marquee-color, #e8d5ce); }
-    .louzir-marquee-window { flex: 1; min-width: 0; overflow: hidden; }
+    /* Anchor the oversized track at the left edge in both locales; Arabic text keeps its own RTL direction. */
+    .louzir-marquee-window { flex: 1; min-width: 0; overflow: hidden; direction: ltr; }
     .louzir-marquee-track { display: flex; width: max-content; direction: ltr; animation: louzir-ticker var(--marquee-duration, 32s) linear infinite; }
     .louzir-marquee-group { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-around; gap: 48px; min-width: calc(100vw - 44px); padding-inline: 32px; }
     .louzir-marquee-group > span { display: inline-flex; align-items: center; gap: 28px; font-size: 12px; font-weight: 500; white-space: nowrap; text-transform: uppercase; }
