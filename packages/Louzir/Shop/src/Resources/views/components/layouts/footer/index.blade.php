@@ -73,7 +73,7 @@
         @foreach ($footerLinkSections as $footerLinkSection)
             <nav class="louzir-footer-links" v-pre>
                 @foreach ($footerLinkSection as $link)
-                    <a href="{{ $link['url'] }}">{{ \Webkul\Shop\Helpers\StorefrontText::legacyDefault($link['title']) }}</a>
+                    <a href="{{ \Webkul\Shop\Helpers\StorefrontUrl::normalize($link['url']) }}">{{ \Webkul\Shop\Helpers\StorefrontText::legacyDefault($link['title']) }}</a>
                 @endforeach
             </nav>
         @endforeach
